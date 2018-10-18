@@ -76,6 +76,7 @@ export const otherRouter = {
             name: 'index',
             component: () => import('@/views/home/home.vue'),
         },
+
         {
             path: 'order/:order_id',
             title: '订单详情',
@@ -93,30 +94,30 @@ export const otherRouter = {
             path: 'bang_access',
             title: '绑定角色',
             name: 'bang_access',
-            component: () => import('@/views/access/bang_access.vue')
+            component: () => import('@/views/user/binding_role.vue')
         }, {
             path: 'bangAccess',
             title: '绑定资源',
             name: 'access_bang',
-            component: () => import('@/views/access/access_bang.vue')
+            component: () => import('@/views/role/binding_rescourse.vue')
         },
         {
             path: 'lost_list',
             title: '失败列表',
             name: 'lost_list',
-            component: () => import('@/views/access/lost_list.vue')
+            component: () => import('@/views/user/lost_list.vue')
         },
         {
             path: 'addAccess',
             title: '新增用户',
             name: 'access_add',
-            component: () => import('@/views/access/access_add.vue')
+            component: () => import('@/views/user/add_user.vue')
         },
         {
             path: 'addAccess',
             title: '新增角色',
             name: 'access_adds',
-            component: () => import('@/views/access/access_adds.vue')
+            component: () => import('@/views/role/add_role.vue')
         },
     ],
 
@@ -195,7 +196,7 @@ export const appRouter = [
                 path: 'index',
                 title: '用户管理',
                 name: 'accesstest_index',
-                component: () => import('@/views/access/access-test.vue')
+                component: () => import('@/views/user/user.vue')
             },
 
         ]
@@ -211,7 +212,7 @@ export const appRouter = [
                 path: 'index',
                 title: '角色管理',
                 name: 'access_index',
-                component: () => import('@/views/access/access.vue')
+                component: () => import('@/views/role/role.vue')
             },
         ]
     }, {

@@ -100,7 +100,7 @@
                         title: '角色名称',
                         key: 'roleName',
                     },
-                   {
+                    {
                         title: '描述',
                         key: 'description',
                     },

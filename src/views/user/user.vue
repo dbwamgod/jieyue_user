@@ -255,7 +255,7 @@
         methods: {
             searchChange () {
 
-                    this.$store.commit('bindingChange', this.searchWord);
+                this.$store.commit('bindingChange', this.searchWord);
 
                 this.searchInfo = true;
                 this.user_List();

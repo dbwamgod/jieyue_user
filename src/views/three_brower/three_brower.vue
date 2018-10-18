@@ -26,37 +26,37 @@
                 :closable="false"
                 :mask-closable="false">
 
-            <Form ref="formItem" :model="formItem" :rules="ruleInline" style="width: 70%;">
+            <Form ref="formItem" :model="formItem" :rules="ruleInline" style="width: 90%;">
                 <FormItem prop="clientId" label="客户端ID">
                     <Input type="text" v-model="formItem.clientId" placeholder="请输入客户端ID"></Input>
                 </FormItem>
                 <FormItem prop="authorities" label="权限值">
                     <Input type="text" v-model="formItem.authorities" placeholder="请输入权限值"></Input>
-                    <Poptip trigger="hover" :content="popTip" style="position: absolute;left: 90%;top: 58%;">
+                    <Poptip trigger="hover" :content="popTip" style="position: absolute;left: 100%;top: 58%;">
                         <Icon type="information-circled" style="color: #2baee9" :size="18"></Icon>
                     </Poptip>
                 </FormItem>
                 <FormItem prop="scope" label="权限范围">
                     <Input type="text" v-model="formItem.scope" placeholder="请输入权限范围"></Input>
-                    <Poptip trigger="hover" :content="popTip" style="position: absolute;left: 90%;top: 58%;">
+                    <Poptip trigger="hover" :content="popTip" style="position: absolute;left: 100%;top: 58%;">
                         <Icon type="information-circled" style="color: #2baee9" :size="18"></Icon>
                     </Poptip>
                 </FormItem>
                 <FormItem prop="authorizedGrantTypes" label="授权类型">
                     <Input type="text" v-model="formItem.authorizedGrantTypes" placeholder="请输入授权类型"></Input>
-                    <Poptip trigger="hover" :content="popTip" style="position: absolute;left: 90%;top: 58%;">
+                    <Poptip trigger="hover" :content="popTip" style="position: absolute;left: 100%;top: 58%;">
                         <Icon type="information-circled" style="color: #2baee9" :size="18"></Icon>
                     </Poptip>
                 </FormItem>
                 <FormItem prop="accessTokenValidity" label="票据有效期">
                     <Input type="text" v-model="formItem.accessTokenValidity" placeholder="请输入票据有效期"></Input>
-                    <Poptip trigger="hover" :content="PopCon" style="position: absolute;left: 90%;top: 58%;">
+                    <Poptip trigger="hover" :content="PopCon" style="position: absolute;left: 100%;top: 58%;">
                         <Icon type="information-circled" style="color: #2baee9" :size="18"></Icon>
                     </Poptip>
                 </FormItem>
                 <FormItem prop="refreshTokenValidity" label="刷新票据有效期">
                     <Input type="text" v-model="formItem.refreshTokenValidity" placeholder="请输入刷新票据有效期"></Input>
-                    <Poptip trigger="hover" :content="refPopCon" style="position: absolute;left: 90%;top: 58%;">
+                    <Poptip trigger="hover" :content="refPopCon" style="position: absolute;left: 100%;top: 58%;">
                         <Icon type="information-circled" style="color: #2baee9" :size="18"></Icon>
                     </Poptip>
                 </FormItem>

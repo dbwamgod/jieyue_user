@@ -16,14 +16,14 @@
         <Button type="primary" style="margin: 10px 10px 0 0" @click="oks">确定</Button>
         <Button @click="ocal" style="margin: 10px 10px 0 0" >返回</Button>
     </div>
-</div>
+    </div>
 </template>
 <script>
     import api from '@/api';
     import Cookies from 'js-cookie';
-/*
- *   绑定角色
- *  */
+    /*
+     *   绑定角色
+     *  */
     export default {
         data () {
             return {
@@ -34,7 +34,6 @@
         },
         created () {
             this.init();
-            console.log(this.roleIdList,this.checkAllGroup);
         },
         methods: {
             checkAllGroupChange(a){
@@ -44,7 +43,7 @@
                 this.$store.commit('addOpenSubmenu', name);
             },
             changeMenu(active){
-                console.log(active);
+
                 this.$emit('on-change', active);
             },
             init () {

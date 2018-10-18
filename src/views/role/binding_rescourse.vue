@@ -31,10 +31,10 @@
 
                 return item.map(r => {
                     if (r.hasOwnProperty('children')) {
-                            return {
-                                checked: r.checked||false,
-                                id: r.id,
-                                children: this.sele(r.children)
+                        return {
+                            checked: r.checked||false,
+                            id: r.id,
+                            children: this.sele(r.children)
                         }
                     } else {
                         return {

@@ -131,7 +131,6 @@
                 this.id = selectedData.map(o => o.value).join(', ');
             }
         },
-        name: 'access_add',
         data () {
             return {
                 ruleValidate: {
