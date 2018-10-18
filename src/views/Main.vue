@@ -75,7 +75,6 @@
     import fullScreen from './main-components/fullscreen.vue';
     import lockScreen from './main-components/lockscreen/lockscreen.vue';
     import messageTip from './main-components/message-tip.vue';
-    import themeSwitch from './main-components/theme-switch/theme-switch.vue';
     import Cookies from 'js-cookie';
     import util from '@/libs/util.js';
     import scrollBar from '@/views/my-components/scroll-bar/vue-scroller-bars';
@@ -94,7 +93,6 @@
             fullScreen,
             lockScreen,
             messageTip,
-            themeSwitch,
             scrollBar
         },
         data () {
