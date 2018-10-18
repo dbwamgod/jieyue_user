@@ -1,11 +1,22 @@
 <template>
-    <div style="    margin:85px 0 0 110px ;
-        width: 351px;">
-        <Tree :data="data3" show-checkbox></Tree>
+    <div>    <div style="    padding:50px 0 0 80px ;background:#fff; position: relative;">
+        <!--<Tree :data="data3" show-checkbox></Tree>-->
+
+        <Menu @on-select="menuSelect" v-for="(item,index) in data3" :key="index" style="float: left;width: 300px;">
+            <Submenu name="1" style="width: 100%;" >
+                <template slot="title" >
+                    <span style="font-size: 15px" >{{item.tenantName}}</span>
+                </template>
+                <CheckboxGroup style="margin-left: 30px; " v-model="checkAllGroup" @on-change="checkAllGroupChange" v-for="(then,i) in item.voList" :key="i">
+                    <Checkbox style="display: block;font-size: 14px;    text-overflow: ellipsis;overflow: hidden;white-space: nowrap;" :label="then.roleId" >{{then.roleName}}</Checkbox>
+
+                </CheckboxGroup>
+            </Submenu>
+        </Menu>
         <Button type="primary" style="margin: 10px 10px 0 0" @click="oks">确定</Button>
         <Button @click="ocal" style="margin: 10px 10px 0 0" >返回</Button>
-
     </div>
+</div>
 </template>
 <script>
     import api from '@/api';
@@ -16,18 +27,26 @@
     export default {
         data () {
             return {
+                checkAllGroup:[],
                 roleIdList: [],
-                data3: [
-                    {title: '银河平台'}
-                ]
+                data3: []
             };
         },
         created () {
-
             this.init();
+            console.log(this.roleIdList,this.checkAllGroup);
         },
-
         methods: {
+            checkAllGroupChange(a){
+
+            },
+            menuSelect (name) {
+                this.$store.commit('addOpenSubmenu', name);
+            },
+            changeMenu(active){
+                console.log(active);
+                this.$emit('on-change', active);
+            },
             init () {
                 this.$axios({
                     method: 'post',
@@ -42,31 +61,34 @@
                     }
                 }).then(res => {
                     if (res.data.code == 200) {
-                        let result = res.data.data.map((item, index) => {
-                            return {
-                                title: item.roleName || '',
-                                id: item.roleId || '',
-                                checked: item.bound,
-                            };
+                        this.data3=res.data.data
+                        let result =[]
+                        res.data.data.map((item, index) => {
+                            item.voList.map(r=>{
+                                if(r.bound===true){
+                                    this.checkAllGroup.push(r.roleId)
+                                }
+                            })
                         });
-                        this.data3 = result;
                     } else {
                         this.$Message.info(res.data.msg);
                     }
                 });
             },
             oks () {
+                /*console.log(this.data3);
+                debugger
                 this.data3.map(item => {
                     if (item.checked) {
                         this.roleIdList.push(item.id);
                     }
-                });
+                });*/
                 this.$axios({
                     method: 'post',
                     url: api.user_bang(),
                     data: {
                         currentUserId: Cookies.get('user_userId'),
-                        roleIdList: this.roleIdList,
+                        roleIdList: this.checkAllGroup,
                         userId:JSON.parse(this.$route.query.data)
                     },
                     headers: {
@@ -75,8 +97,8 @@
                     }
                 }).then(res => {
                     if (res.data.code == 200) {
-                        this.$Message.info("已绑定")
-                        this.roleIdList=[]
+                        this.$Message.info("已绑定");
+                        this.roleIdList=[];
                         this.$router.back(-1);
                     }
                 });

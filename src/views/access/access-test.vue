@@ -207,7 +207,7 @@
             }
             if( JSON.parse(localStorage.getItem('Jurisdiction'))){
                 JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
-                    r.child.forEach(r => {
+                    r.child &&  r.child.forEach(r => {
                         if (r.resourceName == '查询用户列表') {
                             this.searchShow = true;
                         } else if (r.resourceName == '查询监听失败列表') {

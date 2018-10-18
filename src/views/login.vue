@@ -60,6 +60,7 @@
             };
         },
         methods: {
+
             handleSubmit () {
                 let _self = this;
                 this.$refs.loginForm.validate(valid => {
@@ -79,6 +80,7 @@
                             }
                         }).then(res => {
                             if (res.status === 200) {
+                               /* Cookies.sets({"user_user":this.form.userName,"user_password":md5(this.form.password),"user_access":1,"user_token":res.data.access_token,})*/
                                 Cookies.set('user_user', this.form.userName);
                                 Cookies.set('user_password', md5(this.form.password));
                                 Cookies.set('user_access', 1);
@@ -98,69 +100,94 @@
                                         url: api.Resource_permissions()
                                     }).then(res => {
                                         if (res.data.code == 200) {
-                                            for (var i = 0; i < res.data.data.length; i++) {
-                                                var dataLen = res.data.data;
-                                                for (var j = 0; j < dataLen.length - i - 1; j++) {
-                                                    if (dataLen[j].resourceCode > dataLen[j + 1].resourceCode) {
-                                                        var temp = dataLen[j];
-                                                        dataLen[j] = dataLen[j + 1];
-                                                        dataLen[j + 1] = temp;
-                                                    }
-                                                }
-                                            }
-                                            localStorage.setItem('Jurisdiction', JSON.stringify(dataLen));
-                                            let disNay = [];
-                                            let set = new Set(JSON.parse(localStorage.getItem('Jurisdiction')));
-                                            let resource = [...set];
-                                            resource.forEach(r => {
-                                                if (r.child) {
-                                                    r.child.forEach(r => {
-                                                        disNay.push(r);
+                                            res.data.data.map(r=>{
+                                                if(r.tenantCode=="UNIFY_USER_PLATFORM"){
+                                                    let dataLen =[]
+                                                    r.voList.map((r,i)=>{
+                                                            dataLen.push(r)
                                                     });
-                                                }
-                                            });
-                                            for (let i = 0; i < resource.length; i++) {
+                                                    localStorage.setItem('Jurisdiction', JSON.stringify(dataLen));
+                                                    let disNay = [];
+                                                    let set = new Set(JSON.parse(localStorage.getItem('Jurisdiction')));
+                                                    let resource = [...set];
+                                                    resource.forEach(r => {
+                                                        if (r.child) {
+                                                            r.child.forEach(res => {
+                                                                disNay.push(res);
+                                                            });
+                                                        }
+                                                    });
 
-                                                if(resource[i + 1]){
-                                                    if (resource[i].resourceCode == '03' || resource[i + 1].resourceCode == '03') {
+                                                    var coddeIndexObj={ORG:"tenant_index",TENANT:"home_index",RES:"resource_index",USER:"accesstest_index",ROLE:"access_index",THREE_SYSTEM:"oauth_index",};
+                                                    var resourceCodes=resource.map(r=>r.resourceCode);
+                                                    if(resourceCodes.indexOf('TENANT')!=-1){
                                                         Cookies.set('defaultHome', 'home_index');
                                                         this.$router.push({
                                                             name: 'home_index'
                                                         });
-                                                        break;
+                                                    }else {
+                                                        for(var name in coddeIndexObj){
+                                                            if(resourceCodes.indexOf(name)!=-1){
+                                                                Cookies.set('defaultHome', 'name');
+                                                                this.$router.push({
+                                                                    name: 'name'
+                                                                });
+                                                            }
+                                                        }
                                                     }
-                                                }
-                                                  if (resource[i].resourceCode == '01') {
-                                                    Cookies.set('defaultHome', 'tenant_index');
-                                                    this.$router.push({
-                                                        name: 'tenant_index'
-                                                    });
-                                                    break;
-                                                }
-                                                 if (resource[i].resourceCode == '08') {
-                                                    Cookies.set('defaultHome', 'resource_index');
-                                                    this.$router.push({
-                                                        name: 'resource_index'
-                                                    });
-                                                    break;
-                                                }
-                                                if (resource[i].resourceCode == '13') {
-                                                    Cookies.set('defaultHome', 'accesstest_index');
-                                                    this.$router.push({
-                                                        name: 'accesstest_index'
-                                                    });
-                                                    break;
-                                                }
-                                                if (resource[i].resourceCode == '22') {
-                                                    Cookies.set('defaultHome', 'access_index');
-                                                    this.$router.push({
-                                                        name: 'access_index'
-                                                    });
-                                                    break;
-                                                }
-                                            }
 
-                                            localStorage.setItem('child', JSON.stringify(disNay));
+                                                /*    for (let i = 0; i < resource.length; i++) {
+
+                                                        if(resource[i + 1]){
+                                                            if (resource[i].resourceCode == 'TENANT' || resource[i + 1].resourceCode == 'TENANT') {
+                                                                Cookies.set('defaultHome', 'home_index');
+                                                                this.$router.push({
+                                                                    name: 'home_index'
+                                                                });
+                                                                break;
+                                                            }
+                                                        }
+                                                        if (resource[i].resourceCode == 'ORG') {
+                                                            Cookies.set('defaultHome', 'tenant_index');
+                                                            this.$router.push({
+                                                                name: 'tenant_index'
+                                                            });
+                                                            break;
+                                                        }
+                                                        if (resource[i].resourceCode == 'RES') {
+                                                            Cookies.set('defaultHome', 'resource_index');
+                                                            this.$router.push({
+                                                                name: 'resource_index'
+                                                            });
+                                                            break;
+                                                        }
+                                                        if (resource[i].resourceCode == 'USER') {
+                                                            Cookies.set('defaultHome', 'accesstest_index');
+                                                            this.$router.push({
+                                                                name: 'accesstest_index'
+                                                            });
+                                                            break;
+                                                        }
+                                                        if (resource[i].resourceCode == 'ROLE') {
+                                                            Cookies.set('defaultHome', 'access_index');
+                                                            this.$router.push({
+                                                                name: 'access_index'
+                                                            });
+                                                            break;
+                                                        }
+                                                        if (resource[i].resourceCode == 'THREE_SYSTEM') {
+                                                            Cookies.set('defaultHome', 'oauth_index');
+                                                            this.$router.push({
+                                                                name: 'oauth_index'
+                                                            });
+                                                            break;
+                                                        }
+                                                    }*/
+                                                    localStorage.setItem('child', JSON.stringify(disNay));
+                                                }
+                                            })
+
+
                                         } else {
                                             this.msg = res.data.msg;
                                             const title = '资源错误';

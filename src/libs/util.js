@@ -274,4 +274,9 @@ const newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} 
 return newDate;
 };
 
+util.jurisdiction = function (date) {
+
+
+};
+
 export default util;

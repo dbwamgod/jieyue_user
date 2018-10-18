@@ -180,7 +180,7 @@
             if (JSON.parse(localStorage.getItem('Jurisdiction'))) {
                 JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
 
-                    r.child.forEach(r => {
+                   r.child && r.child.forEach(r => {
                         if (r.resourceName == '查询组织机构列表') {
 
                         } else if (r.resourceName == '新增组织机构') {
@@ -225,7 +225,6 @@
         methods: {
             //确定修改
             sure () {
-
                 this.$refs.formItem.validate((valid) => {
                     if (valid) {
                         this.$axios({
@@ -355,7 +354,6 @@
             },
             //删除
             remove (index) {
-
                 this.$Modal.confirm({
                     title: '删除警告',
                     content: '<p>您确定要删除该组织吗</p>',
@@ -430,7 +428,6 @@
                         }, 0);
                     }
                 });
-
             },
         }
 

@@ -18,12 +18,12 @@ export default {
     // 租户管理 //新增租户
     // 查询租户列表
     tenant_List () {
-        let code = '02';
+        let code = 'TENANT-LIST';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     tenant_Add () {
-        let code = '06';
+        let code = 'ORG-UPDATE';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
@@ -41,7 +41,7 @@ export default {
     },
     // 更新租户
     tenant_update () {
-        let code = '06';
+        let code = 'ORG-UPDATE';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
@@ -49,31 +49,31 @@ export default {
     // 角色接口
     // 列表/
     role_list () {
-        let code = '23';
+        let code = 'ROLE-LIST';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 新增资源
     role_add () {
-        let code = '24';
+        let code = 'ROLE-ADD';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 为角色绑定资源
     role_bound () {
-        let code = '27';
+        let code = 'ROLE-BOUND_RES';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 查询角色绑定资源
     role_bounds (id) {
-        let code = '28';
+        let code = 'ROLE-F_B_RES';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}/` + id + '?' + 'access_token=' + Cookies.get('user_token');
     },
     // 删除资源
     role_del () {
-        let code = '26';
+        let code = 'ROLE-DEL';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
@@ -83,7 +83,7 @@ export default {
     },
     // 修改
     role_update () {
-        let code = '25';
+        let code = 'ROLE-UPDATE';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
@@ -91,7 +91,7 @@ export default {
     // 资源接口
     // 查询资源列表
     res_list () {
-        let code = '09';
+        let code = 'RES-LIST';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
@@ -104,25 +104,25 @@ export default {
     },
     // 新增
     res_add () {
-        let code = '10';
+        let code = 'RES-ADD';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 修改
     res_update () {
-        let code = '11';
+        let code = 'RES-UPDATE';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 删除
     res_del () {
-        let code = '12';
+        let code = 'RES-DEL';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 查询
     res_search (id) {
-        return _baseUrlC + '/platform-user-admin/resource/find' + id + '?' + 'access_token=' + Cookies.get('user_token');
+        return _baseUrlC + '/platform-user-admin/resource/find/' + id + '?' + 'access_token=' + Cookies.get('user_token');
     },
     // 登录
     login () {
@@ -135,19 +135,19 @@ export default {
     },
     // 增加用户
     userAdd () {
-        let code = '15';
+        let code = 'USER-ADD';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-api${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // '查询绑定角色';
     userAccess () {
-        let code = '19';
+        let code = 'USER-F_B_ROLE';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // '绑定角色';
     user_bang () {
-        let code = '18';
+        let code = 'USER-BOUND_ROLE';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
@@ -157,38 +157,38 @@ export default {
     },
     // 用户删除
     userDelete () {
-        let code = '17';
+        let code = 'USER-DEL';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-api${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 用户修改
     userUpdate () {
-        let code = '16';
+        let code = 'USER-UPDATE';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-api${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 用户列表
     userList () {
-        let code = '14';
+        let code = 'USER-LIST';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-api${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 失败列表
     userFail () {
-        let code = '20';
+        let code = 'FAIL-LIST';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 失败列表重发
     userFailAgain () {
-        let code = '21';
+        let code = 'FAIL-ANEW_SEND';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
 
     // 新增组织结构
     organizationAdd () {
-        let code = '05';
+        let code = 'ORG-ADD';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
@@ -202,21 +202,45 @@ export default {
     },
     // 查询组织列表
     organizationList () {
-        let code = '04';
+        let code = 'ORG-LIST';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // 更新组织的列表
     organizationUpdate () {
-        let code = '06';
+        let code = 'ORG-UPDATE';
         let wayResult = way(code);
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
     },
     // shanchu 组织的列表
     organizationDel () {
-        let code = '07';
+        let code = 'ORG-DEL';
         let wayResult = way(code);
 
         return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
-    }
+    },
+
+    //三方系统
+    //三方系统列表
+    oauthThreeList () {
+               let code = 'THREE_SYSTEM-LIST';
+        let wayResult = way(code);
+        return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
+    },
+    //新增三方系统
+    addoauthThree () {
+               let code = 'THREE_SYSTEM-ADD';
+        let wayResult = way(code);
+        return _baseUrlC + `/platform-user-admin${wayResult}?` + 'access_token=' + Cookies.get('user_token');
+    },
+    //获取查询当前修改的id
+    getoauthThree (id) {
+        return _baseUrlC + `/platform-user-admin/oauth_client/find/` +id+"?"+ 'access_token=' + Cookies.get('user_token');
+    },
+    //修改三方系统
+    editoauthThree () {
+               let code = 'THREE_SYSTEM-UPDATE';
+        let wayResult = way(code);
+        return _baseUrlC + `/platform-user-admin${wayResult}?`+ 'access_token=' + Cookies.get('user_token');
+    },
 };

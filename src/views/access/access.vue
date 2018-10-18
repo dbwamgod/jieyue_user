@@ -265,7 +265,7 @@
             }
             if(JSON.parse(localStorage.getItem('Jurisdiction'))){
                 JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
-                    r.child.forEach(r => {
+                    r.child && r.child.forEach(r => {
                         if (r.resourceName == '查询角色列表') {
                             this.searchShow = true;
                         } else if (r.resourceName == '新增角色') {

@@ -57,13 +57,6 @@ export const otherRouter = {
     component: Main,
     children: [
         {
-            path: 'home',
-            title: '管理平台',
-            name: 'home',
-            component: () => import('@/views/home/system.vue')
-
-        },
-        {
             path: 'addOrganization',
             title: '增加组织接口',
             name: 'addOrganization',
@@ -82,12 +75,6 @@ export const otherRouter = {
             title: '组织机构管理',
             name: 'index',
             component: () => import('@/views/home/home.vue'),
-        },
-        {
-            path: 'ownspace',
-            title: '个人中心',
-            name: 'ownspace_index',
-            component: () => import('@/views/own-space/own-space.vue')
         },
         {
             path: 'order/:order_id',
@@ -225,6 +212,26 @@ export const appRouter = [
                 title: '角色管理',
                 name: 'access_index',
                 component: () => import('@/views/access/access.vue')
+            },
+        ]
+    }, {
+        path: '/oauth_client',
+        icon: 'md-contact',
+        name: 'oauth',
+        title: '三方系统',
+        component: Main,
+        children: [
+            {
+                path: 'index',
+                title: '三方系统',
+                name: 'oauth_index',
+                component: () => import('@/views/three_brower/three_brower.vue')
+            },
+            {
+                path: 'new_create',
+                title: '新增三方系统',
+                name: 'add_oauth',
+                component: () => import('@/views/three_brower/add_oauth.vue')
             },
         ]
     }
