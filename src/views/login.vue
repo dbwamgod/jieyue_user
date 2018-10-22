@@ -141,9 +141,8 @@
                                                     return;
                                                 } else {
                                                     for (var code in  resourceCodes) {
-                                                        // console.log(resourceCodes);
-                                                        if (resourceCodes.includes('TENANT')) {
 
+                                                        if (resourceCodes.includes('TENANT')) {
                                                             Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
                                                             this.$router.push({
                                                                 name: this.codeCompare[resourceCodes[code]]

@@ -224,6 +224,7 @@
             window.addEventListener('resize', this.scrollBarResize);
         },
         created () {
+
             //本地权限校验没有存储后 会自动跳到登录页
             if (!JSON.parse(localStorage.getItem('Jurisdiction'))) {
                 this.$store.commit('logout', this);
@@ -234,14 +235,13 @@
             }
             //判断已登录后重新加载页面而导致的权限bug
             if (!sessionStorage.getItem('user_pages')) {
+                console.log(1);
                 if (localStorage.getItem('Jurisdiction')) {
                     let Code = JSON.parse(localStorage.getItem('Jurisdiction'))[0].resourceCode;
                     let CodeOrg = 0;
                     if (JSON.parse(localStorage.getItem('Jurisdiction'))[1]) {
                         CodeOrg = JSON.parse(localStorage.getItem('Jurisdiction'))[1].resourceCode;
                     }
-
-                    // console.log(JSON.parse(localStorage.getItem('Jurisdiction')));
                     JSON.parse(localStorage.getItem('Jurisdiction')).map((r,i)=>{
                         if(r.resourceCode=="TENANT"&&CodeOrg !== 'ORG'){
                             Cookies.set('defaultHome', 'tenant_index');
@@ -249,54 +249,15 @@
                                 name: 'tenant_index'
                             });
                         }else {
-
-                            if(i=0){
+                            if(i==0){
                                 console.log(this.codeCompare[r.resourceCode]);
                              Cookies.set('defaultHome', this.codeCompare[r.resourceCode]);
                              this.$router.push({
                                  name:  Cookies.get('defaultHome')
                              });
                          }
-
                         }
-
                     })
-                 /*   if (Code == 'TENANT' || CodeOrg == 'ORG') {
-                        Cookies.set('defaultHome', 'home_index');
-                        this.$router.push({
-                            name: 'home_index'
-                        });
-                    }
-                    if (Code == 'TENANT' && CodeOrg != 'ORG') {
-                        Cookies.set('defaultHome', 'tenant_index');
-                        this.$router.push({
-                            name: 'tenant_index'
-                        });
-                    }
-                    else if (Code == 'RES') {
-                        Cookies.set('defaultHome', 'resource_index');
-                        this.$router.push({
-                            name: 'resource_index'
-                        });
-                    }
-                    else if (Code == 'USER') {
-                        Cookies.set('defaultHome', 'accesstest_index');
-                        this.$router.push({
-                            name: 'accesstest_index'
-                        });
-                    }
-                    else if (Code == 'ROLE') {
-                        Cookies.set('defaultHome', 'access_index');
-                        this.$router.push({
-                            name: 'access_index'
-                        });
-                    }
-                    else if (Code == 'THREE_SYSTEM') {
-                        Cookies.set('defaultHome', 'oauth_index');
-                        this.$router.push({
-                            name: 'oauth_index'
-                        });
-                    }*/
                 }
             }
             Array.prototype.remove = function (val) {

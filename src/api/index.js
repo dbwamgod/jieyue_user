@@ -16,15 +16,10 @@ function way (code) {
 }
 
 //token
-
 function cookies_con(){
     let cookies_cons='access_token=' + Cookies.get('user_token');
     return cookies_cons;
 }
-
-
-
-
 export default {
     _baseUrlC,
     // 租户管理 //新增租户

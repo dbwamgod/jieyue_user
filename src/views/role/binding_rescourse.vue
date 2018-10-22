@@ -1,12 +1,10 @@
 <template>
-    <div style="    margin:85px 0 0 110px ;
-        width: 351px;">
+    <div class="binding">
         <Tree :data="data4" show-checkbox multiple></Tree>
-        <Button type="primary" @click="oks">确定</Button>
+        <Button type="primary" @click="oks" class="sure">确定</Button>
         <Button @click="ocal">返回</Button>
     </div>
 </template>
-
 <script>
     import api from '@/api';
     import Cookies from 'js-cookie';
@@ -32,13 +30,13 @@
                 return item.map(r => {
                     if (r.hasOwnProperty('children')) {
                         return {
-                            checked: r.checked||false,
+                            checked: r.checked || false,
                             id: r.id,
                             children: this.sele(r.children)
-                        }
+                        };
                     } else {
                         return {
-                            checked: r.checked||false,
+                            checked: r.checked || false,
                             id: r.id
                         };
                     }
@@ -48,45 +46,44 @@
                 this.resIdLists = this.sele(this.data4);
                 this.resIdLists.forEach((item, index) => {
                     let result = item.children.filter((r, index) => {
-                        let resFind
-                        if(r.children){
-                            resFind =r.children.filter(res=>{
-                                return res.checked===true
-                            })
-                        }else{
-                            if(r.checked==true){
-                                this.resIdList.push(r.id)
+                        let resFind;
+                        if (r.children) {
+                            resFind = r.children.filter(res => {
+                                return res.checked === true;
+                            });
+                        } else {
+                            if (r.checked == true) {
+                                this.resIdList.push(r.id);
                             }
 
                         }
 
-                        if(typeof resFind==="object"){
+                        if (typeof resFind === 'object') {
                             resFind.forEach(item => {
                                 this.resIdList.push(item.id);
-                                this.resIdList.push(r.id)
+                                this.resIdList.push(r.id);
                             });
-                        }else{
+                        } else {
 
                         }
 
                         return r.checked === true;
                     });
                 });
-                let set=new Set(this.resIdList)
+                let set = new Set(this.resIdList);
 
-                this.resIdList=[]
-                set._c.forEach(r=>{
+                this.resIdList = [];
+                set._c.forEach(r => {
 
-                    this.resIdList.push(r)
-                })
-
+                    this.resIdList.push(r);
+                });
 
                 this.$axios({
                     method: 'post',
                     url: api.role_bound(),
                     data: {
                         resIdList: this.resIdList,
-                        roleId:JSON.parse(this.$route.query.id) ,
+                        roleId: JSON.parse(this.$route.query.id),
                         userId: Cookies.get('user_userId')
                     },
                     headers: {
@@ -94,7 +91,7 @@
                         'Content-Type': 'application/json;charset=UTF-8'
                     }
                 }).then(res => {
-                    this.resIdList=[]
+                    this.resIdList = [];
                     if (res.data.code == 200) {
                         this.$Message.info('已绑定');
                         this.$router.back(-1);
@@ -161,8 +158,18 @@
 
     };
 </script>
-
-
 <style scoped>
+    .binding {
+        position: fixed;
+        margin: 35px 0 50px 40px;
+        width: 350px;
+        top: 4%;
+        left: 15%;
+        height: 91%;
+        overflow-y: scroll;
+    }
 
+    .sure {
+        margin: 0 0 0 55%;
+    }
 </style>
