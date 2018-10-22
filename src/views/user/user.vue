@@ -1,41 +1,37 @@
 <template>
-    <div style='position: relative;height:100%;padding:10px;'>
-        <Row type="flex" justify="space-between" align="middle" class="code-row-bg" style='margin-bottom:10px;'>
+    <div class="list_page">
+        <Row type="flex" justify="space-between" align="middle" class="code-row-bg" >
             <Col span="4">
-            <h2 style="margin: 6px 0 0 20px">用户管理</h2>
+            <h2 class="com_header">用户管理</h2>
             </Col>
 
-            <Col style='width: 80%;text-align:right;margin-right:15px;'>
-            <Input size="large" v-model="searchWord" placeholder="请输入搜索内容..." style="width: 17%;height: 34px;"/>
+            <Col class="operation">
+            <Input size="large" v-model="searchWord" placeholder="请输入昵称/手机号/邮箱/员工编号" class="user_search"/>
             <Button type="primary" @click='searchChange'>
                 <Icon type="ios-search-strong" style="font-size:17px;"></Icon>
             </Button>
-            <Button type="primary" @click="add_access" v-if="addUser">新增用户</Button>
+            <Button type="primary" @click="add_access" v-if="adds">新增用户</Button>
             <Button type="primary" @click="lost" v-if="loseList">失败列表</Button>
             </Col>
         </Row>
-        <Table :columns="historyColumns" :data="historyData" :loading='SpinType'
-               style="margin: 5px 15px 0 15px;"></Table>
+        <Table border :columns="historyColumns" :data="historyData" :loading='SpinType'
+               class="com_table"></Table>
         <Page :total="dataCount" :page-size="page.pageSize" :current="page.pageIndex" show-total class="paging"
               @on-change="changepage"></Page>
-
         <Modal
                 v-model="modal2"
                 title="修改信息"
                 @on-ok="okone"
                 @on-cancel="canceloneone">
-
             <Form ref="formItem" :model="formItem">
                 <FormItem prop="email">
                     <p>邮箱</p>
                     {{this.formItem.email}}
-                    <!--<Input type="text" v-model="formItem.email" placeholder="email">-->
                     </Input>
                 </FormItem>
                 <FormItem prop="mobile">
                     <p>手机号</p>
                     {{this.formItem.mobile}}
-                    <!--<Input type="text" v-model="formItem.mobile" placeholder="mobile">-->
                     </Input>
                 </FormItem>
                 <FormItem prop="nickname">
@@ -43,11 +39,7 @@
                     <Input type="text" v-model="formItem.nickname" placeholder="昵称">
                     </Input>
                 </FormItem>
-                <!--  <FormItem prop="organizationId">
-                      <p>组织机构id</p>
-                      <Input type="text" v-model="formItem.organizationId" placeholder="organizationId">
-                      </Input>
-                  </FormItem>-->
+
             </Form>
         </Modal>
     </div>
@@ -62,14 +54,13 @@
 <script>
     import api from '@/api';
     import Cookies from 'js-cookie';
+    import util from "@/libs/util.js"
 
     export default {
         inject: ['reload'],
         data () {
             return {
                 SpinType: false,
-
-                addResource: false,
                 searchShow: false,
                 flag: 0,
                 searchWord: '',
@@ -174,7 +165,7 @@
                     }
                 ],
                 historyData: [],
-                addUser: false,
+                adds: false,
                 formItem: {
                     email: '',
                     mobile: '',
@@ -205,47 +196,9 @@
                 this.searchWord = this.$store.state.app.binding;
                 this.user_List();
             }
-            if( JSON.parse(localStorage.getItem('Jurisdiction'))){
-                JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
-                    r.child.forEach(r => {
-                        if (r.resourceName == '查询用户列表') {
-                            this.searchShow = true;
-                        } else if (r.resourceName == '查询监听失败列表') {
-                            this.loseList = true;
-                        } else if (r.resourceName == '新增用户') {
-                            this.addUser = true;
-                        } else if (r.resourceName == '修改用户') {
-                            this.operation.edit = true;
-                            this.flag = 1;
-                        } else if (r.resourceName == '删除用户') {
-                            if (this.flag === 1) {
-                                this.operation.edit_del = true;
-                                this.flag = 2;
-                            } else {
-                                this.del = true;
-                                this.flag = 3;
-                            }
-                        } else if (r.resourceName == '绑定角色') {
-                            if (this.flag === 2) {
-                                this.operation.edit_del_binding = true;
-                            } else if (this.flag === 0) {
-                                this.operation.binding = true;
-                            } else if (this.flag === 3) {
-                                this.operation.del_binding = true;
-                            } else if (this.flag === 1) {
-                                this.operation.edit_binding = true;
-                            }
-                        }
-                    });
-                });
-            }else{
-                this.$Message.error("无法检测到你的权限")
-                this.$store.commit('logout', this);
-                this.$store.commit('clearOpenedSubmenu');
-                this.$router.push({
-                    name: 'login'
-                });
-            }
+
+            util.jurisdiction(this,'查询用户列表','查询监听失败列表','新增用户','修改用户',"删除用户")
+
             if (Cookies.get('user_index')) {
                 this.page.pageIndex = Number(Cookies.get('user_index'));
                 Cookies.remove('user_index');
@@ -255,7 +208,7 @@
         methods: {
             searchChange () {
 
-                    this.$store.commit('bindingChange', this.searchWord);
+                this.$store.commit('bindingChange', this.searchWord);
 
                 this.searchInfo = true;
                 this.user_List();
@@ -391,6 +344,7 @@
                 }).then(res => {
                     if (res.data.code == 200) {
                         this.historyData[Cookies.get('user_num')].nickname = this.formItem.nickname;
+                        this.$Message.info('已修改');
                     } else {
                         this.$Message.info(res.data.msg);
                     }
@@ -404,7 +358,7 @@
             okone () {
 
                 this.user_Update();
-                this.$Message.info('已修改');
+
             },
             canceloneone () {
                 let a = this.historyData.map(r => {
@@ -413,9 +367,7 @@
                     }
                 });
                 this.$refs.formItem.resetFields();
-
                 this.modal2 = false;
-                this.$Message.info('已取消');
             },
             remove (index) {
                 this.historyData.splice(index, 1);
@@ -424,6 +376,7 @@
     };
 </script>
 <style>
-    .aa {
-    }
+ .user_search{
+     width: 25%;height: 34px;
+ }
 </style>

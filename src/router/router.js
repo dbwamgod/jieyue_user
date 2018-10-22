@@ -57,13 +57,6 @@ export const otherRouter = {
     component: Main,
     children: [
         {
-            path: 'home',
-            title: '管理平台',
-            name: 'home',
-            component: () => import('@/views/home/system.vue')
-
-        },
-        {
             path: 'addOrganization',
             title: '增加组织接口',
             name: 'addOrganization',
@@ -83,53 +76,36 @@ export const otherRouter = {
             name: 'index',
             component: () => import('@/views/home/home.vue'),
         },
-        {
-            path: 'ownspace',
-            title: '个人中心',
-            name: 'ownspace_index',
-            component: () => import('@/views/own-space/own-space.vue')
-        },
-        {
-            path: 'order/:order_id',
-            title: '订单详情',
-            name: 'order-info',
-            component: () => import('@/views/advanced-router/component/order-info.vue')
-        }, // 用于展示动态路由
-        {
-            path: 'shopping',
-            title: '购物详情',
-            name: 'shopping',
-            component: () => import('@/views/advanced-router/component/shopping-info.vue')
-        }, // 用于展示带参路由
+
         {path: 'message', title: '消息中心', name: 'message_index', component: () => import('@/views/message/message.vue')},
         {
             path: 'bang_access',
             title: '绑定角色',
             name: 'bang_access',
-            component: () => import('@/views/access/bang_access.vue')
+            component: () => import('@/views/user/binding_role.vue')
         }, {
             path: 'bangAccess',
             title: '绑定资源',
             name: 'access_bang',
-            component: () => import('@/views/access/access_bang.vue')
+            component: () => import('@/views/role/binding_rescourse.vue')
         },
         {
             path: 'lost_list',
             title: '失败列表',
             name: 'lost_list',
-            component: () => import('@/views/access/lost_list.vue')
+            component: () => import('@/views/user/lost_list.vue')
         },
         {
             path: 'addAccess',
             title: '新增用户',
             name: 'access_add',
-            component: () => import('@/views/access/access_add.vue')
+            component: () => import('@/views/user/add_user.vue')
         },
         {
             path: 'addAccess',
             title: '新增角色',
             name: 'access_adds',
-            component: () => import('@/views/access/access_adds.vue')
+            component: () => import('@/views/role/add_role.vue')
         },
     ],
 
@@ -208,7 +184,7 @@ export const appRouter = [
                 path: 'index',
                 title: '用户管理',
                 name: 'accesstest_index',
-                component: () => import('@/views/access/access-test.vue')
+                component: () => import('@/views/user/user.vue')
             },
 
         ]
@@ -224,7 +200,27 @@ export const appRouter = [
                 path: 'index',
                 title: '角色管理',
                 name: 'access_index',
-                component: () => import('@/views/access/access.vue')
+                component: () => import('@/views/role/role.vue')
+            },
+        ]
+    }, {
+        path: '/oauth_client',
+        icon: 'md-contact',
+        name: 'oauth',
+        title: '三方系统',
+        component: Main,
+        children: [
+            {
+                path: 'index',
+                title: '三方系统',
+                name: 'oauth_index',
+                component: () => import('@/views/three_brower/three_brower.vue')
+            },
+            {
+                path: 'new_create',
+                title: '新增三方系统',
+                name: 'add_oauth',
+                component: () => import('@/views/three_brower/add_oauth.vue')
             },
         ]
     }

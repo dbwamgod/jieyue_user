@@ -113,13 +113,6 @@
 
                             } else {
                                 this.$Message.info(res.data.msg);
-                                /*
-                                this.$refs.index.disabled = true;
-                                let SET = setTimeout(() => {
-                                    this.$refs.index.disabled = false;
-                                    clearTimeout(SET);
-                                }, 1500);*/
-
                             }
                         });
                     } else {
@@ -159,7 +152,7 @@
                         {required: false, type: 'string', pattern: /^\d+$/, message: '请输入正确的序号', trigger: 'blur'},
                     ],
                     organizationId: [
-                        {required: true, message: '请输入正确的组织机构'},
+                        {required: false, message: '请输入正确的组织机构'},
                     ],
                     pswd: [
                         {required: true, message: '请输入正确的密码', trigger: 'blur'},

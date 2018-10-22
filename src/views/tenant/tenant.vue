@@ -1,7 +1,7 @@
 <template>
 
-    <div style='position: relative;height:100%;padding:10px;'>
-        <Row type="flex" justify="space-between" align="middle" class="code-row-bg" style='margin-bottom:10px;'>
+    <div class="list_page">
+        <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
             <Col span="6">
             <h2 style="margin: 6px 0 0 20px">租户管理</h2>
             </Col>
@@ -11,11 +11,9 @@
         </Row>
         <Row>
             <Col>
-            <Table border :columns="columns7" :data="data6" :loading='SpinType'
-                   style="margin: 5px 15px 0 15px;"></Table>
+            <Table border :columns="columns7" :data="data6" :loading='SpinType' class="com_table"></Table>
             </Col>
         </Row>
-
         <Page :total="dataCount" show-total :page-size="page.pageSize" :current="page.pageIndex" class="paging"
               @on-change="changepage"/>
     </div>
@@ -71,10 +69,12 @@
             };
         },
         created () {
+
             if (Cookies.get('tenant_index')) {
                 this.page.pageIndex = Number(Cookies.get('tenant_index'));
                 Cookies.remove('tenant_index');
             }
+
             this.tenant_list();
             /*          JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r=>{
                        r.child.forEach(r=>{
@@ -133,6 +133,7 @@
                         'Content-Type': 'application/json;charset=UTF-8'
                     }
                 }).then(res => {
+
                     this.SpinType = false;
                     if (res.data.code == 200) {
 
@@ -154,9 +155,5 @@
     };
 </script>
 <style scoped>
-    .paging {
-        float: right;
-        margin-top: 10px;
-        margin-right: 15px;
-    }
+
 </style>

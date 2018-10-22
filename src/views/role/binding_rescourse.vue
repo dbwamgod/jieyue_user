@@ -31,10 +31,10 @@
 
                 return item.map(r => {
                     if (r.hasOwnProperty('children')) {
-                            return {
-                                checked: r.checked||false,
-                                id: r.id,
-                                children: this.sele(r.children)
+                        return {
+                            checked: r.checked||false,
+                            id: r.id,
+                            children: this.sele(r.children)
                         }
                     } else {
                         return {
@@ -46,7 +46,6 @@
             },
             oks () {
                 this.resIdLists = this.sele(this.data4);
-
                 this.resIdLists.forEach((item, index) => {
                     let result = item.children.filter((r, index) => {
                         let resFind
@@ -54,6 +53,11 @@
                             resFind =r.children.filter(res=>{
                                 return res.checked===true
                             })
+                        }else{
+                            if(r.checked==true){
+                                this.resIdList.push(r.id)
+                            }
+
                         }
 
                         if(typeof resFind==="object"){
@@ -62,18 +66,21 @@
                                 this.resIdList.push(r.id)
                             });
                         }else{
-                            this.resIdList.push(r.id)
-                            this.resIdList.push(item.id);
+
                         }
 
                         return r.checked === true;
                     });
                 });
                 let set=new Set(this.resIdList)
+
                 this.resIdList=[]
                 set._c.forEach(r=>{
+
                     this.resIdList.push(r)
                 })
+
+
                 this.$axios({
                     method: 'post',
                     url: api.role_bound(),
@@ -87,10 +94,9 @@
                         'Content-Type': 'application/json;charset=UTF-8'
                     }
                 }).then(res => {
+                    this.resIdList=[]
                     if (res.data.code == 200) {
                         this.$Message.info('已绑定');
-
-                        this.resIdList = [];
                         this.$router.back(-1);
                     } else {
                         this.$Message.info(res.data.msg);

@@ -34,22 +34,29 @@
                 </Dropdown>
                 <Dropdown v-if="menuDisplay.use" transfer placement="right-start" :key="4" @on-click="changeMenu">
                     <Button style="width: 70px;margin-left: -5px;padding:10px 0;" type="text">
-                        <!-- <Icon :size="20" :color="iconColor" :type="item.icon"></Icon> -->
                         <Icon type="android-person" :size='20' color="#fff"></Icon>
 
                     </Button>
                     <DropdownMenu style="width: 200px;" slot="list">
-                        <DropdownItem name="accesstest_index" key="3-1"><span style="padding-left:10px;">用户管理</span>
+                        <DropdownItem name="accesstest_index" key="4-1"><span style="padding-left:10px;">用户管理</span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
                 <Dropdown v-if="menuDisplay.rol" transfer placement="right-start" :key="5" @on-click="changeMenu">
                     <Button style="width: 70px;margin-left: -5px;padding:10px 0;" type="text">
-                        <!-- <Icon :size="20" :color="iconColor" :type="item.icon"></Icon> -->
                         <Icon type="ribbon-b" :size='20' color="#fff"></Icon>
                     </Button>
                     <DropdownMenu style="width: 200px;" slot="list">
-                        <DropdownItem name="access_index" key="3-1"><span style="padding-left:10px;">角色管理</span>
+                        <DropdownItem name="access_index" key="5-1"><span style="padding-left:10px;">角色管理</span>
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+                <Dropdown v-if="menuDisplay.thr" transfer placement="right-start" :key="6" @on-click="changeMenu">
+                    <Button style="width: 70px;margin-left: -5px;padding:10px 0;" type="text">
+                        <Icon type="ios-people" :size='20' color="#fff"></Icon>
+                    </Button>
+                    <DropdownMenu style="width: 200px;" slot="list">
+                        <DropdownItem name="oauth_index" key="6-1"><span style="padding-left:10px;">三方系统</span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
@@ -68,7 +75,9 @@
                     res: false,
                     use: false,
                     rol: false,
-                }, menuListDisplay: []
+                    thr: false
+                },
+                menuListDisplay: []
 
             };
         },
@@ -80,7 +89,9 @@
                 });
 
                 for (var variable of this.menuListDisplay) {
-                    if (variable == '角色管理') {
+                    if (variable == '三方系统') {
+                        this.menuDisplay.thr = true;
+                    }else if (variable == '角色管理') {
                         this.menuDisplay.rol = true;
                     } else if (variable == '用户管理') {
                         this.menuDisplay.use = true;

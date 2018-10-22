@@ -3,13 +3,11 @@ import env from '../../build/env';
 import semver from 'semver';
 import packjson from '../../package.json';
 
-let util = {
-
-};
+let util = {};
 util.title = function (title, vm) {
     let iTitle = '';
     if (title) {
-        iTitle += ' - ' + (title.i18n ? vm.$t(title.i18n) : title);
+        iTitle += '  ' + (title.i18n ? vm.$t(title.i18n) : title);
     }
     window.document.title = iTitle;
 };
@@ -50,7 +48,7 @@ util.showThisRoute = function (itAccess, currentAccess) {
         return itAccess === currentAccess;
     }
 };
-
+//fgg???
 util.getRouterObjByName = function (routers, name) {
     if (!name || !routers || !routers.length) {
         return null;
@@ -269,9 +267,59 @@ util.checkUpdate = function (vm) {
     // });
 };
 util.getStringTime = function (date) {
-const newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    const newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
-return newDate;
+    return newDate;
+};
+
+/*
+* 权限校验
+* 参数:a,b,c,d,e;为权限名字
+* vm:this
+* */
+util.jurisdiction = function (vm, a, b, c, d, e = '无') {
+    if (JSON.parse(localStorage.getItem('Jurisdiction'))) {
+        JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
+            r.child && r.child.forEach(r => {
+                if (r.resourceName == a) {
+                    vm.searchShow = true;
+                } else if (r.resourceName == b) {
+                    vm.adds = true;
+                } else if (r.resourceName == c) {
+                    vm.operation.edit = true;
+                    vm.flag = 1;
+                } else if (r.resourceName == d) {
+                    if (vm.flag === 1) {
+                        vm.operation.edit_del = true;
+                        vm.flag = 2;
+                    } else {
+                        vm.del = true;
+                        vm.flag = 3;
+                    }
+                } else if (r.resourceName == e) {
+                    if (vm.flag === 2) {
+                        vm.operation.edit_del_binding = true;
+                    } else if (vm.flag === 0) {
+                        vm.operation.binding = true;
+                    } else if (vm.flag === 3) {
+                        vm.operation.del_binding = true;
+                    } else if (vm.flag === 1) {
+                        vm.operation.edit_binding = true;
+                    }
+                }
+            });
+        });
+    } else {
+        if (Cookies.get('user_access')) {
+            vm.$Message.error('无法检测到你的权限');
+            vm.$store.commit('logout', vm);
+            vm.$store.commit('clearOpenedSubmenu');
+            vm.$router.push({
+                name: 'login'
+            });
+        }
+
+    }
 };
 
 export default util;

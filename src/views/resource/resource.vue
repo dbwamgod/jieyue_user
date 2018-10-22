@@ -1,19 +1,19 @@
 <template>
-    <div style='position: relative;height:100%;padding:10px;'>
-        <Row type="flex" justify="space-between" align="middle" class="code-row-bg" style='margin-bottom:10px;'>
+    <div class="list_page">
+        <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
             <Col span="4">
-            <h2 style="margin: 6px 0 0 20px">资源接口</h2>
+            <h2  class="com_header">资源接口</h2>
             </Col>
-            <Col span="2" style='text-align:right;margin-right:15px;width: 35%;'>
-            <Input size="large" v-model="searchWord" placeholder="请输入搜索内容..." style="width: 35%;height: 34px;"/>
+            <Col span="2"  class="operation" >
+            <Input size="large" v-model="searchWord" placeholder="请输入资源名称..." class="com_search"/>
             <Button type="primary" @click="searchChange">
                 <Icon type="ios-search-strong" style="font-size:17px;"></Icon>
             </Button>
-            <Button type="primary" @click="res_add" v-if="addResource">新增资源</Button>
+            <Button type="primary" @click="res_add" v-if="adds">新增资源</Button>
             </Col>
         </Row>
-        <Table :columns="columns1" :data="data1" id="table1" :loading='SpinType'
-               style="margin: 5px 15px 0 15px;"></Table>
+        <Table border :columns="columns1" :data="data1" id="table1" :loading='SpinType'
+               class="com_table"></Table>
         <Page class="paging" :total="total" :page-size="page.pageSize" :current="page.pageIndex" @on-change="totol"
               show-total/>
         <Modal
@@ -47,24 +47,19 @@
                     </RadioGroup>
                 </FormItem>
             </Form>
-            <div style="margin-left: 70%">
-                <Button type="primary" @click="sure" style="margin-right: 20px;">确定</Button>
+            <div class="sure-cancel">
+                <Button type="primary" @click="sure" class="sure_edit">确定</Button>
                 <Button @click="cancel">取消</Button>
             </div>
         </Modal>
     </div>
 </template>
 <style scoped>
-    .paging {
-        float: right;
-        margin-top: 10px;
-        margin-right: 15px;
-
-    }
 </style>
 <script>
     import api from '@/api';
     import Cookies from 'js-cookie';
+    import util from "@/libs/util.js"
 
     export default {
         inject: ['reload'],
@@ -77,12 +72,12 @@
                             required: true,
                             type: 'string',
                             pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/,
-                            message: '请输入资源名称并不能为空',
+                            message: '请输入资源名称且没有特殊符号',
                             trigger: 'blur'
                         }
                     ],
                     url: [
-                        {required: true, message: '请输入url路径', trigger: 'blur'}
+                        {required: true,  type: 'string', pattern: /\S/,message: '请输入url路径且不为空', trigger: 'blur'}
                     ],
                     mustUrl: [
                         {required: false, trigger: 'blur'}
@@ -98,7 +93,7 @@
                     isMenu: ''
                 },
                 searchInfo: false,
-                addResource: false,
+                adds: false,
                 searchShow: false,
                 flag: 0,
                 searchWord: '',
@@ -139,6 +134,10 @@
                         key: 'parentName'
                     },
                     {
+                        title: 'url',
+                        key: 'url'
+                    },
+                    {
                         title: '描述',
                         key: 'description'
                     },
@@ -163,7 +162,7 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.edit(params.index);
+                                            this.edit(params.index, params.row.resourceId);
                                         }
                                     }
                                 }, '修改') : '',
@@ -191,7 +190,8 @@
 
                 modal2: false,
                 real: [],
-                isShow: false
+                isShow: false,
+                sersfill: true
             };
         },
         created () {
@@ -205,34 +205,9 @@
                 this.searchWord = this.$store.state.app.resSearchFlag;
                 this.res_List();
             }
-            if (JSON.parse(localStorage.getItem('Jurisdiction'))) {
-                JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
-                    r.child.forEach(r => {
-                        if (r.resourceName == '查询资源列表') {
-                            this.searchShow = true;
-                        } else if (r.resourceName == '新增资源') {
-                            this.addResource = true;
-                        } else if (r.resourceName == '修改资源') {
-                            this.operation.edit = true;
-                            this.flag = 1;
-                        } else if (r.resourceName == '删除资源') {
-                            if (this.flag === 1) {
-                                this.operation.edit_del = true;
-                            } else {
-                                this.operation.del = true;
-                            }
-                        }
-                    });
 
-                });
-            } else {
-                this.$Message.error('无法检测到你的权限');
-                this.$store.commit('logout', this);
-                this.$store.commit('clearOpenedSubmenu');
-                this.$router.push({
-                    name: 'login'
-                });
-            }
+            util.jurisdiction(this,'查询资源列表','新增资源','修改资源','删除资源')
+
             if (!(this.operation.edit || this.operation.del)) {
                 this.columns1.splice(this.columns1.length - 1, 1);
             }
@@ -250,7 +225,8 @@
                     this.ruleInline.url = [];
                 } else {
                     this.isShow = false;
-                    this.ruleInline.url = [{required: true, message: '请输入url路径', trigger: 'blur'}];
+                    this.ruleInline.url = [{required: true,  type: 'string', pattern: /\S/,message: '请输入url路径且不为空', trigger: 'blur'}];
+
                 }
             }
         },
@@ -383,12 +359,12 @@
                             method: 'post',
                             url: api.res_update(),
                             data: {
-                                description: this.formItem.description || '无',
+                                description: this.formItem.description,
                                 orderNo: this.formItem.orderNo || 100,
                                 resourceId: this.formItem.resourceId,
                                 isMenu: this.formItem.isMenu,
                                 resourceName: this.formItem.resourceName,
-                                url: Number(this.formItem.isMenu) ? this.formItem.url || '' : this.formItem.url,
+                                url: this.formItem.url ,
                                 userId: Cookies.get('userId'),
                                 parentId: this.formItem.parentId
                             },
@@ -398,25 +374,18 @@
                             }
                         }).then(res => {
                             if (res.data.code === 200) {
-                                let replace_data = this.data1[Cookies.get('res_num')];
-                                let date = new Date();
-                                replace_data.description = this.formItem.description;
-                                replace_data.orderNo = this.formItem.orderNo;
-                                replace_data.resourceName = this.formItem.resourceName;
-                                replace_data.url = /*this.formItem.isMenu?'':*/this.formItem.url;
-                                replace_data.isMenu = this.formItem.isMenu;
-                                //
-                                // replace_data.modifyTime = `${date.getFullYear()}` + `-${date.getMonth() + 1}` +`-${date.getDate()<10?'0':""}${date.getDate().length===1?'0'+date.getDate():date.getDate()}`
-                                // console.log(replace_data);
+
                                 this.reload();
-                            } else {
+                                this.$Message.info('已修改');
+                                this.modal2 = false;
+                            } else if(res.data.code===500){
+                                this.$Message.error(res.data.msg);
+                            }else{
                                 this.$Message.info(res.data.msg);
                             }
                         });
-                        this.$Message.info('已修改');
-                        this.modal2 = false;
-                    } else {
-                        // this.$Message.error('资源名不能为空且不能包含空格!');
+
+
                     }
                 });
             },
@@ -428,18 +397,29 @@
                     }
                 });
                 this.$refs.formItem.resetFields();
-
                 this.modal2 = false;
                 this.$Message.info('已取消');
             },
             //编辑
-            edit (num) {
-                this.formItem = JSON.parse(JSON.stringify(this.data1[num]));
-                this.real = JSON.parse(JSON.stringify(this.data1[num]));
-                this.modal2 = true;
-                Cookies.set('res_num', num);
-                Cookies.set('res_index', this.page.pageIndex);
+            edit (num, i) {
 
+                this.$axios({
+                    method: 'get',
+                    url: api.res_search(i),
+                }).then(r => {
+                    if (r.data.code == 200) {
+
+                        this.formItem = JSON.parse(JSON.stringify(r.data.data));
+                        this.real = JSON.parse(JSON.stringify(r.data.data));
+
+                        this.modal2 = true;
+                        Cookies.set('res_num', num);
+                        Cookies.set('res_index', this.page.pageIndex);
+
+                    }
+                });
+                /*    this.formItem = JSON.parse(JSON.stringify(this.data1[num]));
+                    this.real = JSON.parse(JSON.stringify(this.data1[num]));*/
             }
         },
 
