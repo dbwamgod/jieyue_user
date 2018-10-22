@@ -1,93 +1,109 @@
 <template>
 
-    <div style='position: relative;height:100%;padding:10px;'>
-        <Row type="flex" justify="space-between" align="middle" class="code-row-bg" style='margin-bottom:10px;'>
+    <div class="list_page">
+        <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
             <Col span="6">
-            <h2 style="margin: 6px 0 0 20px">三方系统</h2>
+            <h2 class="com_header">三方系统</h2>
             </Col>
-            <Col span="3" style='text-align:right;margin-right:5px;'>
-            <Button type="primary" @click="addTenant" v-if="addResource">新增客户端授权</Button>
+            <Col span="3" class="operation" >
+            <Button type="primary" @click="addTenant" v-if="adds">新增客户端授权</Button>
             </Col>
         </Row>
         <Row>
             <Col>
             <Table border :columns="columns7" :data="data6" :loading='SpinType'
-                   style="margin: 5px 15px 0 15px;"></Table>
+                   class="com_table"></Table>
             </Col>
         </Row>
         <Page :total="dataCount" show-total :page-size="page.pageSize" :current="page.pageIndex" class="paging"
               @on-change="changepage"/>
-
-
         <Modal
                 v-model="modal2"
                 title="修改信息"
                 :footer-hide='true'
                 :closable="false"
-                :mask-closable="false">
+                :mask-closable="false"
+                 >
 
-            <Form ref="formItem" :model="formItem" :rules="ruleInline" style="width: 90%;">
+            <Form ref="formItem" :model="formItem" :rules="ruleInline" style="width: 90% ;">
                 <FormItem prop="clientId" label="客户端ID">
                     <Input type="text" v-model="formItem.clientId" placeholder="请输入客户端ID"></Input>
+                    <span class="tip" ><Icon type="information-circled" style="color: #2baee9;" :size="18" ></Icon>{{brower}}</span>
                 </FormItem>
                 <FormItem prop="authorities" label="权限值">
-                    <Input type="text" v-model="formItem.authorities" placeholder="请输入权限值"></Input>
-                    <Poptip trigger="hover" :content="popTip" style="position: absolute;left: 100%;top: 58%;">
-                        <Icon type="information-circled" style="color: #2baee9" :size="18"></Icon>
-                    </Poptip>
+                    <Input type="text" v-model="formItem.authorities" placeholder="请输入权限值(多个值用逗号隔开)"></Input>
+                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{popTip}}</span>
                 </FormItem>
                 <FormItem prop="scope" label="权限范围">
-                    <Input type="text" v-model="formItem.scope" placeholder="请输入权限范围"></Input>
-                    <Poptip trigger="hover" :content="popTip" style="position: absolute;left: 100%;top: 58%;">
-                        <Icon type="information-circled" style="color: #2baee9" :size="18"></Icon>
-                    </Poptip>
+                    <Input type="text" v-model="formItem.scope" placeholder="请输入权限范围(多个值用逗号隔开)"></Input>
+                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{popTip}}</span>
+
                 </FormItem>
                 <FormItem prop="authorizedGrantTypes" label="授权类型">
-                    <Input type="text" v-model="formItem.authorizedGrantTypes" placeholder="请输入授权类型"></Input>
-                    <Poptip trigger="hover" :content="popTip" style="position: absolute;left: 100%;top: 58%;">
-                        <Icon type="information-circled" style="color: #2baee9" :size="18"></Icon>
-                    </Poptip>
+                    <Input type="text" v-model="formItem.authorizedGrantTypes" placeholder="请输入授权类型(多个值用逗号隔开)"></Input>
+                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{popTip}}</span>
+
                 </FormItem>
                 <FormItem prop="accessTokenValidity" label="票据有效期">
-                    <Input type="text" v-model="formItem.accessTokenValidity" placeholder="请输入票据有效期"></Input>
-                    <Poptip trigger="hover" :content="PopCon" style="position: absolute;left: 100%;top: 58%;">
-                        <Icon type="information-circled" style="color: #2baee9" :size="18"></Icon>
-                    </Poptip>
+                    <Input type="text" v-model="formItem.accessTokenValidity" :placeholder="refPopCon"></Input>
+
+                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{PopCon}}</span>
                 </FormItem>
                 <FormItem prop="refreshTokenValidity" label="刷新票据有效期">
-                    <Input type="text" v-model="formItem.refreshTokenValidity" placeholder="请输入刷新票据有效期"></Input>
-                    <Poptip trigger="hover" :content="refPopCon" style="position: absolute;left: 100%;top: 58%;">
-                        <Icon type="information-circled" style="color: #2baee9" :size="18"></Icon>
-                    </Poptip>
+                    <Input type="text" v-model="formItem.refreshTokenValidity" :placeholder="PopCon"></Input>
+                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon> {{refPopCon}}</span>
+
                 </FormItem>
             </Form>
-            <div style="margin-left: 70%">
-                <Button type="primary" @click="sure" style="margin-right: 20px;">确定</Button>
+            <div class="sure-cancel" >
+                <Button type="primary" @click="sure" class="sure_edit">确定</Button>
                 <Button @click="cancel">取消</Button>
             </div>
 
 
         </Modal>
 
-
     </div>
 </template>
 <script>
     import Cookies from 'js-cookie';
     import api from '@/api';
+    import util from "@/libs/util.js"
 
     export default {
         computed: {},
         components: {},
         data () {
             return {
-                refPopCon:"(单位:秒; 默认值:2592000秒, 即30天)",
-                PopCon:"(单位:秒; 默认值:43200秒, 即12小时)",
-                popTip:"多个值用逗号隔开",
+
+                /* ruleInline: {
+                     clientId: [
+                         {required: true, type: 'string', pattern: /\S/, message: '请输入正确的信息', trigger: 'blur'},
+                     ],
+                     authorities: [
+                         {required: true, type: 'string', pattern: /\S/, message: '请输入正确的信息', trigger: 'blur'},
+                     ],
+                     scope: [
+                         {required: true, type: 'string', pattern: /\S/, message: '请输入正确的信息', trigger: 'blur'},
+                     ],
+                     authorizedGrantTypes: [
+                         {required: true, type: 'string', pattern: /\d/, message: '请输入正确的信息', trigger: 'blur'},
+                     ],
+                     accessTokenValidity: [
+                         {required: true, type: 'string', pattern: /\d/, message: '请输入正确的信息', trigger: 'blur'},
+                     ],
+                     refreshTokenValidity: [
+                         {required: true, type: 'string', pattern: /\S/, message: '请输入正确的信息', trigger: 'blur'},
+                     ],
+                 },*/
+                brower: '    客户端ID只能为字母、数字、横线下划线',
+                PopCon: '请输入正整数(单位:秒; 默认值:2592000秒, 即30天)',
+                refPopCon: '请输入正整数(单位:秒; 默认值:43200秒, 即12小时)',
+                popTip: '多个值用逗号隔开',
                 operation: {
-                    edit: true,
-                    del: true,
-                    edit_del: true,
+                    edit: false,
+                    del: false,
+                    edit_del: false,
                 },
                 SpinType: false,
                 active: true,
@@ -106,7 +122,7 @@
                     id: ''
                 },
                 dataCount: 0,
-                addResource: false,
+                adds: false,
                 columns7: [
                     {
                         title: '客户端ID',
@@ -146,7 +162,7 @@
                                     props: {
                                         type: 'primary',
                                         size: 'small',
-                                        disabled: params.index === 0 ? true : false
+                                        disabled: params.row.id === 1 ? true : false
                                     },
                                     style: {
                                         marginRight: '5px'
@@ -157,22 +173,22 @@
                                         }
                                     }
                                 }, '修改') : '',
-                              /*  this.operation.del || this.operation.edit_del ? h('Button', {
-                                    props: {
-                                        type: 'error',
-                                        size: 'small',
-                                        disabled: params.index === 0 ? true : false
-                                    }, style: {
-                                        marginRight: '5px'
-                                    },
-                                    on: {
-                                        click: () => {
-                                            // this.remove(params.index);
-                                            this.data6.splice(params.index, 1);
-                                            this.dataCount--;
-                                        }
-                                    }
-                                }, '删除') : ''*/
+                                /*  this.operation.del || this.operation.edit_del ? h('Button', {
+                                      props: {
+                                          type: 'error',
+                                          size: 'small',
+                                          disabled: params.index === 0 ? true : false
+                                      }, style: {
+                                          marginRight: '5px'
+                                      },
+                                      on: {
+                                          click: () => {
+                                              // this.remove(params.index);
+                                              this.data6.splice(params.index, 1);
+                                              this.dataCount--;
+                                          }
+                                      }
+                                  }, '删除') : ''*/
                             ]);
                         },
                     }
@@ -180,41 +196,27 @@
                 data6: [],
                 ruleInline: {
                     clientId: [
-                        {required: true, type: 'string', pattern: /\S/, message: '请输入正确的客户端ID', trigger: 'blur'}
+                        {
+                            required: true,
+                            type: 'string',
+                            pattern: /^[0-9a-zA-Z_-]{1,}$/,
+                            message: '客户端ID只能为字母、数字、横线下划线',
+                            trigger: 'blur'
+                        }
                     ],
                 },
                 cloneformItem: []
             };
         },
         created () {
-            if (JSON.parse(localStorage.getItem('Jurisdiction'))) {
-                JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
-                    r.child && r.child.forEach(r => {
-                        if (r.resourceName == '查询客户端授权列表') {
-                            this.loseList = true;
-                        } else if (r.resourceName == '新增客户端授权') {
-                            this.addResource = true;
-                        } else if (r.resourceName == '修改客户端授权') {
-                            this.operation.edit = true;
-                            this.flag = 1;
-                        } else if (r.resourceName == '删除客户端授权') {
-                            if (this.flag === 1) {
-                                this.operation.edit_del = true;
-                            } else {
-                                this.operation.del = true;
-                            }
-                        }
-                    });
-                });
-            } else {
-                this.$Message.error('无法检测到你的权限');
-                this.$store.commit('logout', this);
-                this.$store.commit('clearOpenedSubmenu');
-                this.$router.push({
-                    name: 'login'
-                });
-            }
+
+            util.jurisdiction(this,'查询客户端授权列表','新增客户端授权','修改客户端授权','删除客户端授权')
+
             this.init();
+            if (!this.operation.edit && !this.operation.edit_del && !this.operation.del) {
+                this.columns7.splice(7, 1);
+            }
+
         },
         methods: {
             changepage (index) {
@@ -250,7 +252,7 @@
             },
 
             editF (id, index) {
-                // console.log(this.data6[index]);
+
                 this.formItem.id = id;
                 /*this.formItem=JSON.parse(JSON.stringify(this.data6[index]));
                 this.cloneformItem=JSON.parse(JSON.stringify(this.data6[index]));*/
@@ -268,8 +270,29 @@
                 });
             },
             sure () {
+                let com = this.formItem.accessTokenValidity;
+                let cop = this.formItem.refreshTokenValidity;
+                let tip = '票据有效期为正整数(单位:秒; 默认值:2592000秒, 即30天)'
+                let tips ='刷新票据有效期为正整数(单位:秒; 默认值:43200秒, 即12小时)'
+
+                if (!String(com).indexOf(' ')) {
+                    this.$Message.error(tip);
+                } else if (!String(cop).indexOf(' ')) {
+                    this.$Message.error(tips);
+                }else if (Number(com) >= 0 && Number(cop) >= 0) {
+                        this.sure_p();
+                } else {
+                    if (Number(com) < 0) {
+                        tip;
+                    } else if (Number(cop) < 0) {
+                        tips;
+                    }
+                }
+            },
+            sure_p () {
                 this.$refs.formItem.validate((valid) => {
                     if (valid) {
+
                         this.$axios({
                             method: 'post',
                             url: api.editoauthThree(),
@@ -289,24 +312,19 @@
                         }).then(res => {
                             if (res.data.code === 200) {
                                 Cookies.remove('id');
-                                let replace_data = this.data6[Cookies.get('three_num')];
-                                replace_data.clientId = this.formItem.clientId;
-                                replace_data.authorities = this.formItem.authorities;
-                                replace_data.scope = this.formItem.scope;
-                                replace_data.authorizedGrantTypes = this.formItem.authorizedGrantTypes;
-                                replace_data.accessTokenValidity = this.formItem.accessTokenValidity;
-                                replace_data.refreshTokenValidity = this.formItem.refreshTokenValidity;
                                 this.$Message.info('已修改');
                                 this.modal2 = false;
+                                this.init();
                             } else {
                                 this.$Message.info(res.data.msg);
                             }
                         });
                     } else {
-                        this.$Message.error('客户端ID不能为空!');
+                        this.$Message.error('客户端ID信息不正确!');
                     }
                 });
             },
+
             cancel () {
                 this.formItem = this.cloneformItem;
                 this.modal2 = false;
@@ -316,9 +334,14 @@
     };
 </script>
 <style scoped>
-    .paging {
-        float: right;
-        margin-top: 10px;
-        margin-right: 15px;
+
+
+    .tip {
+        /*position: absolute;*/
+        /*top: 54%;*/
+        /*left: 102%;*/
+        color: #999;
+        /*width: 122%;*/
     }
+
 </style>

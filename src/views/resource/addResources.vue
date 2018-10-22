@@ -1,15 +1,15 @@
 <template>
     <div style="    margin:85px 0 0 110px ;
         width: 351px;">
-        <Form ref="formRight" :model="formRight" label-position="right" :label-width="100" :rules="ruleInline">
+        <Form ref="formRight" :model="formRight" label-position="right" :label-width="110" :rules="ruleInline">
             <FormItem label="描述">
                 <Input v-model="formRight.description"></Input>
             </FormItem>
             <FormItem label="资源名" prop="resourceName">
                 <Input v-model="formRight.resourceName"></Input>
             </FormItem>
-            <FormItem label="租户+上级资源">
-                <Cascader :data="data1" v-model="value1"></Cascader>
+            <FormItem label="租户+上级资源" prop="ten_res">
+                <Cascader :data="data1" v-model="formRight.ten_res"></Cascader>
             </FormItem>
             <FormItem label="资源地址" prop="url" v-show="isShow">
                 <Input v-model="formRight.url"></Input>
@@ -56,6 +56,7 @@
                     url: '',
                     mustUrl: '',
                     resourceCode: '',
+                    ten_res:[],
                     isMenu: 0
                 },
                 tenantId: [],
@@ -75,7 +76,9 @@
                     }],
                     url: [{required: false, trigger: 'blur'}],
                     mustUrl: [{required: true, message: '请输入资源路径', trigger: 'blur'}],
-                    resourceCode: [{required: true, message: '请输入资源编码', trigger: 'blur'}]
+                    ten_res: [{required: true, message: '请选择租户和上级资源', trigger: 'blur',type:'array'}],
+                    resourceCode: [{required: true, type: 'string', pattern: /^[0-9a-zA-Z_-]{1,}$/, message: '资源编码只能为字母、数字、横线下划线', trigger: 'blur'}]
+
                 }
             };
         },
@@ -146,16 +149,17 @@
                 this.$refs.formRight.validate((valid) => {
                     if (valid) {
                         // if(!flag){
+
                         this.$axios({
                             method: 'post',
                             url: api.res_add(),
                             data: {
                                 isMenu: Number(this.formRight.isMenu),
                                 description: this.formRight.description,
-                                parentId: this.value1[1],
+                                parentId: this.formRight.ten_res[1],
                                 resourceName: this.formRight.resourceName,
-                                tenantId: this.value1[0],
-                                url: this.formRight.url,
+                                tenantId: this.formRight.ten_res[0],
+                                url: this.formRight.url||this.formRight.mustUrl,
                                 resourceCode: this.formRight.resourceCode,
                                 userId: Cookies.get('user_userId')
                             },

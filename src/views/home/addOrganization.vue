@@ -117,9 +117,6 @@
                     desc: [
                         {required: false, message: '请输入描述', trigger: 'blur'}
                     ],
-                    fullName: [
-                        {required: true, message: '请输入组织机构全称', trigger: 'blur'},
-                    ],
                     orgCode: [
                         {required: true, message: '请输入组织机构编码', trigger: 'blur'}
                     ],

@@ -5,7 +5,12 @@ import Vue from 'vue';
 
 const app = {
     state: {
-
+        operation: {
+            edit: false,
+            del: false,
+            edit_del: false,
+            add:false
+        },
         resSearchFlag:"",
         orgSearchFlag:"",
         lostSearchFlag:"",
@@ -221,9 +226,10 @@ const app = {
         lostSearch(state,bind=""){
             state.lostSearchFlag=bind
         },
-       delData(state,bind=""){
+        delData(state,bind=""){
             state.notData=bind
-        }
+        },
+
     }
 };
 

@@ -1,22 +1,20 @@
 <template>
-    <div style='position: relative;height:100%;padding:10px;'>
-        <Row type="flex" justify="space-between" align="middle" class="code-row-bg" style='margin-bottom:10px;'>
+    <div class="list_page">
+        <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
             <Col span="4">
-            <h2 style="margin: 6px 0 0 20px">组织机构管理</h2>
+            <h2 class="com_header">组织机构管理</h2>
             </Col>
-            <Col style='text-align:right; width: 40%;   margin-right: 15px;'>
-            <Input size="large" v-model="searchWord" placeholder="请输入搜索内容..." style="width: 35%;height: 34px;"/>
+            <Col class="operation">
+            <Input size="large" v-model="searchWord" placeholder="请输入组织机构简称..." class="com_search"/>
             <Button type="primary" @click="searchChange">
                 <Icon type="ios-search-strong" style=" font-size:17px;"></Icon>
             </Button>
-            <Button type="primary" @click="add_ops" v-if="addOrigin">新增组织机构管理</Button>
+            <Button type="primary" @click="add_ops" v-if="adds">新增组织机构管理</Button>
             </Col>
         </Row>
-        <Table border :columns="columns7" :data="data6" :loading='SpinType' style="margin: 5px 15px 0 15px;"></Table>
+        <Table border :columns="columns7" :data="data6" :loading='SpinType' class="com_table"></Table>
         <Page :total="dataCount" :page-size="page.pageSize" :current="page.pageIndex" show-total class="paging"
               @on-change="changepage"></Page>
-
-
         <Modal
                 v-model="modal2"
                 title="修改信息"
@@ -25,55 +23,43 @@
                 :mask-closable="false">
 
             <Form ref="formItem" :model="formItem" :rules="ruleInline">
-                <FormItem prop="description">
-                    <p>描述</p>
+                <FormItem prop="description" label="描述">
                     <Input type="text" v-model="formItem.description" placeholder="描述">
                     </Input>
                 </FormItem>
-                <FormItem prop="fullName">
-                    <p>组织机构全称</p>
+                <FormItem prop="fullName" label="组织机构全称">
                     <Input type="text" v-model="formItem.fullName" placeholder="组织机构全称">
                     </Input>
                 </FormItem>
-                <FormItem prop="organizationCode">
-                    <p>组织机构编码</p>
+                <FormItem prop="organizationCode" label="组织机构编码">
                     <Input type="text" v-model="formItem.organizationCode" placeholder="组织机构编码">
                     </Input>
                 </FormItem>
-                <FormItem prop="organizationName">
-                    <p> 组织机构简称</p>
+                <FormItem prop="organizationName" label="组织机构简称">
                     <Input type="text" v-model="formItem.organizationName" placeholder="组织机构简称">
                     </Input>
                 </FormItem>
             </Form>
-            <div style="margin-left: 70%">
-                <Button type="primary" @click="sure" style="margin-right: 20px;">确定</Button>
+            <div class="sure-cancel">
+                <Button type="primary" @click="sure" class="sure_edit">确定</Button>
                 <Button @click="cancel">取消</Button>
             </div>
-
-
         </Modal>
     </div>
 </template>
 <style scoped>
-    .paging {
-        float: right;
-        margin-top: 10px;
 
-    }
 </style>
 <script>
     import api from '@/api';
+    import util from "@/libs/util.js"
     import Cookies from 'js-cookie';
-
     export default {
+        inject: ['reload'],
         data () {
             return {
                 SpinType: false,
                 ruleInline: {
-                    fullName: [
-                        {required: true, type: 'string', pattern: /\S/, message: '请输入正确的组织机构全称', trigger: 'blur'}
-                    ],
                     organizationCode: [
                         {required: true, message: '请输入组织机构编码且为数字', trigger: 'blur'}
                     ],
@@ -88,7 +74,6 @@
                     organizationCode: '',
                     organizationName: '',
                 },
-                searchShow: false,
                 searchWord: '',
                 dataCount: 0,
                 page: {
@@ -161,52 +146,22 @@
                     }
                 ],
                 data6: [],
-                addOrigin: false,
+                adds:false,
                 /*是否为全部显示*/
                 flag: 0,
                 searchInfo: false,
                 operation: {
                     edit: false,
                     del: false,
-                    edit_del: false,
+                    edit_del:false,
                 },
                 real: []
             };
         },
-        inject: ['reload'],
         computed: {},
         created () {
-            //判断权限
-            if (JSON.parse(localStorage.getItem('Jurisdiction'))) {
-                JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
 
-                   r.child && r.child.forEach(r => {
-                        if (r.resourceName == '查询组织机构列表') {
-
-                        } else if (r.resourceName == '新增组织机构') {
-                            this.addOrigin = true;
-                        } else if (r.resourceName == '修改组织机构') {
-                            this.operation.edit = true;
-                            this.flag = 1;
-                        } else if (r.resourceName == '删除组织机构') {
-                            if (this.flag === 1) {
-                                this.operation.edit_del = true;
-                            } else {
-                                this.operation.del = true;
-                            }
-                        }
-                        // }
-                    });
-                });
-            } else {
-                this.$Message.error('无法检测到你的权限');
-                this.$store.commit('logout', this);
-                this.$store.commit('clearOpenedSubmenu');
-                this.$router.push({
-                    name: 'login'
-                });
-            }
-            // Cookies.remove( 'home_index')
+            util.jurisdiction(this,'查询组织机构列表','新增组织机构','修改组织机构','删除组织机构')
             Cookies.remove('res_index');
             Cookies.remove('role_index');
             Cookies.remove('user_index');
@@ -249,6 +204,7 @@
                                 replace_data.organizationCode = this.formItem.organizationCode;
                                 replace_data.organizationName = this.formItem.organizationName;
                                 this.$Message.info('已修改');
+                                this.check_list();
                                 this.modal2 = false;
                             } else {
                                 this.$Message.info(res.data.msg);
@@ -433,7 +389,39 @@
 
     };
 </script>
-<style>
+<style lang="less">
+/*    .sure-cancel {
+        margin-left: 70%;
+        .sure_edit {
+            margin-right: 20px;
+        }
+    }
+
+    .org_table {
+        margin: 5px 15px 0 15px;
+    }
+
+    .code-row-bg {
+        margin-bottom: 10px;
+        .org_header {
+            margin: 6px 0 0 20px
+        }
+        .operation {
+            text-align: right;
+            width: 52%;
+            margin-right: 15px;
+            .org_search {
+                width: 35%;
+                height: 34px;
+            }
+        }
+    }
+
+    .paging {
+        float: right;
+        margin-top: 10px;
+    }*/
+
 </style>
 
 

@@ -81,7 +81,7 @@
                     resourse: false,
                     user: false,
                     role: false,
-                    three:true
+                    three:false
                 },
                 menuListDisplay: [],
                 activeName: '1-1',

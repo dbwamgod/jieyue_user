@@ -97,7 +97,6 @@
                     this.resIdList=[]
                     if (res.data.code == 200) {
                         this.$Message.info('已绑定');
-
                         this.$router.back(-1);
                     } else {
                         this.$Message.info(res.data.msg);
