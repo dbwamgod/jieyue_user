@@ -204,8 +204,9 @@ export default {
         return com_baseUrlC + '/organization/find/group/parent_id?' + cookies_con();
     },
     // 查询分类的
-    organizationFindGroupName () {
-        return com_baseUrlC + '/organization/find/group/name?' + cookies_con();
+    organizationFindGroupName (jsRoot) {
+
+        return com_baseUrlC + '/organization/find/group/name?'+`${jsRoot?'isRoot=true&':""}` + cookies_con();
     },
     // 查询组织列表
     organizationList () {

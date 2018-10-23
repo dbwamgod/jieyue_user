@@ -57,6 +57,7 @@
                 });
             },
             oks (name) {
+                console.log(this.value1);
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         if (this.value1.length !== 0) {
@@ -86,6 +87,8 @@
                         } else {
                             this.$Message.info('信息不完整');
                         }
+                    }else{
+                        this.$Message.error('信息不正确');
                     }
                 });
 
@@ -96,7 +99,7 @@
             organizationFindGroup_Name () {
                 this.$axios({
                     method: 'get',
-                    url: api.organizationFindGroupName(),
+                    url: api.organizationFindGroupName("true"),
                     headers: {
                         Authorization: Cookies.get('token'),
                         'Content-Type': 'application/json;charset=UTF-8'

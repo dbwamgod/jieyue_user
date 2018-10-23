@@ -46,8 +46,11 @@
     export default {
         watch: {
             'formItem.tenantId' (to, form) {
-                this.formItem.organizationId = [];
-                this.organizationData = this.CascaderIsName(this.data1, 'org', to);
+                if(to.length){
+                    this.formItem.organizationId = [];
+                    this.organizationData = this.orgCascaderIsName(this.data1[to[0]-1]);
+                }
+
             }
 
         },
@@ -86,51 +89,18 @@
                     });
                 }
 
-                if (name === 'org') {
-
-                    let newList = [];
-                    item.length && item.map((r, i) => {
-
-                        if (to == 1 && i == 0) {
-                            if (r.voList.length) {
-                                r.voList.map(it => {
-                                    newList.push({
-                                        label: it.organizationName,
-                                        value: it.organizationId,
-                                    });
-                                });
-                            }
-                        }
-                        if (to == 2 && i == 1) {
-                            if (r.voList.length) {
-                                r.voList.map(it => {
-                                    newList.push({
-                                        label: it.organizationName,
-                                        value: it.organizationId,
-                                    });
-                                });
-                            }
-                        }
-
-                    });
-                    return newList;
-                }
-
-                /*    if (name === 'org') {
-                        let newList = [];
-                        item.length && item.map(r => {
-                            if (r.voList.length) {
-                                r.voList.map(it => {
-                                    newList.push({
-                                        label: it.organizationName,
-                                        value: it.organizationId,
-                                    });
-                                });
-                            }
+            },
+            orgCascaderIsName(item){
+                let newList = [];
+                if (item.voList.length) {
+                    item.voList.map(it => {
+                        newList.push({
+                            label: it.organizationName,
+                            value: it.organizationId,
                         });
-                        return newList;
-                    }*/
-
+                    });
+                }
+                return newList;
             },
             oks (name) {
                 this.$refs[name].validate((valid) => {
@@ -202,7 +172,7 @@
                         {required: false, type: 'string', pattern: /^\d+$/, message: '请输入正确的序号', trigger: 'blur'},
                     ],
                     tenantId: [
-                        {required: true, message: '请输入正确的租户', trigger: 'blur'},
+                        {required: true, message: '请输入正确的租户'},
                     ],
                     pswd: [
                         {required: true, message: '请输入正确的密码', trigger: 'blur'},
