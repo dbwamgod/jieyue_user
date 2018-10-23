@@ -20,8 +20,11 @@
             <FormItem label="组织机构id" prop="organizationId">
                 <Input v-model="formItem.organizationId" placeholder="请填写组织机构id"></Input>
             </FormItem>-->
-            <FormItem label="租户+组织机构" prop="organizationId">
-                <Cascader :data="data1" v-model="formItem.organizationId"></Cascader>
+            <FormItem label="租户" prop="tenantId">
+                <Cascader :data="tenantData" v-model="formItem.tenantId"></Cascader>
+            </FormItem>
+            <FormItem label="组织机构" prop="organizationId">
+                <Cascader :data="organizationData" v-model="formItem.organizationId"></Cascader>
             </FormItem>
             <FormItem label="密码" prop="pswd">
                 <Input type="password" v-model="formItem.pswd" placeholder="请填写密码"></Input>
@@ -151,8 +154,11 @@
                     orderNo: [
                         {required: false, type: 'string', pattern: /^\d+$/, message: '请输入正确的序号', trigger: 'blur'},
                     ],
+                    tenantId: [
+                        {required: true, message: '请输入正确的租户', trigger: 'blur'},
+                    ],
                     organizationId: [
-                        {required: false, message: '请输入正确的组织机构'},
+                        {required: false, message: '请输入正确的组织机构',trigger: 'blur'},
                     ],
                     pswd: [
                         {required: true, message: '请输入正确的密码', trigger: 'blur'},

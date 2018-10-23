@@ -79,6 +79,7 @@ util.setCurrentPath = function (vm, name) {
     let title = '';
     let isOtherRouter = false;
     vm.$store.state.app.routers.forEach(item => {
+
         if (item.children.length === 1) {
             if (item.children[0].name === name) {
                 title = util.handleTitle(vm, item);
@@ -120,6 +121,7 @@ util.setCurrentPath = function (vm, name) {
             }
         ];
     } else {
+        console.log(vm.$store.state.app.routers);
         let currentPathObj = vm.$store.state.app.routers.filter(item => {
             if (item.children.length <= 1) {
                 return item.children[0].name === name;

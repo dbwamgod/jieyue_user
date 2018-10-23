@@ -222,6 +222,7 @@
         mounted () {
             this.init();
             window.addEventListener('resize', this.scrollBarResize);
+
         },
         created () {
 
@@ -235,7 +236,6 @@
             }
             //判断已登录后重新加载页面而导致的权限bug
             if (!sessionStorage.getItem('user_pages')) {
-                console.log(1);
                 if (localStorage.getItem('Jurisdiction')) {
                     let Code = JSON.parse(localStorage.getItem('Jurisdiction'))[0].resourceCode;
                     let CodeOrg = 0;
@@ -250,7 +250,6 @@
                             });
                         }else {
                             if(i==0){
-                                console.log(this.codeCompare[r.resourceCode]);
                              Cookies.set('defaultHome', this.codeCompare[r.resourceCode]);
                              this.$router.push({
                                  name:  Cookies.get('defaultHome')
