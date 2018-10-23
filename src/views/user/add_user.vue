@@ -44,9 +44,16 @@
     import Cookies from 'js-cookie';
 
     export default {
+        watch: {
+            'formItem.tenantId' (to, form) {
+                this.formItem.organizationId = [];
+                this.organizationData = this.CascaderIsName(this.data1, 'org', to);
+            }
+
+        },
         created () {
             this.init();
-            this.$store.commit("bindingChange")
+            this.$store.commit('bindingChange');
             Cookies.remove('user_index');
 
         },
@@ -62,39 +69,77 @@
                     }
                 }).then(res => {
                     if (res.data.code == 200) {
-                        this.data1 = this.CascaderIsName(res.data.data);
+                        this.data1 = res.data.data;
+                        this.tenantData = this.CascaderIsName(res.data.data, 'ten');
                     } else {
                         this.$Message.info(res.data.msg);
                     }
                 });
             },
-            CascaderIsName (item) {
-
-                return item.map(r => {
-                    if (r.hasOwnProperty('voList')) {
+            CascaderIsName (item, name, to) {
+                if (name === 'ten') {
+                    return item.map(r => {
                         return {
-                            label: r.organizationName || r.tenantName,
-                            value: r.organizationId || r.tenantId,
-                            children: this.CascaderIsName(r.voList)
+                            label: r.tenantName,
+                            value: r.tenantId,
                         };
-                    } else {
-                        return {
-                            label: r.tenantName || r.organizationName,
-                            value: r.tenantId || r.organizationId,
-                        };
-                    }
+                    });
+                }
 
-                });
+                if (name === 'org') {
+
+                    let newList = [];
+                    item.length && item.map((r, i) => {
+
+                        if (to == 1 && i == 0) {
+                            if (r.voList.length) {
+                                r.voList.map(it => {
+                                    newList.push({
+                                        label: it.organizationName,
+                                        value: it.organizationId,
+                                    });
+                                });
+                            }
+                        }
+                        if (to == 2 && i == 1) {
+                            if (r.voList.length) {
+                                r.voList.map(it => {
+                                    newList.push({
+                                        label: it.organizationName,
+                                        value: it.organizationId,
+                                    });
+                                });
+                            }
+                        }
+
+                    });
+                    return newList;
+                }
+
+                /*    if (name === 'org') {
+                        let newList = [];
+                        item.length && item.map(r => {
+                            if (r.voList.length) {
+                                r.voList.map(it => {
+                                    newList.push({
+                                        label: it.organizationName,
+                                        value: it.organizationId,
+                                    });
+                                });
+                            }
+                        });
+                        return newList;
+                    }*/
+
             },
             oks (name) {
-
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         this.$axios({
                             method: 'post',
                             url: api.userAdd(),
                             data: {
-                                tenantId: this.formItem.organizationId[0],
+                                tenantId: this.formItem.tenantId[0],
                                 currentUserId: Cookies.get('user_userId'),
                                 email: this.formItem.email,
                                 employeeCode: this.formItem.employeeCode,
@@ -134,6 +179,8 @@
         name: 'access_add',
         data () {
             return {
+                tenantData: [],
+                organizationData: [],
                 data1: [],
                 itemName: [],
                 value1: [],
@@ -157,14 +204,12 @@
                     tenantId: [
                         {required: true, message: '请输入正确的租户', trigger: 'blur'},
                     ],
-                    organizationId: [
-                        {required: false, message: '请输入正确的组织机构',trigger: 'blur'},
-                    ],
                     pswd: [
                         {required: true, message: '请输入正确的密码', trigger: 'blur'},
                     ]
                 },
                 formItem: {
+                    tenantId: [],
                     currentUserId: '',
                     email: '',
                     employeeCode: '',
