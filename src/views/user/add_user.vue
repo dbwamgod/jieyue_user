@@ -116,7 +116,7 @@
                                 mobile: this.formItem.mobile,
                                 nickname: this.formItem.nickname,
                                 orderNo: this.formItem.orderNo,
-                                organizationId: this.formItem.organizationId[1],
+                                organizationId: this.formItem.organizationId[0],
                                 pswd: this.formItem.pswd,
                             },
                             headers: {
