@@ -20,8 +20,11 @@
             <FormItem label="组织机构id" prop="organizationId">
                 <Input v-model="formItem.organizationId" placeholder="请填写组织机构id"></Input>
             </FormItem>-->
-            <FormItem label="租户+组织机构" prop="organizationId">
-                <Cascader :data="data1" v-model="formItem.organizationId"></Cascader>
+            <FormItem label="租户" prop="tenantId">
+                <Cascader :data="tenantData" v-model="formItem.tenantId"></Cascader>
+            </FormItem>
+            <FormItem label="组织机构" prop="organizationId">
+                <Cascader :data="organizationData" v-model="formItem.organizationId"></Cascader>
             </FormItem>
             <FormItem label="密码" prop="pswd">
                 <Input type="password" v-model="formItem.pswd" placeholder="请填写密码"></Input>
@@ -41,9 +44,19 @@
     import Cookies from 'js-cookie';
 
     export default {
+        watch: {
+            'formItem.tenantId' (to, form) {
+                if(to.length){
+                    this.formItem.organizationId = [];
+                    this.organizationData = this.orgCascaderIsName(this.data1[to[0]-1]);
+                }
+
+            }
+
+        },
         created () {
             this.init();
-            this.$store.commit("bindingChange")
+            this.$store.commit('bindingChange');
             Cookies.remove('user_index');
 
         },
@@ -59,46 +72,51 @@
                     }
                 }).then(res => {
                     if (res.data.code == 200) {
-                        this.data1 = this.CascaderIsName(res.data.data);
+                        this.data1 = res.data.data;
+                        this.tenantData = this.CascaderIsName(res.data.data, 'ten');
                     } else {
                         this.$Message.info(res.data.msg);
                     }
                 });
             },
-            CascaderIsName (item) {
-
-                return item.map(r => {
-                    if (r.hasOwnProperty('voList')) {
+            CascaderIsName (item, name, to) {
+                if (name === 'ten') {
+                    return item.map(r => {
                         return {
-                            label: r.organizationName || r.tenantName,
-                            value: r.organizationId || r.tenantId,
-                            children: this.CascaderIsName(r.voList)
+                            label: r.tenantName,
+                            value: r.tenantId,
                         };
-                    } else {
-                        return {
-                            label: r.tenantName || r.organizationName,
-                            value: r.tenantId || r.organizationId,
-                        };
-                    }
+                    });
+                }
 
-                });
+            },
+            orgCascaderIsName(item){
+                let newList = [];
+                if (item.voList.length) {
+                    item.voList.map(it => {
+                        newList.push({
+                            label: it.organizationName,
+                            value: it.organizationId,
+                        });
+                    });
+                }
+                return newList;
             },
             oks (name) {
-
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         this.$axios({
                             method: 'post',
                             url: api.userAdd(),
                             data: {
-                                tenantId: this.formItem.organizationId[0],
+                                tenantId: this.formItem.tenantId[0],
                                 currentUserId: Cookies.get('user_userId'),
                                 email: this.formItem.email,
                                 employeeCode: this.formItem.employeeCode,
                                 mobile: this.formItem.mobile,
                                 nickname: this.formItem.nickname,
                                 orderNo: this.formItem.orderNo,
-                                organizationId: this.formItem.organizationId[1],
+                                organizationId: this.formItem.organizationId[0],
                                 pswd: this.formItem.pswd,
                             },
                             headers: {
@@ -131,6 +149,8 @@
         name: 'access_add',
         data () {
             return {
+                tenantData: [],
+                organizationData: [],
                 data1: [],
                 itemName: [],
                 value1: [],
@@ -151,14 +171,15 @@
                     orderNo: [
                         {required: false, type: 'string', pattern: /^\d+$/, message: '请输入正确的序号', trigger: 'blur'},
                     ],
-                    organizationId: [
-                        {required: false, message: '请输入正确的组织机构'},
+                    tenantId: [
+                        {required: true, message: '请输入正确的租户'},
                     ],
                     pswd: [
                         {required: true, message: '请输入正确的密码', trigger: 'blur'},
                     ]
                 },
                 formItem: {
+                    tenantId: [],
                     currentUserId: '',
                     email: '',
                     employeeCode: '',
