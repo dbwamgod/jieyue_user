@@ -1,7 +1,11 @@
 const user_baseUrlC = 'http://172.18.101.118:10000/platform-user-api';
 const _baseUrlC = 'http://172.18.101.118:10000';
 const com_baseUrlC = 'http://172.18.101.118:10000/platform-user-admin';
+/* 生产
+*/
+// const user_baseUrlC = 'http://api.bdc.jieyue.com/api/platform-user-api';
 // const _baseUrlC = 'http://api.bdc.jieyue.com/api';
+// const com_baseUrlC = 'http://api.bdc.jieyue.com/api/platform-user-admin';
 import Cookies from 'js-cookie';
 
 //权限
