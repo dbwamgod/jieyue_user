@@ -62,7 +62,7 @@
             </div> -->
         </div>
         <div class="single-page-con" :style="{left: shrink?'60px':'200px'}">
-            <div class="single-page" style="margin:0"  v-if="bock">
+            <div class="single-page" style="margin:0" v-if="bock">
                 <router-view></router-view>
             </div>
         </div>
@@ -97,7 +97,14 @@
         },
         data () {
             return {
-                codeCompare:{ORG:"tenant_index",TENANT:"home_index",RES:"resource_index",USER:"accesstest_index",ROLE:"access_index",THREE_SYSTEM:"oauth_index"},
+                codeCompare: {
+                    ORG: 'org_index',
+                    TENANT: 'tenant_index',
+                    RES: 'resource_index',
+                    USER: 'accesstest_index',
+                    ROLE: 'access_index',
+                    THREE_SYSTEM: 'oauth_index'
+                },
                 bock: true,
                 shrink: false,
                 userName: '',
@@ -222,9 +229,11 @@
         mounted () {
             this.init();
             window.addEventListener('resize', this.scrollBarResize);
-
         },
         created () {
+            // 显示打开的页面的列表
+            this.$store.commit('setOpenedList');
+
 
             //本地权限校验没有存储后 会自动跳到登录页
             if (!JSON.parse(localStorage.getItem('Jurisdiction'))) {
@@ -234,42 +243,38 @@
                     name: 'login'
                 });
             }
+
             //判断已登录后重新加载页面而导致的权限bug
-            if (!sessionStorage.getItem('user_pages')) {
+            if (!Cookies.get('login_info')) {
                 if (localStorage.getItem('Jurisdiction')) {
-                    let Code = JSON.parse(localStorage.getItem('Jurisdiction'))[0].resourceCode;
-                    let CodeOrg = 0;
-                    if (JSON.parse(localStorage.getItem('Jurisdiction'))[1]) {
-                        CodeOrg = JSON.parse(localStorage.getItem('Jurisdiction'))[1].resourceCode;
-                    }
-                    JSON.parse(localStorage.getItem('Jurisdiction')).map((r,i)=>{
-                        if(r.resourceCode=="TENANT"&&CodeOrg !== 'ORG'){
-                            Cookies.set('defaultHome', 'tenant_index');
+                    JSON.parse(localStorage.getItem('Jurisdiction')).map((r, i) => {
+                        if (i === 0 ||i===1) {
+                            if(i===0){
+                                Cookies.set('defaultHome', this.codeCompare[r.resourceCode]);
+                            }else if (i===1&&r.resourceCode==="TENANT"){
+                                this.activeName="1-1"
+                                Cookies.set('defaultHome', "org_index");
+                            }
                             this.$router.push({
-                                name: 'tenant_index'
+                                name: Cookies.get('defaultHome')
                             });
-                        }else {
-                            if(i==0){
-                             Cookies.set('defaultHome', this.codeCompare[r.resourceCode]);
-                             this.$router.push({
-                                 name:  Cookies.get('defaultHome')
-                             });
-                         }
+
                         }
-                    })
+                    });
                 }
             }
+           Cookies.get("login_info")&&Cookies.set("login_info","0")
             Array.prototype.remove = function (val) {
                 let index = this.indexOf(val);
                 if (index > -1) {
                     this.splice(index, 1);
                 }
             };
-            // 显示打开的页面的列表
-            this.$store.commit('setOpenedList');
+
+
         },
         dispatch () {
             window.removeEventListener('resize', this.scrollBarResize);
-        }
+        },
     };
 </script>

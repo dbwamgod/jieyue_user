@@ -12,31 +12,32 @@
             <Button type="primary" @click="add_ops" v-if="adds">新增组织机构管理</Button>
             </Col>
         </Row>
-        <Table border :columns="columns7" :data="data6" :loading='SpinType' class="com_table"></Table>
+        <Table border :columns="organizationTable" :data="organizationTableData" :loading='SpinType'
+               class="com_table"></Table>
         <Page :total="dataCount" :page-size="page.pageSize" :current="page.pageIndex" show-total class="paging"
               @on-change="changepage"></Page>
         <Modal
-                v-model="modal2"
+                v-model="organizationModal"
                 title="修改信息"
                 :footer-hide='true'
                 :closable="false"
                 :mask-closable="false">
 
-            <Form ref="formItem" :model="formItem" :rules="ruleInline">
+            <Form ref="organizationsItem" :model="organizationsItem" :rules="organizationRule">
                 <FormItem prop="description" label="描述">
-                    <Input type="text" v-model="formItem.description" placeholder="描述">
+                    <Input type="text" v-model="organizationsItem.description" placeholder="描述">
                     </Input>
                 </FormItem>
                 <FormItem prop="fullName" label="组织机构全称">
-                    <Input type="text" v-model="formItem.fullName" placeholder="组织机构全称">
+                    <Input type="text" v-model="organizationsItem.fullName" placeholder="组织机构全称">
                     </Input>
                 </FormItem>
                 <FormItem prop="organizationCode" label="组织机构编码">
-                    <Input type="text" v-model="formItem.organizationCode" placeholder="组织机构编码">
+                    <Input type="text" v-model="organizationsItem.organizationCode" placeholder="组织机构编码">
                     </Input>
                 </FormItem>
                 <FormItem prop="organizationName" label="组织机构简称">
-                    <Input type="text" v-model="formItem.organizationName" placeholder="组织机构简称">
+                    <Input type="text" v-model="organizationsItem.organizationName" placeholder="组织机构简称">
                     </Input>
                 </FormItem>
             </Form>
@@ -52,35 +53,36 @@
 </style>
 <script>
     import api from '@/api';
-    import util from "@/libs/util.js"
+    import util from '@/libs/util.js';
     import Cookies from 'js-cookie';
+
     export default {
         inject: ['reload'],
         data () {
             return {
-                SpinType: false,
-                ruleInline: {
+                SpinType: false,//懒加载
+                organizationRule: {
                     organizationCode: [
                         {required: true, message: '请输入组织机构编码且为数字', trigger: 'blur'}
                     ],
                     organizationName: [
                         {required: true, message: '请输入组织机构简称', trigger: 'blur'}
                     ],
-                },
-                modal2: false,
-                formItem: {
+                },//组织机构校验规则
+                organizationModal: false,//修改弹出框
+                organizationsItem: {
                     description: '',
                     fullName: '',
                     organizationCode: '',
                     organizationName: '',
                 },
-                searchWord: '',
-                dataCount: 0,
+                searchWord: '',//搜索词
+                dataCount: 0,//当前总页数
                 page: {
                     pageIndex: 1,
                     pageSize: 10
-                },
-                columns7: [
+                },//当前页信息
+                organizationTable: [
                     {
                         title: '租户名称',
                         key: 'tenantName'
@@ -145,23 +147,20 @@
                         }
                     }
                 ],
-                data6: [],
-                adds:false,
-                /*是否为全部显示*/
-                flag: 0,
+                organizationTableData: [],
+                adds: false,//新增权限
                 searchInfo: false,
                 operation: {
                     edit: false,
                     del: false,
-                    edit_del:false,
-                },
+                    edit_del: false,
+                },//权限校验的数据
                 real: []
             };
         },
-        computed: {},
         created () {
-
-            util.jurisdiction(this,'查询组织机构列表','新增组织机构','修改组织机构','删除组织机构')
+            //权限判断
+            util.jurisdiction(this, '查询组织机构列表', '新增组织机构', '修改组织机构', '删除组织机构');
             Cookies.remove('res_index');
             Cookies.remove('role_index');
             Cookies.remove('user_index');
@@ -180,17 +179,17 @@
         methods: {
             //确定修改
             sure () {
-                this.$refs.formItem.validate((valid) => {
+                this.$refs.organizationsItem.validate((valid) => {
                     if (valid) {
                         this.$axios({
                             method: 'post',
                             url: api.organizationUpdate(),
                             data: {
-                                description: this.formItem.description,
-                                fullName: this.formItem.fullName,
-                                organizationCode: this.formItem.organizationCode,
-                                organizationName: this.formItem.organizationName,
-                                organizationId: this.formItem.organizationId,
+                                description: this.organizationsItem.description,
+                                fullName: this.organizationsItem.fullName,
+                                organizationCode: this.organizationsItem.organizationCode,
+                                organizationName: this.organizationsItem.organizationName,
+                                organizationId: this.organizationsItem.organizationId,
                             },
                             headers: {
                                 Authorization: Cookies.get('token'),
@@ -198,17 +197,11 @@
                             }
                         }).then(res => {
                             if (res.data.code === 200) {
-                                let replace_data = this.data6[Cookies.get('org_num')];
-                                replace_data.description = this.formItem.description;
-                                replace_data.fullName = this.formItem.fullName;
-                                replace_data.organizationCode = this.formItem.organizationCode;
-                                replace_data.organizationName = this.formItem.organizationName;
                                 this.$Message.info('已修改');
                                 this.check_list();
-                                this.modal2 = false;
+                                this.organizationModal = false;
                             } else {
                                 this.$Message.info(res.data.msg);
-
                             }
                         });
                     } else {
@@ -219,14 +212,8 @@
             },
             //取消修改
             cancel () {
-                let a = this.data6.map(r => {
-                    if (r.userId === this.real.userId) {
-                        r:Object.assign({}, ...this.real);
-                    }
-                });
-                this.$refs.formItem.resetFields();
-
-                this.modal2 = false;
+                this.$refs.organizationsItem.resetFields();
+                this.organizationModal = false;
                 this.$Message.info('已取消');
             },
             //搜索
@@ -260,21 +247,15 @@
                 }).then(res => {
                     if (res.data.code == 200) {
                         this.SpinType = false;
-                        // if(this.page.pageIndex===0){
-                        //     this.page.pageIndex=1
-                        //     return
-                        // }
                         if (res.data.data) {
-                            this.data6 = res.data.data;
+                            this.organizationTableData = res.data.data;
                             this.dataCount = res.data.page.totalRecords;
                         } else {
                             if (this.searchInfo) {
-                                this.data6 = [];
+                                this.organizationTableData = [];
                                 this.dataCount = 0;
                             } else {
-                                // this.page.pageIndex=--this.page.pageIndex||1
-                                // this.check_list()
-                                this.data6 = [];
+                                this.organizationTableData = [];
                                 this.dataCount = 0;
                             }
                         }
@@ -294,18 +275,18 @@
             },
             //新增
             add_ops () {
-                this.$router.push({path: '/addOrganization', query: {data6: this.data6}});
+                this.$router.push({path: '/addOrganization', query: {data6: this.organizationTableData}});
             },
             //修改
             edit (num) {
-                this.formItem = JSON.parse(JSON.stringify(this.data6[num]));
-                this.real = JSON.parse(JSON.stringify(this.data6[num]));
-                this.modal2 = true;
+                this.organizationsItem = JSON.parse(JSON.stringify(this.organizationTableData[num]));
+                this.real = JSON.parse(JSON.stringify(this.organizationTableData[num]));
+                this.organizationModal = true;
                 Cookies.set('org_num', num);
                 Cookies.set('home_index', this.page.pageIndex);
                 /*this.$router.push({
                     name: 'origin_update',
-                    query: {data6: JSON.stringify(this.data6[num])}
+                    query: {organizationTableData: JSON.stringify(this.organizationTableData[num])}
                 });*/
             },
             //删除
@@ -321,7 +302,7 @@
                                 method: 'post',
                                 url: api.organizationDel(),
                                 data: {
-                                    organizationId: this.data6[index].organizationId,
+                                    organizationId: this.organizationTableData[index].organizationId,
                                     userId: Cookies.get('userId')
                                 },
                                 headers: {
@@ -330,7 +311,7 @@
                                 }
                             }).then(res => {
                                 if (res.data.code == 200) {
-                                    if (this.data6.length < 2) {
+                                    if (this.organizationTableData.length < 2) {
 
                                         this.$axios({
                                             method: 'post',
@@ -350,14 +331,14 @@
                                                     --this.page.pageIndex;
                                                 }
                                                 if (res.data.data) {
-                                                    this.data6 = res.data.data;
+                                                    this.organizationTableData = res.data.data;
                                                     this.dataCount = res.data.page.totalRecords;
                                                 } else {
                                                     if (res.data.page) {
                                                         this.dataCount = 0;
-                                                        this.data6 = [];
+                                                        this.organizationTableData = [];
                                                     } else {
-                                                        this.data6 = [];
+                                                        this.organizationTableData = [];
                                                         this.dataCount = 0;
                                                     }
                                                 }
@@ -390,37 +371,6 @@
     };
 </script>
 <style lang="less">
-/*    .sure-cancel {
-        margin-left: 70%;
-        .sure_edit {
-            margin-right: 20px;
-        }
-    }
-
-    .org_table {
-        margin: 5px 15px 0 15px;
-    }
-
-    .code-row-bg {
-        margin-bottom: 10px;
-        .org_header {
-            margin: 6px 0 0 20px
-        }
-        .operation {
-            text-align: right;
-            width: 52%;
-            margin-right: 15px;
-            .org_search {
-                width: 35%;
-                height: 34px;
-            }
-        }
-    }
-
-    .paging {
-        float: right;
-        margin-top: 10px;
-    }*/
 
 </style>
 

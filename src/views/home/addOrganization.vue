@@ -57,7 +57,7 @@
                 });
             },
             oks (name) {
-                console.log(this.value1);
+
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         if (this.value1.length !== 0) {

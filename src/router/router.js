@@ -73,7 +73,7 @@ export const otherRouter = {
         {
             path: 'organization-management-system',
             title: '组织机构管理',
-            name: 'index',
+            name: 'org_index',
             component: () => import('@/views/home/home.vue'),
         },
 

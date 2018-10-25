@@ -46,9 +46,9 @@
     export default {
         watch: {
             'formItem.tenantId' (to, form) {
-                if(to.length){
+                if(to){
                     this.formItem.organizationId = [];
-                    this.organizationData = this.orgCascaderIsName(this.data1[to[0]-1]);
+                    this.organizationData =  this.data1[to[0]-1]&& this.orgCascaderIsName(this.data1[to[0]-1]);
                 }
 
             }
@@ -92,14 +92,12 @@
             },
             orgCascaderIsName(item){
                 let newList = [];
-                if (item.voList.length) {
-                    item.voList.map(it => {
+                    item.voList.length&&item.voList.map(it => {
                         newList.push({
                             label: it.organizationName,
                             value: it.organizationId,
                         });
                     });
-                }
                 return newList;
             },
             oks (name) {

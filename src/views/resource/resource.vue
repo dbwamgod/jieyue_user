@@ -24,24 +24,24 @@
                 :mask-closable="false"
         >
 
-            <Form ref="formItem" :model="formItem" :rules="ruleInline">
+            <Form ref="resourceForm" :model="resourceForm" :rules="resourceRule">
                 <FormItem label="描述" prop="description">
-                    <Input v-model="formItem.description" placeholder="描述"></Input>
+                    <Input v-model="resourceForm.description" placeholder="描述"></Input>
                 </FormItem>
                 <FormItem label="排序号" prop="orderNo">
-                    <Input v-model="formItem.orderNo" placeholder="排列顺序"></Input>
+                    <Input v-model="resourceForm.orderNo" placeholder="排列顺序"></Input>
                 </FormItem>
                 <FormItem label="资源名" prop="resourceName">
-                    <Input v-model="formItem.resourceName" placeholder="资源名称"></Input>
+                    <Input v-model="resourceForm.resourceName" placeholder="资源名称"></Input>
                 </FormItem>
                 <FormItem label="url路径" prop="url" v-show="!isShow">
-                    <Input v-model="formItem.url"></Input>
+                    <Input v-model="resourceForm.url"></Input>
                 </FormItem>
                 <FormItem label="url路径" prop="mustUrl" v-show="isShow">
-                    <Input v-model="formItem.url"></Input>
+                    <Input v-model="resourceForm.url"></Input>
                 </FormItem>
                 <FormItem label="是否为菜单" prop="isMenu">
-                    <RadioGroup v-model="formItem.isMenu">
+                    <RadioGroup v-model="resourceForm.isMenu">
                         <Radio label="1">是</Radio>
                         <Radio label="0">否</Radio>
                     </RadioGroup>
@@ -66,7 +66,7 @@
         data () {
             return {
                 SpinType: false,
-                ruleInline: {
+                resourceRule: {
                     resourceName: [
                         {
                             required: true,
@@ -83,7 +83,7 @@
                         {required: false, trigger: 'blur'}
                     ],
                 },
-                formItem: {
+                resourceForm: {
                     description: '',
                     orderNo: 100,
                     resourceName: '',
@@ -216,16 +216,16 @@
                 Cookies.remove('res_index');
             }
             this.res_List();
-            this.formItem.url == 0 ? this.isShow = false : this.isShow = true;
+            this.resourceForm.url == 0 ? this.isShow = false : this.isShow = true;
         },
         watch: {
-            'formItem.isMenu' (to, form) {
+            'resourceForm.isMenu' (to, form) {
                 if (to == 1) {
                     this.isShow = true;
-                    this.ruleInline.url = [];
+                    this.resourceRule.url = [];
                 } else {
                     this.isShow = false;
-                    this.ruleInline.url = [{required: true,  type: 'string', pattern: /\S/,message: '请输入url路径且不为空', trigger: 'blur'}];
+                    this.resourceRule.url = [{required: true,  type: 'string', pattern: /\S/,message: '请输入url路径且不为空', trigger: 'blur'}];
 
                 }
             }
@@ -310,13 +310,14 @@
                                 }
                             }).then(res => {
                                 if (res.data.code == 200) {
+
                                     if (this.data1.length < 2) {
                                         this.$axios({
                                             method: 'post',
                                             url: api.res_list(),
                                             data: {
                                                 keyword: this.searchWord,
-                                                currentPage: 1,
+                                                currentPage: this.page.pageIndex,
                                                 pageSize: this.page.pageSize
                                             },
                                             headers: {
@@ -339,7 +340,7 @@
                                     } else {
                                         this.$Message.info('已删除');
                                         this.searchInfo = true;
-                                        this.res_List();
+                                        this.data1.splice(index,1)
                                     }
                                     // this.role_List(Cookies.get('del'))
                                 } else {
@@ -353,20 +354,20 @@
             },
             //确定修改
             sure () {
-                this.$refs.formItem.validate((valid) => {
+                this.$refs.resourceForm.validate((valid) => {
                     if (valid) {
                         this.$axios({
                             method: 'post',
                             url: api.res_update(),
                             data: {
-                                description: this.formItem.description,
-                                orderNo: this.formItem.orderNo || 100,
-                                resourceId: this.formItem.resourceId,
-                                isMenu: this.formItem.isMenu,
-                                resourceName: this.formItem.resourceName,
-                                url: this.formItem.url ,
+                                description: this.resourceForm.description,
+                                orderNo: this.resourceForm.orderNo || 100,
+                                resourceId: this.resourceForm.resourceId,
+                                isMenu: this.resourceForm.isMenu,
+                                resourceName: this.resourceForm.resourceName,
+                                url: this.resourceForm.url ,
                                 userId: Cookies.get('userId'),
-                                parentId: this.formItem.parentId
+                                parentId: this.resourceForm.parentId
                             },
                             headers: {
                                 Authorization: Cookies.get('token'),
@@ -396,7 +397,7 @@
                         r:Object.assign({}, ...this.real);
                     }
                 });
-                this.$refs.formItem.resetFields();
+                this.$refs.resourceForm.resetFields();
                 this.modal2 = false;
                 this.$Message.info('已取消');
             },
@@ -408,18 +409,13 @@
                     url: api.res_search(i),
                 }).then(r => {
                     if (r.data.code == 200) {
-
-                        this.formItem = JSON.parse(JSON.stringify(r.data.data));
+                        this.resourceForm = JSON.parse(JSON.stringify(r.data.data));
                         this.real = JSON.parse(JSON.stringify(r.data.data));
-
                         this.modal2 = true;
                         Cookies.set('res_num', num);
                         Cookies.set('res_index', this.page.pageIndex);
-
                     }
                 });
-                /*    this.formItem = JSON.parse(JSON.stringify(this.data1[num]));
-                    this.real = JSON.parse(JSON.stringify(this.data1[num]));*/
             }
         },
 

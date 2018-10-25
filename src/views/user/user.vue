@@ -314,7 +314,7 @@
                         } else {
                             this.$Message.info('已删除');
                             this.searchInfo = true;
-                            this.user_List();
+                          this.historyData.splice(index,1)
                         }
                         this.$Modal.remove();
                     }
@@ -322,9 +322,7 @@
                         this.$Modal.remove();
                         this.$Message.info(res.data.msg);
                     }
-
                 });
-
             },
             user_Update () {
                 this.$axios({

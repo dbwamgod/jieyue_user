@@ -57,8 +57,8 @@
                     password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
                 },
                 codeCompare: {
-                    ORG: 'tenant_index',
-                    TENANT: 'home_index',
+                    ORG: 'org_index',
+                    TENANT: 'tenant_index',
                     RES: 'resource_index',
                     USER: 'accesstest_index',
                     ROLE: 'access_index',
@@ -114,6 +114,7 @@
 
                                         if (res.data.code == 200) {
                                             if(res.data.data.length){
+                                                Cookies.set("login_info","1")
                                                 let dataLen = [];
                                                 res.data.data.map((r, i) => {
                                                     dataLen.push(r);
@@ -129,27 +130,24 @@
                                                         });
                                                     }
                                                 });
-
                                                 let resourceCodes = resource.map(r => r.resourceCode);
                                                 localStorage.setItem('child', JSON.stringify(this.disNay));
                                                 if (resourceCodes.includes('ORG')) {
-                                                    Cookies.set('defaultHome', 'home_index');
+                                                    Cookies.set('defaultHome', 'org_index');
                                                     this.$router.push({
-                                                        name: 'home_index'
+                                                        name: 'org_index'
                                                     });
-
                                                     return;
                                                 } else {
                                                     for (var code in  resourceCodes) {
 
-                                                        if (resourceCodes.includes('TENANT')) {
-                                                            Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
-                                                            this.$router.push({
-                                                                name: this.codeCompare[resourceCodes[code]]
-                                                            });
-                                                            return;
-                                                        }
-
+                                                        // if (resourceCodes.includes('TENANT')) {
+                                                        //     Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
+                                                        //     this.$router.push({
+                                                        //         name: this.codeCompare[resourceCodes[code]]
+                                                        //     });
+                                                        //     return;
+                                                        // }
                                                         Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
                                                         this.$router.push({
                                                             name: this.codeCompare[resourceCodes[code]]
@@ -169,58 +167,6 @@
                                                     content: '您未开通系统权限, 请联系管理员',
                                                 });
                                             }
-
-
-                                            /*    for (let i = 0; i < resource.length; i++) {
-
-                                                    if(resource[i + 1]){
-                                                        if (resource[i].resourceCode == 'TENANT' || resource[i + 1].resourceCode == 'TENANT') {
-                                                            Cookies.set('defaultHome', 'home_index');
-                                                            this.$router.push({
-                                                                name: 'home_index'
-                                                            });
-                                                            break;
-                                                        }
-                                                    }
-                                                    if (resource[i].resourceCode == 'ORG') {
-                                                        Cookies.set('defaultHome', 'tenant_index');
-                                                        this.$router.push({
-                                                            name: 'tenant_index'
-                                                        });
-                                                        break;
-                                                    }
-                                                    if (resource[i].resourceCode == 'RES') {
-                                                        Cookies.set('defaultHome', 'resource_index');
-                                                        this.$router.push({
-                                                            name: 'resource_index'
-                                                        });
-                                                        break;
-                                                    }
-                                                    if (resource[i].resourceCode == 'USER') {
-                                                        Cookies.set('defaultHome', 'accesstest_index');
-                                                        this.$router.push({
-                                                            name: 'accesstest_index'
-                                                        });
-                                                        break;
-                                                    }
-                                                    if (resource[i].resourceCode == 'ROLE') {
-                                                        Cookies.set('defaultHome', 'access_index');
-                                                        this.$router.push({
-                                                            name: 'access_index'
-                                                        });
-                                                        break;
-                                                    }
-                                                    if (resource[i].resourceCode == 'THREE_SYSTEM') {
-                                                        Cookies.set('defaultHome', 'oauth_index');
-                                                        this.$router.push({
-                                                            name: 'oauth_index'
-                                                        });
-                                                        break;
-                                                    }
-                                                }*/
-
-
-
                                         } else {
                                             this.msg = res.data.msg;
                                             const title = '资源错误';
@@ -244,7 +190,11 @@
                     }
 
                 });
+
             }
+        },
+        beforeDestroy(){
+
         }
     };
 </script>
