@@ -7,7 +7,7 @@
             <Col span="2"  class="operation" >
             <Input size="large" v-model="searchWord" placeholder="请输入资源名称..." class="com_search"/>
             <Button type="primary" @click="searchChange">
-                <Icon type="ios-search-strong" style="font-size:17px;"></Icon>
+                <Icon type="md-search" style="font-size:17px;"></Icon>
             </Button>
             <Button type="primary" @click="res_add" v-if="adds">新增资源</Button>
             </Col>
@@ -207,10 +207,8 @@
             }
 
             util.jurisdiction(this,'查询资源列表','新增资源','修改资源','删除资源')
+            this.operation.edit || this.operation.edit_del || this.operation.del ?this.columns1.splice(this.columns1.length - 1, 0): this.columns1.splice(this.columns1.length - 1, 1);
 
-            if (!(this.operation.edit || this.operation.del)) {
-                this.columns1.splice(this.columns1.length - 1, 1);
-            }
             if (Cookies.get('res_index')) {
                 this.page.pageIndex = Number(Cookies.get('res_index'));
                 Cookies.remove('res_index');
@@ -342,7 +340,7 @@
                                         this.searchInfo = true;
                                         this.data1.splice(index,1)
                                     }
-                                    // this.role_List(Cookies.get('del'))
+
                                 } else {
                                     this.$Message.info(res.data.msg);
                                 }

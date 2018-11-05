@@ -7,22 +7,23 @@
         <div class="login-con">
             <Card :bordered="false">
                 <p slot="title">
-                    <Icon type="log-in"></Icon>
+                    <Icon type="md-log-in"></Icon>
                     欢迎登录
                 </p>
+                <!--<Tree :data="data2" show-checkbox @on-check-change="checkChange" ref="treeT"></Tree>-->
                 <div class="form-con">
                     <Form id="form_id" ref="loginForm" :model="form" :rules="rules">
                         <FormItem prop="userName">
                             <Input v-model="form.userName" placeholder="请输入用户名">
                             <span slot="prepend">
-                                    <Icon :size="16" type="person"></Icon>
+                                    <Icon :size="16" type="md-person"></Icon>
                                 </span>
                             </Input>
                         </FormItem>
                         <FormItem prop="password">
                             <Input type="password" v-model="form.password" placeholder="请输入密码">
                             <span slot="prepend">
-                                    <Icon :size="14" type="locked"></Icon>
+                                    <Icon :size="14" type="md-lock"></Icon>
                                 </span>
                             </Input>
                         </FormItem>
@@ -68,7 +69,6 @@
             };
         },
         methods: {
-
             handleSubmit () {
                 let _self = this;
                 this.$refs.loginForm.validate(valid => {
@@ -113,8 +113,8 @@
                                     }).then(res => {
 
                                         if (res.data.code == 200) {
-                                            if(res.data.data.length){
-                                                Cookies.set("login_info","1")
+                                            if (res.data.data.length) {
+                                                Cookies.set('login_info', '1');
                                                 let dataLen = [];
                                                 res.data.data.map((r, i) => {
                                                     dataLen.push(r);
@@ -141,13 +141,6 @@
                                                 } else {
                                                     for (var code in  resourceCodes) {
 
-                                                        // if (resourceCodes.includes('TENANT')) {
-                                                        //     Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
-                                                        //     this.$router.push({
-                                                        //         name: this.codeCompare[resourceCodes[code]]
-                                                        //     });
-                                                        //     return;
-                                                        // }
                                                         Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
                                                         this.$router.push({
                                                             name: this.codeCompare[resourceCodes[code]]
@@ -155,7 +148,7 @@
                                                         return;
                                                     }
                                                 }
-                                            }else{
+                                            } else {
                                                 const title = '登录错误';
                                                 Cookies.remove('user_user');
                                                 Cookies.remove('user_password');
@@ -191,11 +184,20 @@
 
                 });
 
-            }
+            },
+           /* checkChange (e) {
+                let checkNodes = this.$refs.treeT.getCheckedAndIndeterminateNodes();
+                console.log(checkNodes, e);
+                checkNodes.map(r => {
+                    if (r.id == e.parentId) {
+                        r.children.map(t => {
+                            console.log(t.id,t.parentId);
+                        });
+                    }
+                });
+            }*/
         },
-        beforeDestroy(){
 
-        }
     };
 </script>
 

@@ -7,7 +7,7 @@
             <Col class="operation">
             <Input size="large" v-model="searchWord" placeholder="请输入组织机构简称..." class="com_search"/>
             <Button type="primary" @click="searchChange">
-                <Icon type="ios-search-strong" style=" font-size:17px;"></Icon>
+                <Icon type="md-search" style=" font-size:17px;"></Icon>
             </Button>
             <Button type="primary" @click="add_ops" v-if="adds">新增组织机构管理</Button>
             </Col>
@@ -161,6 +161,8 @@
         created () {
             //权限判断
             util.jurisdiction(this, '查询组织机构列表', '新增组织机构', '修改组织机构', '删除组织机构');
+            this.operation.edit || this.operation.edit_del || this.operation.del ? this.organizationTable.splice(this.organizationTable.length - 1, 0) : this.organizationTable.splice(this.organizationTable.length - 1, 1);//判断table有没有"操作"这个文本
+
             Cookies.remove('res_index');
             Cookies.remove('role_index');
             Cookies.remove('user_index');
@@ -251,13 +253,8 @@
                             this.organizationTableData = res.data.data;
                             this.dataCount = res.data.page.totalRecords;
                         } else {
-                            if (this.searchInfo) {
-                                this.organizationTableData = [];
-                                this.dataCount = 0;
-                            } else {
-                                this.organizationTableData = [];
-                                this.dataCount = 0;
-                            }
+                            this.organizationTableData = [];
+                            this.dataCount = 0;
                         }
                         if (this.searchInfo) {
                             if (res.data.page) {
@@ -265,7 +262,6 @@
                             } else {
                                 this.page.pageIndex = 1;
                             }
-
                         }
                         this.searchInfo = false;
                     } else {
@@ -352,7 +348,6 @@
                                         this.check_list();
                                     }
                                     this.$Modal.remove();
-                                    // this.check_list()
                                 } else if (res.data.code == 400) {
                                     this.$Modal.remove();
                                     this.$Message.info('存在下级机构 不能删除/组织机构id不能小于1');

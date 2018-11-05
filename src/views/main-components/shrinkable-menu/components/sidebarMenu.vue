@@ -15,14 +15,14 @@
             <MenuItem name="1-1" style="padding: 0" v-if="menuDisplay.origin">
                 <router-link tag="li" to="/organization-management-system"
                              style="width: 100%;height: 50px;text-align: left;line-height: 50px;">
-                    <Icon type="pie-graph" style='margin: 0 8px 0 48px;' :size='18' color="#fff"></Icon>
+                    <Icon type="md-pie" style='margin: 0 8px 0 48px;' :size='18' color="#fff"></Icon>
                     组织机构管理
                 </router-link>
             </MenuItem>
             <MenuItem name="1-2" style="padding: 0" v-if="menuDisplay.tenant">
                 <router-link tag="li" to="/tenant/index"
                              style="width: 100%;height: 50px;text-align: left;line-height: 50px;">
-                    <Icon type="android-contacts" :size='18' style='margin: 0 8px 0 48px;' color="#fff"></Icon>
+                    <Icon type="md-contacts" :size='18' style='margin: 0 8px 0 48px;' color="#fff"></Icon>
                     租户管理
                 </router-link>
             </MenuItem>
@@ -31,7 +31,7 @@
     height: 50px;
     text-align: left;
     line-height: 50px;">
-                    <Icon type="social-buffer" :size='18' style='margin: 0 8px 0 48px;' color="#fff"></Icon>
+                    <Icon type="md-globe" :size='18' style='margin: 0 8px 0 48px;' color="#fff"></Icon>
                     资源管理
                 </router-link>
             </MenuItem>
@@ -40,7 +40,7 @@
     height: 50px;
     text-align: left;
     line-height: 50px;">
-                    <Icon type="android-person" :size='18' style='margin: 0 8px 0 48px;' color="#fff"></Icon>
+                    <Icon type="md-person" :size='18' style='margin: 0 8px 0 48px;' color="#fff"></Icon>
                     用户管理
                 </router-link>
             </MenuItem>
@@ -49,7 +49,7 @@
     height: 50px;
     text-align: left;
     line-height: 50px;">
-                    <Icon type="ribbon-b" :size='18' style='margin: 0 8px 0 48px;' color="#fff"></Icon>
+                    <Icon type="md-ribbon" :size='18' style='margin: 0 8px 0 48px;' color="#fff"></Icon>
                     角色管理
                 </router-link>
 
@@ -170,7 +170,6 @@
                 }
             }
             if (sessionStorage.getItem('user_pages')) {
-
                 this.activeName = sessionStorage.getItem('user_pages') || '1-1';
             }
         },
