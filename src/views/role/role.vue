@@ -7,13 +7,14 @@
             <Col class="operation">
             <Input size="large" v-model="searchWord" placeholder="请输入搜索内容..." class="com_search"/>
             <Button type="primary" @click='searchChange'>
-                <Icon type="ios-search-strong" style="font-size:17px;"></Icon>
+                <Icon type="md-search" style="font-size:17px;"></Icon>
             </Button>
             <Button type="primary" @click="add" v-if="adds">新增角色</Button>
             </Col>
         </Row>
         <Table border :columns="columns2" :data="data3" :loading='SpinType' class="com_table"></Table>
-        <Page :total="allMuch" show-total :page-size="page.pageSize" :current="page.pageIndex" @on-change="totol" class="paging"></Page>
+        <Page :total="allMuch" show-total :page-size="page.pageSize" :current="page.pageIndex" @on-change="totol"
+              class="paging"></Page>
 
         <Modal
                 v-model="modal2"
@@ -43,7 +44,7 @@
 <script>
     import api from '@/api';
     import Cookies from 'js-cookie';
-    import util from "@/libs/util.js"
+    import util from '@/libs/util.js';
 
     export default {
         inject: ['reload'],
@@ -56,7 +57,6 @@
                     ],
                 },
                 SpinType: false,
-                real: [],
                 modal2: false,
                 formItem: {
                     description: '',
@@ -73,10 +73,7 @@
                     edit_del_binding: false
                 },
                 searchInfo: false,
-                addResource: false,
                 adds: false,
-                searchShow: false,
-                flag: 0,
                 searchWord: '',
                 allMuch: 0,
                 page: {
@@ -111,7 +108,7 @@
                     {
                         title: '操作',
                         key: 'action',
-                        width: '300px',
+                        width: 300,
                         render: (h, params) => {
                             return h('div', [
                                 this.operation.edit || this.operation.edit_del || this.operation.edit_binding || this.operation.edit_del_binding ? h(
@@ -251,7 +248,6 @@
             };
         },
         created () {
-
             Cookies.remove('home_index');
             Cookies.remove('res_index');
             // Cookies.remove( 'role_index')
@@ -262,10 +258,8 @@
                 this.searchWord = this.$store.state.app.bindingRes;
                 // this.role_List()
             }
-
-            util.jurisdiction(this,'查询角色列表','新增角色','修改角色','删除角色',"绑定资源")
-
-
+            util.jurisdiction(this, '查询角色列表', '新增角色', '修改角色', '删除角色', '绑定资源');
+                this.operation.edit || this.operation.edit_del || this.operation.del || this.edit_del_binding ?this.columns2.splice(this.columns2.length - 1, 0): this.columns2.splice(this.columns2.length - 1, 1);
 
             if (Cookies.get('role_index')) {
                 this.page.pageIndex = Number(Cookies.get('role_index'));
@@ -365,27 +359,14 @@
                             }
                         });
 
-
                     }
                 });
 
             },
             //取消修改
             cancel () {
-                //
-                // let a = this.data3.map(r => {
-                //     if (r.userId === this.real.userId) {
-                //         r:Object.assign({}, ...this.real);
-                //     }
-                // });
                 this.$refs.formItem.resetFields();
                 this.modal2 = false;
-                /*this.$refs.formInline.resetFields();*/
-                /* this.formItem={
-                     description: '',
-                     orderNo: '',
-                     roleName: '',
-                 }*/
             },
             //编辑
             edit (num, i) {
@@ -397,7 +378,6 @@
                     if (r.data.code == 200) {
 
                         this.formItem = JSON.parse(JSON.stringify(r.data.data));
-                        this.real = JSON.parse(JSON.stringify(r.data.data));
 
                         this.modal2 = true;
                         Cookies.set('role_num', num);
@@ -406,12 +386,6 @@
                     }
                 });
 
-                /*
-                                this.formItem = JSON.parse(JSON.stringify(this.data3[num]));
-                                this.real = JSON.parse(JSON.stringify(this.data3[num]));
-                                this.modal2 = true;
-                                Cookies.set('role_num', num);
-                                Cookies.set('role_index', this.page.pageIndex);*/
             }
         }
     };

@@ -116,7 +116,7 @@ export const otherRouter = {
 export const appRouter = [
     {
         path: '/resource',
-        icon: 'android-globe',
+        icon: 'ios-color-filter',
         name: 'resource',
         title: '资源管理',
         component: Main,
@@ -190,8 +190,9 @@ export const appRouter = [
         ]
     },
     {
+
         path: '/access-management-system',
-        icon: 'ribbon-b',
+        icon: 'android-boat',
         name: 'access',
         title: '角色管理',
         component: Main,

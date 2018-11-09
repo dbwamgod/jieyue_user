@@ -24,8 +24,8 @@
             <div class="main-header">
                 <div class="navicon-con">
                     <Button :style="{transform: 'rotateZ(' + (this.shrink ? '-90' : '0') + 'deg)'}" type="text"
-                            @click="toggleClick">
-                        <Icon type="navicon" size="32"></Icon>
+                            @click="toggleClick" style="box-shadow: none">
+                        <Icon type="md-menu" size="30"></Icon>
                     </Button>
                 </div>
                 <div class="header-middle-con">
@@ -45,11 +45,12 @@
                             <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">
                                 <a href="javascript:void(0)">
                                     <span class="main-user-name">{{ userName }}</span>
-                                    <Icon type="arrow-down-b"></Icon>
+                                    <Icon type="md-arrow-dropdown" />
                                 </a>
                                 <DropdownMenu slot="list">
                                     <!-- <DropdownItem name="ownSpace">个人中心</DropdownItem>-->
-                                    <DropdownItem name="loginout" divided>退出登录</DropdownItem>
+                                    <DropdownItem name="loginout" divided>
+                                        退出登录</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                             <Avatar :src="avatorPath" style="background: #619fe7;margin-left: 10px;"></Avatar>

@@ -1,6 +1,6 @@
 <template>
     <div class="list_page">
-        <Row type="flex" justify="space-between" align="middle" class="code-row-bg" >
+        <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
             <Col span="4">
             <h2 class="com_header">用户管理</h2>
             </Col>
@@ -8,7 +8,7 @@
             <Col class="operation">
             <Input size="large" v-model="searchWord" placeholder="请输入昵称/手机号/邮箱/员工编号" class="user_search"/>
             <Button type="primary" @click='searchChange'>
-                <Icon type="ios-search-strong" style="font-size:17px;"></Icon>
+                <Icon type="md-search" style="font-size:17px;"></Icon>
             </Button>
             <Button type="primary" @click="add_access" v-if="adds">新增用户</Button>
             <Button type="primary" @click="lost" v-if="loseList">失败列表</Button>
@@ -54,15 +54,13 @@
 <script>
     import api from '@/api';
     import Cookies from 'js-cookie';
-    import util from "@/libs/util.js"
+    import util from '@/libs/util.js';
 
     export default {
         inject: ['reload'],
         data () {
             return {
                 SpinType: false,
-                searchShow: false,
-                flag: 0,
                 searchWord: '',
                 real: [],
                 modal2: false,
@@ -95,7 +93,7 @@
                     {
                         align: 'center',
                         title: '操作',
-                        width: '300px',
+                        width:300,
                         key: 'deletetStatus',
                         render: (h, params) => {
                             return h('div', [
@@ -151,7 +149,7 @@
                                             if (this.searchWord) {
                                                 this.$store.commit('bindingChange', this.searchWord);
                                             }
-                                            Cookies.set('user_search',this.searchWord);
+                                            Cookies.set('user_search', this.searchWord);
                                             Cookies.set('user_index', this.page.pageIndex);
                                             this.$router.push({
                                                 name: 'bang_access',
@@ -187,9 +185,9 @@
             };
         },
         created () {
-            Cookies.remove( 'home_index')
-            Cookies.remove( 'res_index')
-            Cookies.remove( 'role_index')
+            Cookies.remove('home_index');
+            Cookies.remove('res_index');
+            Cookies.remove('role_index');
             // Cookies.remove( 'user_index')
             this.$store.commit('bindingChange');
             if (this.$store.state.app.binding.length !== 0) {
@@ -197,7 +195,9 @@
                 this.user_List();
             }
 
-            util.jurisdiction(this,'查询用户列表','查询监听失败列表','新增用户','修改用户',"删除用户")
+            util.jurisdiction(this, '查询用户列表', '查询监听失败列表', '新增用户', '修改用户', '删除用户');
+
+            this.operation.edit || this.operation.edit_del || this.operation.del || this.edit_del_binding ?this.historyColumns.splice(this.historyColumns.length - 1, 0): this.historyColumns.splice(this.historyColumns.length - 1, 1);
 
             if (Cookies.get('user_index')) {
                 this.page.pageIndex = Number(Cookies.get('user_index'));
@@ -230,10 +230,10 @@
                 if (Cookies.get('user_index')) {
                     this.page.pageIndex = Cookies.get('user_index');
                 }
-                if(Cookies.get("user_search")){
-                    this.$store.commit("bindingChange",Cookies.get("user_search"))
-                    this.searchWord=Cookies.get("user_search")
-                    Cookies.remove("user_search")
+                if (Cookies.get('user_search')) {
+                    this.$store.commit('bindingChange', Cookies.get('user_search'));
+                    this.searchWord = Cookies.get('user_search');
+                    Cookies.remove('user_search');
                 }
 
                 this.$axios({
@@ -314,7 +314,7 @@
                         } else {
                             this.$Message.info('已删除');
                             this.searchInfo = true;
-                          this.historyData.splice(index,1)
+                            this.historyData.splice(index, 1);
                         }
                         this.$Modal.remove();
                     }
@@ -374,7 +374,8 @@
     };
 </script>
 <style>
- .user_search{
-     width: 25%;height: 34px;
- }
+    .user_search {
+        width: 35%;
+        height: 34px;
+    }
 </style>

@@ -38,6 +38,8 @@ export default {
         let wayResult = way(code);
         return com_baseUrlC + `${wayResult}?` + cookies_con();
     },
+
+    //获取资源权限
     Resource_permissions () {
         return com_baseUrlC + `/user/find/auth/?` + cookies_con();
     },
