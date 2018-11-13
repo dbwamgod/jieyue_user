@@ -4,17 +4,21 @@ const user = {
 
     mutations: {
         logout (state, vm) {
-            Cookies.remove('user_user');
-            Cookies.remove('del');
-            Cookies.remove('user_password');
-            Cookies.remove('user_token');
-            Cookies.remove('user_userId');
-            Cookies.remove('user_access');
+            let keys= Object.keys(Cookies());
+            keys.map(r=>{
+                Cookies.remove(r);
+            });
+            // Cookies.remove('user_user');
+            // Cookies.remove('del');
+            // Cookies.remove('user_password');
+            // Cookies.remove('user_token');
+            // Cookies.remove('user_userId');
+            // Cookies.remove('user_access');
             sessionStorage.removeItem('user_pages');
-            Cookies.remove('index');
-            Cookies.remove('flag');
-            Cookies.remove('defaultHome');
-            Cookies.remove('res_index');
+            // Cookies.remove('index');
+            // Cookies.remove('flag');
+            // Cookies.remove('defaultHome');
+            // Cookies.remove('res_index');
             localStorage.removeItem('Jurisdiction');
             localStorage.removeItem('child');
 
@@ -26,17 +30,6 @@ const user = {
             state.orgSearchFlag="";
             state.lostSearchFlag="";
             state.notData="";
-
-
-        /*        this.$store.commit("bindingChange");
-                this.$store.commit("bindingChangeRes");
-                this.$store.commit("bindRes");
-                this.$store.commit("bindRole");
-                this.$store.commit("resSearch");
-                this.$store.commit("orgSearch");
-                this.$store.commit("lostSearch");
-                this.$store.commit("delData");*/
-
             // 恢复默认样式
             let themeLink = document.querySelector('link[name="theme"]');
             themeLink.setAttribute('href', '');

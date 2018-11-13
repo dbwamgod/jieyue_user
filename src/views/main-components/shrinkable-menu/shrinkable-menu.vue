@@ -7,8 +7,8 @@
         <slot name="top"></slot>
         <sidebar-menu 
             v-show="!shrink"
-            :menu-theme="theme" 
-            :menu-list="menuList" 
+            :menu-theme="theme"
+            :menu-list="menuList"
             :open-names="openNames"
             @on-change="handleChange"
         ></sidebar-menu>

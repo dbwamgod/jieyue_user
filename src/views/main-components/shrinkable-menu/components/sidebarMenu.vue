@@ -12,21 +12,21 @@
                 <Icon type="ios-analytics"></Icon>
                 <span>系统配置</span>
             </template>
-            <MenuItem name="1-1" style="padding: 0" v-if="menuDisplay.origin">
+            <MenuItem name="1-1" style="padding: 0" v-if="menuDisplay.ORG">
                 <router-link tag="li" to="/organization-management-system"
                              style="width: 100%;height: 50px;text-align: left;line-height: 50px;">
                     <Icon type="md-pie" style='margin: 0 8px 0 48px;' :size='18' color="#fff"></Icon>
                     组织机构管理
                 </router-link>
             </MenuItem>
-            <MenuItem name="1-2" style="padding: 0" v-if="menuDisplay.tenant">
+            <MenuItem name="1-2" style="padding: 0" v-if="menuDisplay.TENANT">
                 <router-link tag="li" to="/tenant/index"
                              style="width: 100%;height: 50px;text-align: left;line-height: 50px;">
                     <Icon type="md-contacts" :size='18' style='margin: 0 8px 0 48px;' color="#fff"></Icon>
                     租户管理
                 </router-link>
             </MenuItem>
-            <MenuItem name="1-3" style="padding: 0" v-if="menuDisplay.resourse">
+            <MenuItem name="1-3" style="padding: 0" v-if="menuDisplay.RES">
                 <router-link tag="li" to="/resource/index" style="    width: 100%;
     height: 50px;
     text-align: left;
@@ -35,7 +35,7 @@
                     资源管理
                 </router-link>
             </MenuItem>
-            <MenuItem name="1-4" style="padding: 0" v-if="menuDisplay.user">
+            <MenuItem name="1-4" style="padding: 0" v-if="menuDisplay.USER">
                 <router-link tag="li" to="/access-test/index" style="    width: 100%;
     height: 50px;
     text-align: left;
@@ -44,7 +44,7 @@
                     用户管理
                 </router-link>
             </MenuItem>
-            <MenuItem name="1-5" style="padding: 0" v-if="menuDisplay.role">
+            <MenuItem name="1-5" style="padding: 0" v-if="menuDisplay.ROLE">
                 <router-link tag="li" to="/access-management-system/index" style="    width: 100%;
     height: 50px;
     text-align: left;
@@ -54,7 +54,7 @@
                 </router-link>
 
             </MenuItem>
-            <MenuItem name="1-6" style="padding: 0" v-if="menuDisplay.three">
+            <MenuItem name="1-6" style="padding: 0" v-if="menuDisplay.THREE_SYSTEM">
                 <router-link tag="li" to="/oauth_client/index" style="    width: 100%;
     height: 50px;
     text-align: left;
@@ -76,31 +76,36 @@
         data () {
             return {
                 menuDisplay: {
-                    origin: false,
-                    tenant: false,
-                    resourse: false,
-                    user: false,
-                    role: false,
-                    three: false
+                    ORG: false,
+                    TENANT: false,
+                    RES: false,
+                    USER: false,
+                    ROLE: false,
+                    THREE_SYSTEM: false
                 },
-                menuListDisplay: [],
                 activeName: '1-1',
-
+                pathNameObj: {
+                    ORG: '1-1',
+                    TENANT: '1-2',
+                    RES: '1-3',
+                    USER: '1-4',
+                    ROLE: '1-5',
+                    THREE_SYSTEM: '1-6',
+                }
             };
         },
         name: 'sidebarMenu',
         watch: {
             '$route' (to, form) {
-                const pathNameObj = {
-                    tenant_index: '1-2',
-                    home_index: '1-1',
-                    resource_index: '1-3',
-                    accesstest_index: '1-4',
-                    access_index: '1-5',
-                    oauth_index: '1-6',
-                    index: '1-1'
-                };
-                this.activeName = pathNameObj[to.name] || pathNameObj[form.name];
+               const pathNameObj= {
+                   org_index: '1-1',
+                   tenant_index: '1-2',
+                   resource_index: '1-3',
+                   accesstest_index: '1-4',
+                   access_index: '1-5',
+                   oauth_index: '1-6',
+                }
+                this.activeName = pathNameObj[to.name]? pathNameObj[to.name]:this.activeName
                 pathNameObj[to.name] && sessionStorage.setItem('user_pages', pathNameObj[to.name]);
             }
         },
@@ -117,58 +122,10 @@
         },
         created () {
             let localQ = JSON.parse(localStorage.getItem('Jurisdiction'));
-            if (localQ.length !== 0) {
-                localQ.forEach(r => {
-                    this.menuListDisplay.push(r.resourceName);
-                });
-
-                for (let i = 0; i < localQ.length; i++) {
-                    if (localQ[i].resourceCode == 'ORG') {
-                        this.activeName = '1-1';
-                        break;
-                    }
-                    else if (localQ[i].resourceCode == 'TENANT') {
-
-                        if(localQ[i+1].resourceCode == 'ORG'){
-                            this.activeName="1-1"
-                        }else{
-                            this.activeName = '1-2';
-                        }
-                        break;
-                    }
-                    else if (localQ[i].resourceCode == 'RES') {
-                        this.activeName = '1-3';
-                        break;
-                    }
-                    else if (localQ[i].resourceCode == 'USER') {
-                        this.activeName = '1-4';
-                        break;
-                    }
-                    else if (localQ[i].resourceCode == 'ROLE') {
-                        this.activeName = '1-5';
-                        break;
-                    }
-                    else if (localQ[i].resourceCode == 'THREE_SYSTEM') {
-                        this.activeName = '1-6';
-                        break;
-                    }
-                }
-                for (var variable of this.menuListDisplay) {
-                    if (variable == '三方系统') {
-                        this.menuDisplay.three = true;
-                    } else if (variable == '角色管理') {
-                        this.menuDisplay.role = true;
-                    } else if (variable == '用户管理') {
-                        this.menuDisplay.user = true;
-                    } else if (variable == '资源管理') {
-                        this.menuDisplay.resourse = true;
-                    } else if (variable == '租户管理') {
-                        this.menuDisplay.tenant = true;
-                    } else if (variable == '组织机构管理') {
-                        this.menuDisplay.origin = true;
-                    }
-                }
-            }
+            localQ && localQ.length && localQ.forEach(r => {
+                this.menuDisplay[r.resourceCode]=true;
+                this.activeName = this.pathNameObj[r.resourceCode];
+            });
             if (sessionStorage.getItem('user_pages')) {
                 this.activeName = sessionStorage.getItem('user_pages') || '1-1';
             }

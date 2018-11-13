@@ -1,6 +1,6 @@
-const user_baseUrlC = 'http://172.18.101.118:10000/platform-user-api';
 const _baseUrlC = 'http://172.18.101.118:10000';
-const com_baseUrlC = 'http://172.18.101.118:10000/platform-user-admin';
+const user_baseUrlC =_baseUrlC+ '/platform-user-api';
+const com_baseUrlC =_baseUrlC+ '/platform-user-admin';
 /* 生产
 */
 // const user_baseUrlC = 'http://api.bdc.jieyue.com/api/platform-user-api';
@@ -178,7 +178,7 @@ export default {
     userUpdate () {
         let code = 'USER-UPDATE';
         let wayResult = way(code);
-        return user_baseUrlC + `/platform-user-api${wayResult}?` + cookies_con();
+        return user_baseUrlC + `${wayResult}?` + cookies_con();
     },
     // 用户列表
     userList () {
@@ -213,6 +213,11 @@ export default {
     organizationFindGroupName (jsRoot) {
 
         return com_baseUrlC + '/organization/find/group/name?'+`${jsRoot?'isRoot=true&':""}` + cookies_con();
+    },
+    // 查询组织机构
+    organizationFindName (id) {
+
+        return com_baseUrlC + '/organization/find/'+id +"?"+ cookies_con();
     },
     // 查询组织列表
     organizationList () {
