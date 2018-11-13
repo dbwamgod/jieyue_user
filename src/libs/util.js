@@ -279,7 +279,7 @@ util.getStringTime = function (date) {
 * 参数:a,b,c,d,e;为权限名字
 * vm:this
 * */
-util.jurisdiction = function (vm, a, b, c, d, e = '无') {
+util.jurisdiction = function (vm, a, b, c, d, e = '无',f) {
     if (JSON.parse(localStorage.getItem('Jurisdiction'))) {
         JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
             r.child && r.child.forEach(r => {
@@ -308,6 +308,8 @@ util.jurisdiction = function (vm, a, b, c, d, e = '无') {
                     } else if (vm.flag === 1) {
                         vm.operation.edit_binding = true;
                     }
+                }else if (r.resourceName == f) {
+                        vm.loseList = true;
                 }
             });
         });

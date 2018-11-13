@@ -185,11 +185,11 @@
             },
             /* checkChange (e) {
                  let checkNodes = this.$refs.treeT.getCheckedAndIndeterminateNodes();
-                 console.log(checkNodes, e);
+
                  checkNodes.map(r => {
                      if (r.id == e.parentId) {
                          r.children.map(t => {
-                             console.log(t.id,t.parentId);
+
                          });
                      }
                  });

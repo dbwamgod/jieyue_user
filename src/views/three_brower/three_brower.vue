@@ -18,48 +18,7 @@
         </Row>
         <Page :total="dataCount" show-total :page-size="page.pageSize" :current="page.pageIndex" class="paging"
               @on-change="changepage"/>
-        <Modal
-                v-model="modal2"
-                title="修改信息"
-                :footer-hide='true'
-                :closable="false"
-                :mask-closable="false"
 
-        >
-
-            <Form ref="formItem" :model="formItem" :rules="ruleInline" style="width: 90% ;">
-                <FormItem prop="clientId" label="客户端ID" style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.clientId" placeholder="请输入客户端ID"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{brower}}</span>
-                </FormItem>
-                <FormItem prop="authorities" label="权限值" style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.authorities" placeholder="请输入权限值(多个值用逗号隔开)"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{popTip}}</span>
-                </FormItem>
-                <FormItem prop="scope" label="权限范围" style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.scope" placeholder="请输入权限范围(多个值用逗号隔开)"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{popTip}}</span>
-                </FormItem>
-                <FormItem prop="authorizedGrantTypes" label="授权类型" style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.authorizedGrantTypes" placeholder="请输入授权类型(多个值用逗号隔开)"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{popTip}}</span>
-                </FormItem>
-                <FormItem prop="accessTokenValidity" label="票据有效期" style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.accessTokenValidity" :placeholder="refPopCon"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{PopCon}}</span>
-                </FormItem>
-                <FormItem prop="refreshTokenValidity" label="刷新票据有效期" style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.refreshTokenValidity" :placeholder="PopCon"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon> {{refPopCon}}</span>
-                </FormItem>
-            </Form>
-            <div class="sure-cancel">
-                <Button type="primary" @click="sure" class="sure_edit">确定</Button>
-                <Button @click="cancel">取消</Button>
-            </div>
-
-
-        </Modal>
 
     </div>
 </template>
@@ -208,7 +167,7 @@
                             required: true,
                             type: 'string',
                             pattern: /^[0-9a-zA-Z_-]{1,}$/,
-                            message:" ",
+                            message:"客户端ID只能为字母、数字、横线下划线",
                             trigger: 'blur'
                         }
                     ],
@@ -397,9 +356,7 @@
         }
     };
 </script>
-<style scoped>
-
-
+<style scoped lang="less">
     .tip {
         /*position: absolute;*/
         /*top: 54%;*/

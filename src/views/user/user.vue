@@ -185,7 +185,7 @@
                 this.user_List();
             }
 
-            util.jurisdiction(this, '查询用户列表', '查询监听失败列表', '新增用户', '修改用户', '删除用户');
+            util.jurisdiction(this, '查询用户列表', '新增用户', '修改用户', '删除用户','绑定角色', '查询监听失败列表');
 
             this.operation.edit || this.operation.edit_del || this.operation.del || this.edit_del_binding ? this.historyColumns.splice(this.historyColumns.length - 1, 0) : this.historyColumns.splice(this.historyColumns.length - 1, 1);
 
