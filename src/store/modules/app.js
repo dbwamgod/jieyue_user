@@ -43,6 +43,17 @@ const app = {
         dontCache: ['text-editor', 'artical-publish'] // 在这里定义你不想要缓存的页面的name属性值(参见路由配置router.js)
     },
     mutations: {
+        setRoleResource (state, list) {
+            let newArr = [];
+            state.roleResource&&state.roleResource.forEach(r => {
+                list.forEach(t => {
+
+                   r.title !== t.title? newArr.push(t):"";
+                });
+            });
+            state.roleResource = newArr.length?newArr:list
+
+        },
         setTagsList (state, list) {
             state.tagsList.push(...list);
         },
@@ -200,30 +211,31 @@ const app = {
             state.pageOpenedList.push(tagObj);
             localStorage.pageOpenedList = JSON.stringify(state.pageOpenedList);
         },
-        bindingChange(state,bind=""){
-            state.binding=bind
+        bindingChange (state, bind = '') {
+            state.binding = bind;
         },
-        bindingChangeRes(state,bind=""){
-            state.bindingRes=bind
+        bindingChangeRes (state, bind = '') {
+            state.bindingRes = bind;
         },
-        bindRes(state,bind=""){
-            state.bindRes=bind
+        bindRes (state, bind = '') {
+            state.bindRes = bind;
         },
-        bindRole(state,bind=""){
-            state.bindRole=bind
+        bindRole (state, bind = '') {
+            state.bindRole = bind;
         },
-        resSearch(state,bind=""){
-            state.resSearchFlag=bind
+        resSearch (state, bind = '') {
+            state.resSearchFlag = bind;
         },
-        orgSearch(state,bind=""){
-            state.orgSearchFlag=bind
+        orgSearch (state, bind = '') {
+            state.orgSearchFlag = bind;
         },
-        lostSearch(state,bind=""){
-            state.lostSearchFlag=bind
+        lostSearch (state, bind = '') {
+            state.lostSearchFlag = bind;
         },
-       delData(state,bind=""){
-            state.notData=bind
-        }
+        delData (state, bind = '') {
+            state.notData = bind;
+        },
+
     }
 };
 
