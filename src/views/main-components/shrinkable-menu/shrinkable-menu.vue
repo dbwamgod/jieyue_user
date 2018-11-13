@@ -57,7 +57,7 @@ export default {
     },
     computed: {
         bgColor () {
-            return this.theme === 'dark' ? '#495060' : '#fff';
+            return this.theme === 'dark' ? '#495060' : '#495060';
         },
         shrinkIconColor () {
             return this.theme === 'dark' ? '#fff' : '#495060';

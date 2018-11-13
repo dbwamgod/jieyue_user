@@ -7,22 +7,23 @@
         <div class="login-con">
             <Card :bordered="false">
                 <p slot="title">
-                    <Icon type="log-in"></Icon>
+                    <Icon type="md-log-in"></Icon>
                     欢迎登录
                 </p>
+                <!--<Tree :data="data2" show-checkbox @on-check-change="checkChange" ref="treeT"></Tree>-->
                 <div class="form-con">
                     <Form id="form_id" ref="loginForm" :model="form" :rules="rules">
                         <FormItem prop="userName">
                             <Input v-model="form.userName" placeholder="请输入用户名">
                             <span slot="prepend">
-                                    <Icon :size="16" type="person"></Icon>
+                                    <Icon :size="16" type="md-person"></Icon>
                                 </span>
                             </Input>
                         </FormItem>
                         <FormItem prop="password">
                             <Input type="password" v-model="form.password" placeholder="请输入密码">
                             <span slot="prepend">
-                                    <Icon :size="14" type="locked"></Icon>
+                                    <Icon :size="14" type="md-lock"></Icon>
                                 </span>
                             </Input>
                         </FormItem>
@@ -30,7 +31,6 @@
                             <Button @click="handleSubmit" type="primary" long>登录</Button>
                         </FormItem>
                     </Form>
-                    <!--<p class="login-tip">输入任意用户名和密码即可</p>-->
                 </div>
             </Card>
         </div>
@@ -56,11 +56,19 @@
                         {required: true, message: '账号不能为空', trigger: 'blur'}
                     ],
                     password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
-                }
+                },
+                codeCompare: {
+                    ORG: 'org_index',
+                    TENANT: 'tenant_index',
+                    RES: 'resource_index',
+                    USER: 'accesstest_index',
+                    ROLE: 'access_index',
+                    THREE_SYSTEM: 'oauth_index'
+                },
+                disNay: []
             };
         },
         methods: {
-
             handleSubmit () {
                 let _self = this;
                 this.$refs.loginForm.validate(valid => {
@@ -80,7 +88,7 @@
                             }
                         }).then(res => {
                             if (res.status === 200) {
-                               /* Cookies.sets({"user_user":this.form.userName,"user_password":md5(this.form.password),"user_access":1,"user_token":res.data.access_token,})*/
+                                // Cookies.sets({"user_user":this.form.userName,"user_password":md5(this.form.password),"user_access":1,"user_token":res.data.access_token})
                                 Cookies.set('user_user', this.form.userName);
                                 Cookies.set('user_password', md5(this.form.password));
                                 Cookies.set('user_access', 1);
@@ -96,98 +104,62 @@
                                 }).then(res => {
                                     Cookies.set('user_userId', res.data.principal.id);
                                     this.$axios({
-                                        method: 'get',
-                                        url: api.Resource_permissions()
+                                        method: 'post',
+                                        url: api.Resource_permissions(),
+                                        data: {
+                                            tenantCode: 'UNIFY_USER_PLATFORM',
+                                            userId: Cookies.get('user_userId')
+                                        }
                                     }).then(res => {
+
                                         if (res.data.code == 200) {
-                                            res.data.data.map(r=>{
-                                                if(r.tenantCode=="UNIFY_USER_PLATFORM"){
-                                                    let dataLen =[]
-                                                    r.voList.map((r,i)=>{
-                                                            dataLen.push(r)
-                                                    });
-                                                    localStorage.setItem('Jurisdiction', JSON.stringify(dataLen));
-                                                    let disNay = [];
-                                                    let set = new Set(JSON.parse(localStorage.getItem('Jurisdiction')));
-                                                    let resource = [...set];
-                                                    resource.forEach(r => {
-                                                        if (r.child) {
-                                                            r.child.forEach(res => {
-                                                                disNay.push(res);
-                                                            });
-                                                        }
-                                                    });
+                                            if (res.data.data.length) {
+                                                Cookies.set('login_info', '1');
+                                                let dataLen = [];
+                                                res.data.data.map((r, i) => {
+                                                    dataLen.push(r);
+                                                });
+                                                localStorage.setItem('Jurisdiction', JSON.stringify(dataLen));
 
-                                                    var coddeIndexObj={ORG:"tenant_index",TENANT:"home_index",RES:"resource_index",USER:"accesstest_index",ROLE:"access_index",THREE_SYSTEM:"oauth_index",};
-                                                    var resourceCodes=resource.map(r=>r.resourceCode);
-                                                    if(resourceCodes.indexOf('TENANT')!=-1){
-                                                        Cookies.set('defaultHome', 'home_index');
-                                                        this.$router.push({
-                                                            name: 'home_index'
+                                                let set = new Set(JSON.parse(localStorage.getItem('Jurisdiction')));
+                                                let resource = [...set];
+                                                resource.forEach(r => {
+                                                    if (r.child) {
+                                                        r.child.forEach(res => {
+                                                            this.disNay.push(res);
                                                         });
-                                                    }else {
-                                                        for(var name in coddeIndexObj){
-                                                            if(resourceCodes.indexOf(name)!=-1){
-                                                                Cookies.set('defaultHome', 'name');
-                                                                this.$router.push({
-                                                                    name: 'name'
-                                                                });
-                                                            }
-                                                        }
                                                     }
+                                                });
+                                                let resourceCodes = resource.map(r => r.resourceCode);
+                                                localStorage.setItem('child', JSON.stringify(this.disNay));
+                                                if (resourceCodes.includes('ORG')) {
+                                                    Cookies.set('defaultHome', 'org_index');
+                                                    this.$router.push({
+                                                        name: 'org_index'
+                                                    });
+                                                    return;
+                                                } else {
+                                                    for (var code in  resourceCodes) {
 
-                                                /*    for (let i = 0; i < resource.length; i++) {
-
-                                                        if(resource[i + 1]){
-                                                            if (resource[i].resourceCode == 'TENANT' || resource[i + 1].resourceCode == 'TENANT') {
-                                                                Cookies.set('defaultHome', 'home_index');
-                                                                this.$router.push({
-                                                                    name: 'home_index'
-                                                                });
-                                                                break;
-                                                            }
-                                                        }
-                                                        if (resource[i].resourceCode == 'ORG') {
-                                                            Cookies.set('defaultHome', 'tenant_index');
-                                                            this.$router.push({
-                                                                name: 'tenant_index'
-                                                            });
-                                                            break;
-                                                        }
-                                                        if (resource[i].resourceCode == 'RES') {
-                                                            Cookies.set('defaultHome', 'resource_index');
-                                                            this.$router.push({
-                                                                name: 'resource_index'
-                                                            });
-                                                            break;
-                                                        }
-                                                        if (resource[i].resourceCode == 'USER') {
-                                                            Cookies.set('defaultHome', 'accesstest_index');
-                                                            this.$router.push({
-                                                                name: 'accesstest_index'
-                                                            });
-                                                            break;
-                                                        }
-                                                        if (resource[i].resourceCode == 'ROLE') {
-                                                            Cookies.set('defaultHome', 'access_index');
-                                                            this.$router.push({
-                                                                name: 'access_index'
-                                                            });
-                                                            break;
-                                                        }
-                                                        if (resource[i].resourceCode == 'THREE_SYSTEM') {
-                                                            Cookies.set('defaultHome', 'oauth_index');
-                                                            this.$router.push({
-                                                                name: 'oauth_index'
-                                                            });
-                                                            break;
-                                                        }
-                                                    }*/
-                                                    localStorage.setItem('child', JSON.stringify(disNay));
+                                                        Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
+                                                        this.$router.push({
+                                                            name: this.codeCompare[resourceCodes[code]]
+                                                        });
+                                                        return;
+                                                    }
                                                 }
-                                            })
-
-
+                                            } else {
+                                                const title = '登录错误';
+                                                Cookies.remove('user_user');
+                                                Cookies.remove('user_password');
+                                                Cookies.remove('user_access');
+                                                Cookies.remove('user_token');
+                                                Cookies.remove('user_userId');
+                                                this.$Modal.error({
+                                                    title: title,
+                                                    content: '您未开通系统权限, 请联系管理员',
+                                                });
+                                            }
                                         } else {
                                             this.msg = res.data.msg;
                                             const title = '资源错误';
@@ -211,8 +183,21 @@
                     }
 
                 });
-            }
-        }
+
+            },
+           /* checkChange (e) {
+                let checkNodes = this.$refs.treeT.getCheckedAndIndeterminateNodes();
+                console.log(checkNodes, e);
+                checkNodes.map(r => {
+                    if (r.id == e.parentId) {
+                        r.children.map(t => {
+                            console.log(t.id,t.parentId);
+                        });
+                    }
+                });
+            }*/
+        },
+
     };
 </script>
 

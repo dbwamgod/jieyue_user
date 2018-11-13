@@ -11,8 +11,7 @@
         </Row>
         <Row>
             <Col>
-            <Table border :columns="columns7" :data="data6" :loading='SpinType'
-                   style="margin: 5px 15px 0 15px;"></Table>
+            <Table border :columns="columns7" :data="data6" :loading='SpinType' style="margin: 5px 15px 0 15px;"></Table>
             </Col>
         </Row>
 
@@ -23,12 +22,8 @@
 <script>
     import Cookies from 'js-cookie';
     import api from '@/api';
-    import tenantAdd from '@/views/tenant/tenantAdd';
-    import md5 from 'js-md5';
 
     export default {
-        computed: {},
-        components: {},
         data () {
             return {
                 SpinType: false,
@@ -40,9 +35,9 @@
                 dataCount: 0,
                 columns7: [
                     {
-                    title: '租户名称',
-                    key: 'tenantName'
-                },
+                        title: '租户名称',
+                        key: 'tenantName'
+                    },
                     {
                         title: '租户编码',
                         key: 'tenantCode'
@@ -55,17 +50,7 @@
                         title: '更新时间',
                         key: 'modifyTime'
                     },
-                    // {
-                    //     title: '租户id',
-                    //     key: 'tenantId'
-                    // },
 
-
-                    {
-                        title: ' ',
-                        key: ' ',
-                        width: '0px'
-                    }
                 ],
                 data6: []
             };
@@ -76,41 +61,7 @@
                 Cookies.remove('tenant_index');
             }
             this.tenant_list();
-            /*          JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r=>{
-                       r.child.forEach(r=>{
 
-                           // if (r.resourceCode.split('/')[1] == 'tenant') {
-                               if (r.resourceName == '查询租户列表') {
-                                   this.columns7[5] = {
-                                       title: '操作',
-                                       key: 'action',
-                                       width: 150,
-                                       align: 'center',
-                                       render: (h, params) => {
-                                           return h('div', [
-                                               h('Button', {
-                                                   props: {
-                                                       type: 'primary',
-                                                       size: 'small'
-                                                   },
-                                                   style: {
-                                                       marginRight: '5px'
-                                                   },
-                                                   on: {
-                                                       click: () => {
-                                                           Cookies.set('tenant_index', this.page.pageIndex);
-                                                           this.shows(params.index);
-                                                       }
-                                                   }
-                                               }, '修改'),
-                                           ]);
-                                       }
-                                   };
-                               }
-                           // }
-                       })
-
-                      })*/
 
         },
         methods: {

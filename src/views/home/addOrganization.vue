@@ -57,6 +57,7 @@
                 });
             },
             oks (name) {
+
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         if (this.value1.length !== 0) {
@@ -86,6 +87,8 @@
                         } else {
                             this.$Message.info('信息不完整');
                         }
+                    }else{
+                        this.$Message.error('信息不正确');
                     }
                 });
 
@@ -96,7 +99,7 @@
             organizationFindGroup_Name () {
                 this.$axios({
                     method: 'get',
-                    url: api.organizationFindGroupName(),
+                    url: api.organizationFindGroupName("true"),
                     headers: {
                         Authorization: Cookies.get('token'),
                         'Content-Type': 'application/json;charset=UTF-8'
@@ -116,9 +119,6 @@
                 ruleValidate: {
                     desc: [
                         {required: false, message: '请输入描述', trigger: 'blur'}
-                    ],
-                    fullName: [
-                        {required: true, message: '请输入组织机构全称', trigger: 'blur'},
                     ],
                     orgCode: [
                         {required: true, message: '请输入组织机构编码', trigger: 'blur'}

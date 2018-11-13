@@ -2,10 +2,12 @@
     <div class="list_page">
         <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
             <Col span="4">
+
             <h2 class="com_header">资源接口</h2>
             </Col>
 
             <Col span="2" class="operation">
+
             <Input size="large" v-model="searchWord" placeholder="请输入资源名称..." class="com_search"/>
             <Button type="primary" @click="searchChange">
                 <Icon type="md-search" style="font-size:17px;"></Icon>
@@ -14,11 +16,9 @@
             </Col>
         </Row>
         <Table border :columns="columns1" :data="data1" id="table1" :loading='SpinType'
-
                class="com_table"></Table>
         <Page class="paging" :total="total" :page-size="page.pageSize" :current="page.pageIndex" @on-change="totol"
               show-total/>
-
     </div>
 </template>
 <style scoped>
@@ -29,6 +29,7 @@
     import util from '@/libs/util.js';
     import Delete from '../../common/delete/Delete.vue';
     import Edit from '../../common/edit/Edit.vue';
+
 
     export default {
         inject: ['reload'],
@@ -52,6 +53,7 @@
                         {required: false, trigger: 'blur'}
                     ],
                 },
+
                 searchInfo: false,
                 adds: false,
                 searchShow: false,
@@ -203,7 +205,6 @@
                     },
                 ],
                 editItem:{}
-
             };
         },
         components: {

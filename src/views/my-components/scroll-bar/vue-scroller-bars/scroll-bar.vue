@@ -152,10 +152,10 @@ export default {
         }
     },
     methods: {
-        resize () {
+      /*  resize () {
             this.$nextTick(() => {
-                let wraperRect = this.$refs.wraper.getBoundingClientRect();
-                let contentRect = this.$refs.content.getBoundingClientRect();
+                // let wraperRect = this.$refs.wraper.getBoundingClientRect();
+                // let contentRect = this.$refs.content.getBoundingClientRect();
                 this.contentSize = {
                     width: contentRect.width,
                     height: contentRect.height
@@ -174,7 +174,7 @@ export default {
                     this.scrollOffsetY += contentRect.bottom - wraperRect.bottom;
                 };
             });
-        },
+        },*/
         handleMouseWheel (e) {
             this.scrollOffsetY += this.percentY < 1 ? e.deltaY : 0;
             this.scrollOffsetX += this.percentX < 1 ? e.deltaX : 0;
@@ -240,7 +240,7 @@ export default {
         }
     },
     mounted () {
-        this.resize();
+        // this.resize();
     }
 };
 </script>

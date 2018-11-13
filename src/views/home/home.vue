@@ -1,101 +1,88 @@
 <template>
-    <div style='position: relative;height:100%;padding:10px;'>
-        <Row type="flex" justify="space-between" align="middle" class="code-row-bg" style='margin-bottom:10px;'>
+    <div class="list_page">
+        <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
             <Col span="4">
-            <h2 style="margin: 6px 0 0 20px">组织机构管理</h2>
+            <h2 class="com_header">组织机构管理</h2>
             </Col>
-            <Col style='text-align:right; width: 40%;   margin-right: 15px;'>
-            <Input size="large" v-model="searchWord" placeholder="请输入搜索内容..." style="width: 35%;height: 34px;"/>
+            <Col class="operation">
+            <Input size="large" v-model="searchWord" placeholder="请输入组织机构简称..." class="com_search"/>
             <Button type="primary" @click="searchChange">
-                <Icon type="ios-search-strong" style=" font-size:17px;"></Icon>
+                <Icon type="md-search" style=" font-size:17px;"></Icon>
             </Button>
-            <Button type="primary" @click="add_ops" v-if="addOrigin">新增组织机构管理</Button>
+            <Button type="primary" @click="add_ops" v-if="adds">新增组织机构管理</Button>
             </Col>
         </Row>
-        <Table border :columns="columns7" :data="data6" :loading='SpinType' style="margin: 5px 15px 0 15px;"></Table>
+        <Table border :columns="organizationTable" :data="organizationTableData" :loading='SpinType'
+               class="com_table"></Table>
         <Page :total="dataCount" :page-size="page.pageSize" :current="page.pageIndex" show-total class="paging"
               @on-change="changepage"></Page>
-
-
         <Modal
-                v-model="modal2"
+                v-model="organizationModal"
                 title="修改信息"
                 :footer-hide='true'
                 :closable="false"
                 :mask-closable="false">
 
-            <Form ref="formItem" :model="formItem" :rules="ruleInline">
-                <FormItem prop="description">
-                    <p>描述</p>
-                    <Input type="text" v-model="formItem.description" placeholder="描述">
+            <Form ref="organizationsItem" :model="organizationsItem" :rules="organizationRule">
+                <FormItem prop="description" label="描述">
+                    <Input type="text" v-model="organizationsItem.description" placeholder="描述">
                     </Input>
                 </FormItem>
-                <FormItem prop="fullName">
-                    <p>组织机构全称</p>
-                    <Input type="text" v-model="formItem.fullName" placeholder="组织机构全称">
+                <FormItem prop="fullName" label="组织机构全称">
+                    <Input type="text" v-model="organizationsItem.fullName" placeholder="组织机构全称">
                     </Input>
                 </FormItem>
-                <FormItem prop="organizationCode">
-                    <p>组织机构编码</p>
-                    <Input type="text" v-model="formItem.organizationCode" placeholder="组织机构编码">
+                <FormItem prop="organizationCode" label="组织机构编码">
+                    <Input type="text" v-model="organizationsItem.organizationCode" placeholder="组织机构编码">
                     </Input>
                 </FormItem>
-                <FormItem prop="organizationName">
-                    <p> 组织机构简称</p>
-                    <Input type="text" v-model="formItem.organizationName" placeholder="组织机构简称">
+                <FormItem prop="organizationName" label="组织机构简称">
+                    <Input type="text" v-model="organizationsItem.organizationName" placeholder="组织机构简称">
                     </Input>
                 </FormItem>
             </Form>
-            <div style="margin-left: 70%">
-                <Button type="primary" @click="sure" style="margin-right: 20px;">确定</Button>
+            <div class="sure-cancel">
+                <Button type="primary" @click="sure" class="sure_edit">确定</Button>
                 <Button @click="cancel">取消</Button>
             </div>
-
-
         </Modal>
     </div>
 </template>
 <style scoped>
-    .paging {
-        float: right;
-        margin-top: 10px;
 
-    }
 </style>
 <script>
     import api from '@/api';
+    import util from '@/libs/util.js';
     import Cookies from 'js-cookie';
 
     export default {
+        inject: ['reload'],
         data () {
             return {
-                SpinType: false,
-                ruleInline: {
-                    fullName: [
-                        {required: true, type: 'string', pattern: /\S/, message: '请输入正确的组织机构全称', trigger: 'blur'}
-                    ],
+                SpinType: false,//懒加载
+                organizationRule: {
                     organizationCode: [
                         {required: true, message: '请输入组织机构编码且为数字', trigger: 'blur'}
                     ],
                     organizationName: [
                         {required: true, message: '请输入组织机构简称', trigger: 'blur'}
                     ],
-                },
-                modal2: false,
-                formItem: {
+                },//组织机构校验规则
+                organizationModal: false,//修改弹出框
+                organizationsItem: {
                     description: '',
                     fullName: '',
                     organizationCode: '',
                     organizationName: '',
                 },
-                searchShow: false,
-                searchWord: '',
-                dataCount: 0,
+                searchWord: '',//搜索词
+                dataCount: 0,//当前总页数
                 page: {
                     pageIndex: 1,
                     pageSize: 10
-                },
-                columns7: [
+                },//当前页信息
+                organizationTable: [
                     {
                         title: '租户名称',
                         key: 'tenantName'
@@ -160,53 +147,22 @@
                         }
                     }
                 ],
-                data6: [],
-                addOrigin: false,
-                /*是否为全部显示*/
-                flag: 0,
+                organizationTableData: [],
+                adds: false,//新增权限
                 searchInfo: false,
                 operation: {
                     edit: false,
                     del: false,
                     edit_del: false,
-                },
+                },//权限校验的数据
                 real: []
             };
         },
-        inject: ['reload'],
-        computed: {},
         created () {
-            //判断权限
-            if (JSON.parse(localStorage.getItem('Jurisdiction'))) {
-                JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
+            //权限判断
+            util.jurisdiction(this, '查询组织机构列表', '新增组织机构', '修改组织机构', '删除组织机构');
+            this.operation.edit || this.operation.edit_del || this.operation.del ? this.organizationTable.splice(this.organizationTable.length - 1, 0) : this.organizationTable.splice(this.organizationTable.length - 1, 1);//判断table有没有"操作"这个文本
 
-                   r.child && r.child.forEach(r => {
-                        if (r.resourceName == '查询组织机构列表') {
-
-                        } else if (r.resourceName == '新增组织机构') {
-                            this.addOrigin = true;
-                        } else if (r.resourceName == '修改组织机构') {
-                            this.operation.edit = true;
-                            this.flag = 1;
-                        } else if (r.resourceName == '删除组织机构') {
-                            if (this.flag === 1) {
-                                this.operation.edit_del = true;
-                            } else {
-                                this.operation.del = true;
-                            }
-                        }
-                        // }
-                    });
-                });
-            } else {
-                this.$Message.error('无法检测到你的权限');
-                this.$store.commit('logout', this);
-                this.$store.commit('clearOpenedSubmenu');
-                this.$router.push({
-                    name: 'login'
-                });
-            }
-            // Cookies.remove( 'home_index')
             Cookies.remove('res_index');
             Cookies.remove('role_index');
             Cookies.remove('user_index');
@@ -225,17 +181,17 @@
         methods: {
             //确定修改
             sure () {
-                this.$refs.formItem.validate((valid) => {
+                this.$refs.organizationsItem.validate((valid) => {
                     if (valid) {
                         this.$axios({
                             method: 'post',
                             url: api.organizationUpdate(),
                             data: {
-                                description: this.formItem.description,
-                                fullName: this.formItem.fullName,
-                                organizationCode: this.formItem.organizationCode,
-                                organizationName: this.formItem.organizationName,
-                                organizationId: this.formItem.organizationId,
+                                description: this.organizationsItem.description,
+                                fullName: this.organizationsItem.fullName,
+                                organizationCode: this.organizationsItem.organizationCode,
+                                organizationName: this.organizationsItem.organizationName,
+                                organizationId: this.organizationsItem.organizationId,
                             },
                             headers: {
                                 Authorization: Cookies.get('token'),
@@ -243,16 +199,11 @@
                             }
                         }).then(res => {
                             if (res.data.code === 200) {
-                                let replace_data = this.data6[Cookies.get('org_num')];
-                                replace_data.description = this.formItem.description;
-                                replace_data.fullName = this.formItem.fullName;
-                                replace_data.organizationCode = this.formItem.organizationCode;
-                                replace_data.organizationName = this.formItem.organizationName;
                                 this.$Message.info('已修改');
-                                this.modal2 = false;
+                                this.check_list();
+                                this.organizationModal = false;
                             } else {
                                 this.$Message.info(res.data.msg);
-
                             }
                         });
                     } else {
@@ -263,14 +214,8 @@
             },
             //取消修改
             cancel () {
-                let a = this.data6.map(r => {
-                    if (r.userId === this.real.userId) {
-                        r:Object.assign({}, ...this.real);
-                    }
-                });
-                this.$refs.formItem.resetFields();
-
-                this.modal2 = false;
+                this.$refs.organizationsItem.resetFields();
+                this.organizationModal = false;
                 this.$Message.info('已取消');
             },
             //搜索
@@ -304,23 +249,12 @@
                 }).then(res => {
                     if (res.data.code == 200) {
                         this.SpinType = false;
-                        // if(this.page.pageIndex===0){
-                        //     this.page.pageIndex=1
-                        //     return
-                        // }
                         if (res.data.data) {
-                            this.data6 = res.data.data;
+                            this.organizationTableData = res.data.data;
                             this.dataCount = res.data.page.totalRecords;
                         } else {
-                            if (this.searchInfo) {
-                                this.data6 = [];
-                                this.dataCount = 0;
-                            } else {
-                                // this.page.pageIndex=--this.page.pageIndex||1
-                                // this.check_list()
-                                this.data6 = [];
-                                this.dataCount = 0;
-                            }
+                            this.organizationTableData = [];
+                            this.dataCount = 0;
                         }
                         if (this.searchInfo) {
                             if (res.data.page) {
@@ -328,7 +262,6 @@
                             } else {
                                 this.page.pageIndex = 1;
                             }
-
                         }
                         this.searchInfo = false;
                     } else {
@@ -338,18 +271,18 @@
             },
             //新增
             add_ops () {
-                this.$router.push({path: '/addOrganization', query: {data6: this.data6}});
+                this.$router.push({path: '/addOrganization', query: {data6: this.organizationTableData}});
             },
             //修改
             edit (num) {
-                this.formItem = JSON.parse(JSON.stringify(this.data6[num]));
-                this.real = JSON.parse(JSON.stringify(this.data6[num]));
-                this.modal2 = true;
+                this.organizationsItem = JSON.parse(JSON.stringify(this.organizationTableData[num]));
+                this.real = JSON.parse(JSON.stringify(this.organizationTableData[num]));
+                this.organizationModal = true;
                 Cookies.set('org_num', num);
                 Cookies.set('home_index', this.page.pageIndex);
                 /*this.$router.push({
                     name: 'origin_update',
-                    query: {data6: JSON.stringify(this.data6[num])}
+                    query: {organizationTableData: JSON.stringify(this.organizationTableData[num])}
                 });*/
             },
             //删除
@@ -365,7 +298,7 @@
                                 method: 'post',
                                 url: api.organizationDel(),
                                 data: {
-                                    organizationId: this.data6[index].organizationId,
+                                    organizationId: this.organizationTableData[index].organizationId,
                                     userId: Cookies.get('userId')
                                 },
                                 headers: {
@@ -374,7 +307,7 @@
                                 }
                             }).then(res => {
                                 if (res.data.code == 200) {
-                                    if (this.data6.length < 2) {
+                                    if (this.organizationTableData.length < 2) {
 
                                         this.$axios({
                                             method: 'post',
@@ -394,14 +327,14 @@
                                                     --this.page.pageIndex;
                                                 }
                                                 if (res.data.data) {
-                                                    this.data6 = res.data.data;
+                                                    this.organizationTableData = res.data.data;
                                                     this.dataCount = res.data.page.totalRecords;
                                                 } else {
                                                     if (res.data.page) {
                                                         this.dataCount = 0;
-                                                        this.data6 = [];
+                                                        this.organizationTableData = [];
                                                     } else {
-                                                        this.data6 = [];
+                                                        this.organizationTableData = [];
                                                         this.dataCount = 0;
                                                     }
                                                 }
@@ -415,7 +348,6 @@
                                         this.check_list();
                                     }
                                     this.$Modal.remove();
-                                    // this.check_list()
                                 } else if (res.data.code == 400) {
                                     this.$Modal.remove();
                                     this.$Message.info('存在下级机构 不能删除/组织机构id不能小于1');
@@ -433,7 +365,8 @@
 
     };
 </script>
-<style>
+<style lang="less">
+
 </style>
 
 

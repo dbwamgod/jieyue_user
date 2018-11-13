@@ -24,8 +24,8 @@
             <div class="main-header">
                 <div class="navicon-con">
                     <Button :style="{transform: 'rotateZ(' + (this.shrink ? '-90' : '0') + 'deg)'}" type="text"
-                            @click="toggleClick">
-                        <Icon type="navicon" size="32"></Icon>
+                            @click="toggleClick" style="box-shadow: none">
+                        <Icon type="md-menu" size="30"></Icon>
                     </Button>
                 </div>
                 <div class="header-middle-con">
@@ -45,11 +45,12 @@
                             <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">
                                 <a href="javascript:void(0)">
                                     <span class="main-user-name">{{ userName }}</span>
-                                    <Icon type="arrow-down-b"></Icon>
+                                    <Icon type="md-arrow-dropdown" />
                                 </a>
                                 <DropdownMenu slot="list">
                                     <!-- <DropdownItem name="ownSpace">个人中心</DropdownItem>-->
-                                    <DropdownItem name="loginout" divided>退出登录</DropdownItem>
+                                    <DropdownItem name="loginout" divided>
+                                        退出登录</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                             <Avatar :src="avatorPath" style="background: #619fe7;margin-left: 10px;"></Avatar>
@@ -62,7 +63,7 @@
             </div> -->
         </div>
         <div class="single-page-con" :style="{left: shrink?'60px':'200px'}">
-            <div class="single-page" style="margin:0"  v-if="bock">
+            <div class="single-page" style="margin:0" v-if="bock">
                 <router-view></router-view>
             </div>
         </div>
@@ -97,6 +98,14 @@
         },
         data () {
             return {
+                codeCompare: {
+                    ORG: 'org_index',
+                    TENANT: 'tenant_index',
+                    RES: 'resource_index',
+                    USER: 'accesstest_index',
+                    ROLE: 'access_index',
+                    THREE_SYSTEM: 'oauth_index'
+                },
                 bock: true,
                 shrink: false,
                 userName: '',
@@ -223,12 +232,50 @@
             window.addEventListener('resize', this.scrollBarResize);
         },
         created () {
-
             // 显示打开的页面的列表
             this.$store.commit('setOpenedList');
+
+
+            //本地权限校验没有存储后 会自动跳到登录页
+            if (!JSON.parse(localStorage.getItem('Jurisdiction'))) {
+                this.$store.commit('logout', this);
+                this.$store.commit('clearOpenedSubmenu');
+                this.$router.push({
+                    name: 'login'
+                });
+            }
+
+            //判断已登录后重新加载页面而导致的权限bug
+            if (!Cookies.get('login_info')) {
+                if (localStorage.getItem('Jurisdiction')) {
+                    JSON.parse(localStorage.getItem('Jurisdiction')).map((r, i) => {
+                        if (i === 0 ||i===1) {
+                            if(i===0){
+                                Cookies.set('defaultHome', this.codeCompare[r.resourceCode]);
+                            }else if (i===1&&r.resourceCode==="TENANT"){
+                                this.activeName="1-1"
+                                Cookies.set('defaultHome', "org_index");
+                            }
+                            this.$router.push({
+                                name: Cookies.get('defaultHome')
+                            });
+
+                        }
+                    });
+                }
+            }
+           Cookies.get("login_info")&&Cookies.set("login_info","0")
+            Array.prototype.remove = function (val) {
+                let index = this.indexOf(val);
+                if (index > -1) {
+                    this.splice(index, 1);
+                }
+            };
+
+
         },
         dispatch () {
             window.removeEventListener('resize', this.scrollBarResize);
-        }
+        },
     };
 </script>

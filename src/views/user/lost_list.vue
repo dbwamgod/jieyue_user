@@ -6,9 +6,9 @@
             </Col>
 
             <Col style='text-align:right;width: 35%;margin-right:15px;'>
-            <Input size="large" v-model="searchWord" placeholder="请输入搜索内容" style="width: 35%;height: 34px;"/>
+            <Input size="large" v-model="searchWord" placeholder="请输入失败原因或失败内容" style="width: 35%;height: 34px;"/>
             <Button type="primary" @click='searchChange'>
-                <Icon type="ios-search-strong" style=" font-size:17px;"></Icon>
+                <Icon type="md-search" style=" font-size:17px;"></Icon>
             </Button>
             <Button type="primary" @click="back">返回用户列表</Button>
             </Col>
@@ -101,7 +101,6 @@
                         };
                     }
                 });
-
             });
         },
         methods: {
@@ -125,17 +124,12 @@
                     if (res.data.code == 200) {
                         this.SpinType = false;
                         if (res.data.data) {
-
                             this.data6 = res.data.data;
                             this.dataCount = res.data.page.totalRecords;
                         } else {
                             this.dataCount = 0;
                             this.data6 = [];
                         }
-                        // if (this.searchInfo) {
-                        //     this.page.pageIndex = 1;
-                        // }
-                        // this.searchInfo = false;
                     } else {
                         this.$Message.info(res.data.msg);
                     }

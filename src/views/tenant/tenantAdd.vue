@@ -71,15 +71,6 @@
                     }else{this.$Message.info(res.data.msg);}
 
                 });
-
-                /*
-                                this.$refs[name].validate((valid) => {
-                                    if (valid) {
-                                        this.$Message.success('Success!');
-                                    } else {
-                                        this.$Message.error('Fail!');
-                                    }
-                                });*/
             },
             NO_handleSubmit () {
                 this.$router.replace({
