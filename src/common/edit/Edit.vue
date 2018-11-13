@@ -110,7 +110,7 @@
                 }).then(r => {
                     if (r.data.code == 200) {
                         this.editItem = JSON.parse(JSON.stringify(r.data.data));
-                        this.editItem.isMenu = r.data.data.isMenu&&String(r.data.data.isMenu)
+                        r.data.data.isMenu==0||r.data.data.isMenu==1? this.editItem.isMenu=  String(r.data.data.isMenu):"";
 
                         this.editModal = true;
                         Cookies.set('org_num', this.index);

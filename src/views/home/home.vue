@@ -4,14 +4,15 @@
             <Col span="4">
             <h2 class="com_header">组织机构管理</h2>
             </Col>
-
             <Col class="operation">
             <Input size="large" v-model="searchWord" placeholder="请输入组织机构简称..." class="com_search"/>
 
             <Button type="primary" @click="searchChange">
                 <Icon type="md-search" style=" font-size:17px;"></Icon>
             </Button>
-            <Button type="primary" @click="add_ops" v-if="adds">新增组织机构管理</Button>
+            <!--<Add v-if="adds" ></Add>-->
+            <Button type="primary" @click="add_ops" v-if="adds" >新增组织机构管理</Button>
+
             </Col>
         </Row>
         <Table border :columns="organizationTable" :data="organizationTableData" :loading='SpinType'
@@ -29,6 +30,7 @@
     import Cookies from 'js-cookie';
     import Delete from '../../common/delete/Delete.vue';
     import Edit from '../../common/edit/Edit.vue';
+    // import Add from '../../common/add/Add.vue';
 
     export default {
 
@@ -179,6 +181,7 @@
             this.check_list();
         },
         components: {
+            // Add,
             Delete,
             Edit
         },
@@ -236,6 +239,9 @@
                         this.$Message.info(res.data.msg);
                     }
                 });
+
+
+
             },
             //新增
             add_ops () {
