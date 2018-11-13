@@ -56,10 +56,12 @@
             };
         },
         created () {
+
             if (Cookies.get('tenant_index')) {
                 this.page.pageIndex = Number(Cookies.get('tenant_index'));
                 Cookies.remove('tenant_index');
             }
+
             this.tenant_list();
 
 
@@ -84,6 +86,7 @@
                         'Content-Type': 'application/json;charset=UTF-8'
                     }
                 }).then(res => {
+
                     this.SpinType = false;
                     if (res.data.code == 200) {
 

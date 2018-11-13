@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="484d7776-59f4-48d1-8897-fb62eeeb9ea4" name="Default" comment="">
+<<<<<<< Updated upstream
       <change beforePath="" afterPath="$PROJECT_DIR$/src/common/delete/Delete.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/common/edit/Edit.vue" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -16,6 +17,37 @@
       <change beforePath="$PROJECT_DIR$/src/views/resource/resource.vue" afterPath="$PROJECT_DIR$/src/views/resource/resource.vue" />
       <change beforePath="$PROJECT_DIR$/src/views/role/role.vue" afterPath="$PROJECT_DIR$/src/views/role/role.vue" />
       <change beforePath="$PROJECT_DIR$/src/views/three_brower/three_brower.vue" afterPath="$PROJECT_DIR$/src/views/three_brower/three_brower.vue" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/build/webpack.prod.config.js" afterPath="$PROJECT_DIR$/build/webpack.prod.config.js" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/src/api/index.js" afterPath="$PROJECT_DIR$/src/api/index.js" />
+      <change beforePath="$PROJECT_DIR$/src/app.vue" afterPath="$PROJECT_DIR$/src/app.vue" />
+      <change beforePath="$PROJECT_DIR$/src/router/router.js" afterPath="$PROJECT_DIR$/src/router/router.js" />
+      <change beforePath="$PROJECT_DIR$/src/views/Main.vue" afterPath="$PROJECT_DIR$/src/views/Main.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/advanced-router/advanced-router.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/views/advanced-router/argument-page.vue" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/views/advanced-router/component/expandRow.vue" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/views/advanced-router/component/order-info.vue" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/views/advanced-router/component/shopping-info.vue" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/views/advanced-router/mutative-router.vue" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/views/editTest/editTest.vue" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/views/home/home.vue" afterPath="$PROJECT_DIR$/src/views/home/home.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/login.vue" afterPath="$PROJECT_DIR$/src/views/login.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/main-components/shrinkable-menu/components/sidebarMenu.vue" afterPath="$PROJECT_DIR$/src/views/main-components/shrinkable-menu/components/sidebarMenu.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/main.less" afterPath="$PROJECT_DIR$/src/views/main.less" />
+      <change beforePath="$PROJECT_DIR$/src/views/resource/addResources.vue" afterPath="$PROJECT_DIR$/src/views/resource/addResources.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/resource/resource.vue" afterPath="$PROJECT_DIR$/src/views/resource/resource.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/role/binding_rescourse.vue" afterPath="$PROJECT_DIR$/src/views/role/binding_rescourse.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/role/role.vue" afterPath="$PROJECT_DIR$/src/views/role/role.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/tenant/tenant.vue" afterPath="$PROJECT_DIR$/src/views/tenant/tenant.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/tenant/tenantAdd.vue" afterPath="$PROJECT_DIR$/src/views/tenant/tenantAdd.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/three_brower/add_oauth.vue" afterPath="$PROJECT_DIR$/src/views/three_brower/add_oauth.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/three_brower/three_brower.vue" afterPath="$PROJECT_DIR$/src/views/three_brower/three_brower.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/user/add_user.vue" afterPath="$PROJECT_DIR$/src/views/user/add_user.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/user/binding_role.vue" afterPath="$PROJECT_DIR$/src/views/user/binding_role.vue" />
+      <change beforePath="$PROJECT_DIR$/src/views/user/lost_list.vue" afterPath="$PROJECT_DIR$/src/views/user/lost_list.vue" />
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/src/views/user/user.vue" afterPath="$PROJECT_DIR$/src/views/user/user.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -29,6 +61,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< Updated upstream
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -185,6 +218,146 @@
         </leaf>
       </split-second>
     </splitter>
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="three_brower.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/three_brower/three_brower.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="575">
+              <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#0;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#1;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#2;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#3;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#4;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#5;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#script#0;n#!!top" expanded="false" />
+                <element signature="e#3619#4706#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/Main.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-875">
+              <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+              <folding>
+                <element signature="n#scroll-bar#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                <element signature="e#5715#5868#0" expanded="false" />
+                <element signature="e#9084#9299#0" expanded="false" />
+                <element signature="e#10719#12300#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.less" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/main.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="25">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="binding_role.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/user/binding_role.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2675">
+              <caret line="108" column="16" lean-forward="false" selection-start-line="108" selection-start-column="12" selection-end-line="108" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add_oauth.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/three_brower/add_oauth.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2250">
+              <caret line="91" column="17" lean-forward="false" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#0;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#1;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#2;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#3;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#4;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#5;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/user/user.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="4" column="54" lean-forward="false" selection-start-line="4" selection-start-column="54" selection-end-line="4" selection-end-column="54" />
+              <folding>
+                <element signature="e#3961#7858#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="webpack.prod.config.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/webpack.prod.config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="550">
+              <caret line="22" column="2" lean-forward="false" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/api/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="36" column="11" lean-forward="false" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="resource.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/resource/resource.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1100">
+              <caret line="44" column="56" lean-forward="false" selection-start-line="44" selection-start-column="50" selection-end-line="44" selection-end-column="56" />
+              <folding>
+                <element signature="e#4344#4448#0" expanded="false" />
+                <element signature="e#4470#4576#0" expanded="false" />
+                <element signature="e#4598#4704#0" expanded="false" />
+                <element signature="e#4726#5237#0" expanded="false" />
+                <element signature="e#5259#5365#0" expanded="false" />
+                <element signature="e#5387#5483#0" expanded="false" />
+                <element signature="e#5505#5608#0" expanded="false" />
+                <element signature="e#5630#5734#0" expanded="false" />
+                <element signature="e#5756#7415#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lost_list.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/user/lost_list.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="550">
+              <caret line="22" column="11" lean-forward="false" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+>>>>>>> Stashed changes
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -197,6 +370,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+<<<<<<< Updated upstream
       <find>isMenu</find>
       <find>resourceForm</find>
       <find>isShow</find>
@@ -227,6 +401,38 @@
       <find>tip</find>
       <find>sty</find>
       <find>editItem</find>
+=======
+      <find>tenant_List</find>
+      <find>getItem</find>
+      <find>console.log</find>
+      <find>disNay</find>
+      <find>oauth_index</find>
+      <find>menuTheme</find>
+      <find>defaultHome</find>
+      <find>foreach</find>
+      <find>modal2</find>
+      <find>model2</find>
+      <find>/resource/find/</find>
+      <find>/role/find</find>
+      <find>resourceName</find>
+      <find>请输入url路径</find>
+      <find>role_num</find>
+      <find>mustUrl</find>
+      <find>ten_res</find>
+      <find>formItem</find>
+      <find>数字</find>
+      <find>edit</find>
+      <find>sersfill</find>
+      <find>this.$Message</find>
+      <find>id</find>
+      <find>value1</find>
+      <find>ocal</find>
+      <find>520px</find>
+      <find>tip</find>
+      <find>整数</find>
+      <find>isMenu</find>
+      <find>loseList</find>
+>>>>>>> Stashed changes
     </findStrings>
     <dirStrings>
       <dir>C:\Users\Administrator\Desktop\iview-admin-dev\src\views\resource</dir>
@@ -235,8 +441,12 @@
       <dir>C:\Users\Administrator\Desktop\project\user\jieyue_user\src\views\main-components</dir>
       <dir>C:\Users\Administrator\Desktop\project\user\jieyue_user\src</dir>
       <dir>C:\Users\Administrator\Desktop\project\user\jieyue_user</dir>
+<<<<<<< Updated upstream
       <dir>C:\Users\Administrator\Desktop\project\jieyue_user</dir>
       <dir>C:\Users\Administrator\Desktop\project\jieyue_user\src</dir>
+=======
+      <dir>C:\Users\Administrator\Desktop\project\user\jieyue_user_1.2.1\jieyue_user\src\views\three_brower</dir>
+>>>>>>> Stashed changes
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -250,29 +460,57 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/api/index.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/views/tenant/tenant.vue" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/views/main-components/lockscreen/components/unlock.vue" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/views/home/home.vue" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/views/login.vue" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/views/resource/resource.vue" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/views/main-components/lockscreen/components/unlock.vue" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/views/home/home.vue" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< Updated upstream
+=======
+        <option value="$PROJECT_DIR$/src/views/access/access_update.vue" />
+        <option value="$PROJECT_DIR$/src/views/editTest/editTest.vue" />
+        <option value="$PROJECT_DIR$/src/views/home/system.vue" />
+        <option value="$PROJECT_DIR$/src/views/main-components/shrinkable-menu/shrinkable-menu.vue" />
+        <option value="F:/jieyue_biaoqian/src/views/productManagement/check_product.vue" />
+        <option value="$USER_HOME$/Documents/WeChat Files/g2498421176/Files/sidebarMenuShrink.vue" />
+        <option value="$PROJECT_DIR$/src/views/main-components/lockscreen/components/unlock.vue" />
+        <option value="$PROJECT_DIR$/src/views/main-components/breadcrumb-nav.vue" />
+        <option value="$PROJECT_DIR$/src/store/modules/app.js" />
+        <option value="$PROJECT_DIR$/src/main.js" />
+        <option value="$PROJECT_DIR$/src/router/index.js" />
+>>>>>>> Stashed changes
         <option value="$PROJECT_DIR$/build/webpack.base.config.js" />
         <option value="$PROJECT_DIR$/src/views/access/access_add.vue" />
         <option value="$PROJECT_DIR$/src/views/access/lost_list.vue" />
+<<<<<<< Updated upstream
+=======
+        <option value="$PROJECT_DIR$/build/webpack.dev.config.js" />
+        <option value="$PROJECT_DIR$/src/libs/util.js" />
+>>>>>>> Stashed changes
         <option value="$PROJECT_DIR$/src/views/access/access-test.vue" />
         <option value="$PROJECT_DIR$/src/views/access/access_bang.vue" />
         <option value="$PROJECT_DIR$/src/views/access/access.vue" />
         <option value="$PROJECT_DIR$/node_modules/js-cookie/src/js.cookie.js" />
+<<<<<<< Updated upstream
         <option value="$PROJECT_DIR$/src/views/tables/components/table.less" />
         <option value="$PROJECT_DIR$/src/views/tables/components/table_data.js" />
         <option value="$PROJECT_DIR$/src/views/home/components/toDoListItem.vue" />
+=======
+        <option value="$PROJECT_DIR$/src/views/main-components/shrinkable-menu/components/sidebarMenuShrink.vue" />
+        <option value="$PROJECT_DIR$/src/views/tables/components/table.less" />
+        <option value="$PROJECT_DIR$/src/views/tables/components/table_data.js" />
+        <option value="$PROJECT_DIR$/src/views/home/components/toDoListItem.vue" />
+        <option value="$PROJECT_DIR$/src/views/role/binding_rescourse.vue" />
+>>>>>>> Stashed changes
         <option value="$PROJECT_DIR$/src/views/role/add_role.vue" />
         <option value="$PROJECT_DIR$/src/views/access/access_adds.vue" />
         <option value="$PROJECT_DIR$/src/views/access/bang_access.vue" />
         <option value="$PROJECT_DIR$/src/views/user.vue" />
+<<<<<<< Updated upstream
         <option value="$PROJECT_DIR$/src/views/user/binding_role.vue" />
         <option value="$PROJECT_DIR$/../iview-admin-dev-backStage/src/views/login.vue" />
         <option value="$PROJECT_DIR$/src/views/user/lost_list.vue" />
@@ -310,6 +548,28 @@
         <option value="$PROJECT_DIR$/src/views/three_brower/three_brower.vue" />
         <option value="$PROJECT_DIR$/src/common/edit/Edit.vue" />
         <option value="$PROJECT_DIR$/src/views/resource/resource.vue" />
+=======
+        <option value="$PROJECT_DIR$/src/router/router.js" />
+        <option value="$PROJECT_DIR$/src/app.vue" />
+        <option value="$PROJECT_DIR$/src/views/user/add_user.vue" />
+        <option value="$PROJECT_DIR$/src/views/main-components/shrinkable-menu/components/sidebarMenu.vue" />
+        <option value="$PROJECT_DIR$/src/views/tenant/tenant.vue" />
+        <option value="$PROJECT_DIR$/src/views/Main.vue" />
+        <option value="$PROJECT_DIR$/src/views/user/binding_role.vue" />
+        <option value="$PROJECT_DIR$/../iview-admin-dev-backStage/src/views/login.vue" />
+        <option value="$PROJECT_DIR$/src/views/home/home.vue" />
+        <option value="$PROJECT_DIR$/src/views/user/lost_list.vue" />
+        <option value="$PROJECT_DIR$/src/views/resource/addResources.vue" />
+        <option value="$PROJECT_DIR$/src/views/login.vue" />
+        <option value="$PROJECT_DIR$/src/views/role/role.vue" />
+        <option value="$PROJECT_DIR$/src/views/three_brower/add_oauth.vue" />
+        <option value="$PROJECT_DIR$/src/views/main.less" />
+        <option value="$PROJECT_DIR$/src/views/three_brower/three_brower.vue" />
+        <option value="$PROJECT_DIR$/src/views/resource/resource.vue" />
+        <option value="$PROJECT_DIR$/src/views/user/user.vue" />
+        <option value="$PROJECT_DIR$/build/webpack.prod.config.js" />
+        <option value="$PROJECT_DIR$/src/api/index.js" />
+>>>>>>> Stashed changes
       </list>
     </option>
   </component>
@@ -325,10 +585,17 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
+<<<<<<< Updated upstream
     <option name="x" value="41" />
     <option name="y" value="46" />
     <option name="width" value="784" />
     <option name="height" value="941" />
+=======
+    <option name="x" value="953" />
+    <option name="y" value="1" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
+>>>>>>> Stashed changes
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -357,6 +624,7 @@
             <path>
               <item name="jieyue_user" type="b2602c69:ProjectViewProjectNode" />
               <item name="jieyue_user" type="462c0819:PsiDirectoryNode" />
+<<<<<<< Updated upstream
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -376,20 +644,30 @@
               <item name="jieyue_user" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+>>>>>>> Stashed changes
             </path>
             <path>
               <item name="jieyue_user" type="b2602c69:ProjectViewProjectNode" />
               <item name="jieyue_user" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+<<<<<<< Updated upstream
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
+=======
+>>>>>>> Stashed changes
             </path>
             <path>
               <item name="jieyue_user" type="b2602c69:ProjectViewProjectNode" />
               <item name="jieyue_user" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+<<<<<<< Updated upstream
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="three_brower" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+>>>>>>> Stashed changes
             </path>
           </expand>
           <select />
@@ -534,6 +812,7 @@
       <workItem from="1539585411362" duration="3118000" />
       <workItem from="1539675963037" duration="26962000" />
       <workItem from="1539767342537" duration="71995000" />
+<<<<<<< Updated upstream
       <workItem from="1540101712955" duration="13497000" />
       <workItem from="1540172018907" duration="17766000" />
       <workItem from="1540274789782" duration="10011000" />
@@ -560,25 +839,46 @@
       <workItem from="1541642237127" duration="25724000" />
       <workItem from="1541726138576" duration="29184000" />
       <workItem from="1542072530155" duration="4765000" />
+=======
+      <workItem from="1540174837317" duration="777000" />
+      <workItem from="1542073646424" duration="3473000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="1242054000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
+=======
+    <option name="totallyTimeSpent" value="1017117000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+>>>>>>> Stashed changes
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12961012" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+<<<<<<< Updated upstream
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.50632244" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.49367756" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2850925" sideWeight="0.516333" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.49789253" order="8" side_tool="false" content_ui="tabs" />
+>>>>>>> Stashed changes
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+<<<<<<< Updated upstream
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.297062" sideWeight="0.48366702" order="9" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2850925" sideWeight="0.48366702" order="9" side_tool="false" content_ui="tabs" />
+>>>>>>> Stashed changes
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -636,6 +936,7 @@
           <option name="timeStamp" value="134" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
+<<<<<<< Updated upstream
           <url>file://$PROJECT_DIR$/src/main.js</url>
           <option name="timeStamp" value="139" />
         </line-breakpoint>
@@ -658,13 +959,27 @@
           <url>file://$PROJECT_DIR$/src/views/role/role.vue</url>
           <line>100</line>
           <option name="timeStamp" value="171" />
+=======
+          <url>file://$PROJECT_DIR$/src/views/resource/resource.vue</url>
+          <line>254</line>
+          <option name="timeStamp" value="136" />
+>>>>>>> Stashed changes
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main.js</url>
+          <option name="timeStamp" value="139" />
         </line-breakpoint>
       </breakpoints>
+<<<<<<< Updated upstream
       <option name="time" value="173" />
+=======
+      <option name="time" value="141" />
+>>>>>>> Stashed changes
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/src/styles/fonts/ionicons.svg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -692,12 +1007,16 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/vendors/vendors.base.js">
+=======
+    <entry file="file://$PROJECT_DIR$/src/views/international/international.vue">
+>>>>>>> Stashed changes
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/src/vendors/vendors.exten.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -732,10 +1051,67 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
           <caret line="101" column="54" lean-forward="false" selection-start-line="101" selection-start-column="29" selection-end-line="101" selection-end-column="54" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/views/home/components/visiteVolume.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/home/components/userFlow.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/main-components/theme-switch/theme-switch.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/home/components/serviceRequests.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/home/components/dataSourcePie.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/home/components/inforCard.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/home/components/mapDataTable.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/home/components/map.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/home/components/countUp.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="15" column="46" lean-forward="false" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/home/components/toDoListItem.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/role/binding_rescourse.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4150">
+          <caret line="168" column="8" lean-forward="false" selection-start-line="168" selection-start-column="8" selection-end-line="168" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/access/access_update.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/access/access.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/access/access_adds.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/user.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/access/access-test.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/access/access_add.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/access/bang_access.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/access/access_bang.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/access/lost_list.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/access-system/access-system.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/editTest/editTest.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/advanced-router/argument-page.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/advanced-router/mutative-router.vue" />
+    <entry file="file://$PROJECT_DIR$/src/views/user/add_user.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="161" column="62" lean-forward="false" selection-start-line="161" selection-start-column="52" selection-end-line="161" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/router/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/router/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="215" column="34" lean-forward="false" selection-start-line="215" selection-start-column="23" selection-end-line="215" selection-end-column="34" />
+>>>>>>> Stashed changes
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/src/views/user/add_user.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="579">
@@ -953,10 +1329,152 @@
             <element signature="e#9672#10456#0" expanded="false" />
             <element signature="e#10577#10734#0" expanded="false" />
             <element signature="e#10769#10852#0" expanded="false" />
+=======
+    <entry file="file://$PROJECT_DIR$/../iview-admin-dev-backStage/src/app.vue" />
+    <entry file="file://$PROJECT_DIR$/../iview-admin-dev-backStage/src/views/main.less" />
+    <entry file="file://$PROJECT_DIR$/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#22#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/main-components/shrinkable-menu/components/sidebarMenu.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="51" lean-forward="false" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../iview-admin-dev-backStage/src/views/login.vue" />
+    <entry file="file://F:/jieyue_permissions1.1/jieyue_permissions/src/views/login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="112" column="88" lean-forward="false" selection-start-line="112" selection-start-column="73" selection-end-line="112" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/tenant/tenant.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-200">
+          <caret line="13" column="25" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="25" />
+          <folding>
+            <element signature="e#2452#4344#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="32" column="10" lean-forward="false" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/home/home.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="54" column="16" lean-forward="false" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/role/add_role.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="18" column="65" lean-forward="false" selection-start-line="18" selection-start-column="65" selection-end-line="18" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2775">
+          <caret line="208" column="107" lean-forward="false" selection-start-line="208" selection-start-column="107" selection-end-line="208" selection-end-column="107" />
+          <folding>
+            <element signature="e#5026#12248#0" expanded="false" />
+            <element signature="e#5239#5367#0" expanded="false" />
+            <element signature="e#5758#6178#0" expanded="false" />
+            <element signature="e#6488#6921#0" expanded="false" />
+            <element signature="e#7018#8246#0" expanded="false" />
+            <element signature="e#8354#12197#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/role/role.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10000">
+          <caret line="401" column="49" lean-forward="false" selection-start-line="401" selection-start-column="49" selection-end-line="401" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/resource/addResources.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1900">
+          <caret line="78" column="97" lean-forward="false" selection-start-line="78" selection-start-column="97" selection-end-line="78" selection-end-column="97" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#Button#1;n#FormItem#0;n#Form#1;n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/three_brower/add_oauth.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2250">
+          <caret line="91" column="17" lean-forward="false" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#0;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#1;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#2;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#3;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#4;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#5;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/user/binding_role.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2675">
+          <caret line="108" column="16" lean-forward="false" selection-start-line="108" selection-start-column="12" selection-end-line="108" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/main.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/three_brower/three_brower.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#0;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#1;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#2;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#3;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#4;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Icon#0;n#span#0;n#FormItem#5;n#Form#0;n#Modal#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#script#0;n#!!top" expanded="false" />
+            <element signature="e#3619#4706#0" expanded="false" />
+>>>>>>> Stashed changes
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/src/views/three_brower/add_oauth.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
@@ -1012,10 +1530,27 @@
             <element signature="e#7664#7759#0" expanded="false" />
             <element signature="e#7839#7954#0" expanded="false" />
             <element signature="e#9584#9706#0" expanded="false" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/views/resource/resource.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1100">
+          <caret line="44" column="56" lean-forward="false" selection-start-line="44" selection-start-column="50" selection-end-line="44" selection-end-column="56" />
+          <folding>
+            <element signature="e#4344#4448#0" expanded="false" />
+            <element signature="e#4470#4576#0" expanded="false" />
+            <element signature="e#4598#4704#0" expanded="false" />
+            <element signature="e#4726#5237#0" expanded="false" />
+            <element signature="e#5259#5365#0" expanded="false" />
+            <element signature="e#5387#5483#0" expanded="false" />
+            <element signature="e#5505#5608#0" expanded="false" />
+            <element signature="e#5630#5734#0" expanded="false" />
+            <element signature="e#5756#7415#0" expanded="false" />
+>>>>>>> Stashed changes
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://F:/jieyue_biaoqian/src/api/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
@@ -1029,10 +1564,30 @@
           <caret line="257" column="51" lean-forward="false" selection-start-line="257" selection-start-column="51" selection-end-line="257" selection-end-column="51" />
           <folding>
             <element signature="n#!!block;n#way#0" expanded="false" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/views/user/lost_list.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="22" column="11" lean-forward="false" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Main.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-875">
+          <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+          <folding>
+            <element signature="n#scroll-bar#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="e#5715#5868#0" expanded="false" />
+            <element signature="e#9084#9299#0" expanded="false" />
+            <element signature="e#10719#12300#0" expanded="false" />
+>>>>>>> Stashed changes
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/src/views/three_brower/three_brower.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="449">
@@ -1059,10 +1614,19 @@
             <element signature="e#6054#6210#0" expanded="false" />
             <element signature="e#6307#6589#0" expanded="false" />
             <element signature="e#6620#7312#0" expanded="false" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/views/user/user.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="4" column="54" lean-forward="false" selection-start-line="4" selection-start-column="54" selection-end-line="4" selection-end-column="54" />
+          <folding>
+            <element signature="e#3961#7858#0" expanded="false" />
+>>>>>>> Stashed changes
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/src/common/edit/Edit.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
@@ -1097,6 +1661,21 @@
             <element signature="e#6381#7947#0" expanded="false" />
             <element signature="e#9649#11290#0" expanded="false" />
           </folding>
+=======
+    <entry file="file://$PROJECT_DIR$/build/webpack.prod.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="22" column="2" lean-forward="false" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="36" column="11" lean-forward="false" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
+          <folding />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>

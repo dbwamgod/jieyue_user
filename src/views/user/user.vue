@@ -5,8 +5,10 @@
             <h2 class="com_header">用户管理</h2>
             </Col>
 
+
             <Col class="operation">
             <Input size="large" v-model="searchWord" placeholder="请输入昵称/手机号/邮箱/员工编号" class="user_search"/>
+
             <Button type="primary" @click='searchChange'>
                 <Icon type="md-search" style="font-size:17px;"></Icon>
             </Button>
@@ -16,6 +18,7 @@
         </Row>
         <Table border :columns="historyColumns" :data="historyData" :loading='SpinType'
                class="com_table"></Table>
+
         <Page :total="dataCount" :page-size="page.pageSize" :current="page.pageIndex" show-total class="paging"
               @on-change="changepage"></Page>
     </div>

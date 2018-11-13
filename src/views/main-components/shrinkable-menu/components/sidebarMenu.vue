@@ -76,13 +76,14 @@
         data () {
             return {
                 menuDisplay: {
+
                     ORG: false,
                     TENANT: false,
                     RES: false,
                     USER: false,
                     ROLE: false,
                     THREE_SYSTEM: false
-                },
+              },
                 activeName: '1-1',
                 pathNameObj: {
                     ORG: '1-1',

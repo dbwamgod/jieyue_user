@@ -2,6 +2,7 @@
 
     <div class="list_page">
         <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
+
             <Col span="6">
             <h2 class="com_header">三方系统</h2>
             </Col>
@@ -23,6 +24,7 @@
                 :footer-hide='true'
                 :closable="false"
                 :mask-closable="false"
+
         >
 
             <Form ref="formItem" :model="formItem" :rules="ruleInline" style="width: 90% ;">
@@ -168,6 +170,7 @@
                                         id: params.row.id,
                                         index: params.index,
                                         page: this.page.pageIndex
+
                                     },
                                     style: {
                                         marginRight: '5px'
@@ -276,6 +279,7 @@
             this.init();
 
             !this.operation.edit && !this.operation.edit_del && !this.operation.del ? this.columns7.splice(this.columns7.length - 1, 1) : '';
+
         },
         methods: {
             changepage (index) {
@@ -328,15 +332,19 @@
             sure () {
                 let com = this.formItem.accessTokenValidity;
                 let cop = this.formItem.refreshTokenValidity;
+
                 let tip = '票据有效期为正整数(单位:秒; 默认值:2592000秒, 即30天)';
                 let tips = '刷新票据有效期为正整数(单位:秒; 默认值:43200秒, 即12小时)';
+
 
                 if (!String(com).indexOf(' ')) {
                     this.$Message.error(tip);
                 } else if (!String(cop).indexOf(' ')) {
                     this.$Message.error(tips);
+
                 } else if (Number(com) >= 0 && Number(cop) >= 0) {
                     this.sure_p();
+
                 } else {
                     if (Number(com) < 0) {
                         tip;

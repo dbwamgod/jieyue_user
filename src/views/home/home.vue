@@ -4,8 +4,10 @@
             <Col span="4">
             <h2 class="com_header">组织机构管理</h2>
             </Col>
+
             <Col class="operation">
             <Input size="large" v-model="searchWord" placeholder="请输入组织机构简称..." class="com_search"/>
+
             <Button type="primary" @click="searchChange">
                 <Icon type="md-search" style=" font-size:17px;"></Icon>
             </Button>
@@ -29,8 +31,9 @@
     import Edit from '../../common/edit/Edit.vue';
 
     export default {
+
         inject: ['reload'],
-        data () {
+       data () {
             return {
                 SpinType: false,//懒加载
                 organizationRule: {
