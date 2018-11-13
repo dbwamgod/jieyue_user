@@ -2,8 +2,8 @@
     <div>
         <template>
             <div class="drop-box" key="grala">
-                <Dropdown v-if="menuDisplay.org" transfer placement="right-start" :key="1" @on-click="changeMenu">
-                    <Button class="downBtn"  type="text"  ghost>
+                <Dropdown v-if="menuDisplay.ORG" transfer placement="right-start" :key="1" @on-click="changeMenu">
+                    <Button class="downBtn" type="text" ghost>
                         <Icon type="md-pie" :size='20' class="icon-color"></Icon>
                     </Button>
                     <DropdownMenu class="drop-menu" slot="list">
@@ -11,8 +11,8 @@
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-                <Dropdown v-if="menuDisplay.ten" transfer placement="right-start" :key="2" @on-click="changeMenu">
-                    <Button class="downBtn" type="text" ghost >
+                <Dropdown v-if="menuDisplay.TENANT" transfer placement="right-start" :key="2" @on-click="changeMenu">
+                    <Button class="downBtn" type="text" ghost>
                         <Icon type="md-contacts" :size='20' class="icon-color"></Icon>
                     </Button>
                     <DropdownMenu class="drop-menu" slot="list">
@@ -20,7 +20,7 @@
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-                <Dropdown v-if="menuDisplay.res" transfer placement="right-start" :key="3" @on-click="changeMenu">
+                <Dropdown v-if="menuDisplay.RES" transfer placement="right-start" :key="3" @on-click="changeMenu">
                     <Button class="downBtn" type="text" ghost>
                         <Icon type="md-globe" :size='20' class="icon-color"></Icon>
                     </Button>
@@ -29,7 +29,7 @@
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-                <Dropdown v-if="menuDisplay.use" transfer placement="right-start" :key="4" @on-click="changeMenu">
+                <Dropdown v-if="menuDisplay.USER" transfer placement="right-start" :key="4" @on-click="changeMenu">
                     <Button class="downBtn" type="text" ghost>
                         <Icon type="md-person" :size='20' class="icon-color"></Icon>
 
@@ -39,7 +39,7 @@
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-                <Dropdown v-if="menuDisplay.rol" transfer placement="right-start" :key="5" @on-click="changeMenu">
+                <Dropdown v-if="menuDisplay.ROLE" transfer placement="right-start" :key="5" @on-click="changeMenu">
                     <Button class="downBtn" type="text" ghost>
                         <Icon type="md-ribbon" :size='20' class="icon-color"></Icon>
                     </Button>
@@ -48,7 +48,7 @@
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-                <Dropdown v-if="menuDisplay.thr" transfer placement="right-start" :key="6" @on-click="changeMenu">
+                <Dropdown v-if="menuDisplay.THREE_SYSTEM" transfer placement="right-start" :key="6" @on-click="changeMenu">
                     <Button class="downBtn" type="text" ghost>
                         <Icon type="ios-people" :size='20' class="icon-color"></Icon>
                     </Button>
@@ -67,12 +67,12 @@
         data () {
             return {
                 menuDisplay: {
-                    org: false,
-                    ten: false,
-                    res: false,
-                    use: false,
-                    rol: false,
-                    thr: false
+                    "ORG": false,
+                    "TENANT": false,
+                    "RES": false,
+                    "USER": false,
+                    "ROLE": false,
+                    "THREE_SYSTEM": false
                 },
                 menuListDisplay: []
 
@@ -80,27 +80,9 @@
         },
         created () {
             let localQ = JSON.parse(localStorage.getItem('Jurisdiction'));
-            if (localQ.length !== 0) {
-                localQ.forEach(r => {
-                    this.menuListDisplay.push(r.resourceName);
+                localQ && localQ.length && localQ.forEach(r => {
+                    this.menuDisplay[r.resourceCode]=true
                 });
-
-                for (var variable of this.menuListDisplay) {
-                    if (variable == '三方系统') {
-                        this.menuDisplay.thr = true;
-                    }else if (variable == '角色管理') {
-                        this.menuDisplay.rol = true;
-                    } else if (variable == '用户管理') {
-                        this.menuDisplay.use = true;
-                    } else if (variable == '资源管理') {
-                        this.menuDisplay.res = true;
-                    } else if (variable == '租户管理') {
-                        this.menuDisplay.ten = true;
-                    } else if (variable == '组织机构管理') {
-                        this.menuDisplay.org = true;
-                    }
-                }
-            }
         },
         name: 'sidebarMenuShrink',
         props: {

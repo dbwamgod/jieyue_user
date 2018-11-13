@@ -6,11 +6,17 @@
             </Col>
 
 
+<<<<<<< HEAD
 
             <Col class="operation">
             <Input size="large" v-model="searchWord" placeholder="请输入昵称/手机号/邮箱/员工编号" class="user_search"/>
 
 
+=======
+            <Col class="operation">
+            <Input size="large" v-model="searchWord" placeholder="请输入昵称/手机号/邮箱/员工编号" class="user_search"/>
+
+>>>>>>> dev1.2.1
             <Button type="primary" @click='searchChange'>
                 <Icon type="md-search" style="font-size:17px;"></Icon>
             </Button>
@@ -20,9 +26,13 @@
         </Row>
         <Table border :columns="historyColumns" :data="historyData" :loading='SpinType'
                class="com_table"></Table>
+
         <Page :total="dataCount" :page-size="page.pageSize" :current="page.pageIndex" show-total class="paging"
               @on-change="changepage"></Page>
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev1.2.1
     </div>
 </template>
 <style scoped>
@@ -38,7 +48,10 @@
     import util from '@/libs/util.js';
     import Delete from '../../common/delete/Delete.vue';
     import Edit from '../../common/edit/Edit.vue';
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev1.2.1
 
     export default {
         inject: ['reload'],
@@ -174,7 +187,7 @@
                         label: '昵称',
                         type: 'text'
                     },
-                ],
+                ]
             };
         },
         created () {
@@ -187,7 +200,7 @@
                 this.searchWord = this.$store.state.app.binding;
                 this.user_List();
             }
-            util.jurisdiction(this, '查询用户列表',  '新增用户', '修改用户', '删除用户','绑定角色','查询监听失败列表',);
+            util.jurisdiction(this, '查询用户列表', '新增用户', '修改用户', '删除用户','绑定角色', '查询监听失败列表');
 
             this.operation.edit || this.operation.edit_del || this.operation.del || this.edit_del_binding ? this.historyColumns.splice(this.historyColumns.length - 1, 0) : this.historyColumns.splice(this.historyColumns.length - 1, 1);
 
@@ -267,8 +280,6 @@
                 this.page.pageIndex = index;
                 this.user_List();
             },
-
-
         }
     };
 </script>

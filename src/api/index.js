@@ -1,22 +1,27 @@
-// const user_baseUrlC = 'http://172.18.101.118:10000/platform-user-api';
-// const _baseUrlC = 'http://172.18.101.118:10000';
-// const com_baseUrlC = 'http://172.18.101.118:10000/platform-user-admin';
+
+const _baseUrlC = 'http://172.18.101.118:10000';
+const user_baseUrlC =_baseUrlC+ '/platform-user-api';
+const com_baseUrlC =_baseUrlC+ '/platform-user-admin';
+
 /* 生产
 */
 // const user_baseUrlC = 'http://api.bdc.jieyue.com/api/platform-user-api';
 // const _baseUrlC = 'http://api.bdc.jieyue.com/api';
 // const com_baseUrlC = 'http://api.bdc.jieyue.com/api/platform-user-admin';
 
-const user_baseUrlC = 'http://stg.bdc.jieyue.com/api/platform-user-api';
-const _baseUrlC = 'http://stg.bdc.jieyue.com/api';
-const com_baseUrlC = 'http://stg.bdc.jieyue.com/api/platform-user-admin';
+// const user_baseUrlC = 'http://stg.bdc.jieyue.com/api/platform-user-api';
+// const _baseUrlC = 'http://stg.bdc.jieyue.com/api';
+// const com_baseUrlC = 'http://stg.bdc.jieyue.com/api/platform-user-admin';
+
 
 import Cookies from 'js-cookie';
 
 //权限
 function way (code) {
     let urlAry;
+
     JSON.parse(localStorage.getItem('child')).forEach(r => {
+
         if (r.resourceCode == code) {
             urlAry = r.url;
         }
@@ -36,7 +41,9 @@ export default {
     tenant_List () {
         let code = 'TENANT-LIST';
         let wayResult = way(code);
+
         return com_baseUrlC + `${wayResult}?` + cookies_con();
+
     },
     tenant_Add () {
         let code = 'ORG-UPDATE';
@@ -183,7 +190,7 @@ export default {
     userUpdate () {
         let code = 'USER-UPDATE';
         let wayResult = way(code);
-        return user_baseUrlC + `/platform-user-api${wayResult}?` + cookies_con();
+        return user_baseUrlC + `${wayResult}?` + cookies_con();
     },
     // 用户列表
     userList () {
@@ -219,6 +226,11 @@ export default {
 
         return com_baseUrlC + '/organization/find/group/name?'+`${jsRoot?'isRoot=true&':""}` + cookies_con();
     },
+    // 查询组织机构
+    organizationFindName (id) {
+
+        return com_baseUrlC + '/organization/find/'+id +"?"+ cookies_con();
+    },
     // 查询组织列表
     organizationList () {
         let code = 'ORG-LIST';
@@ -245,7 +257,9 @@ export default {
         let code = 'THREE_SYSTEM-LIST';
         let wayResult = way(code);
 
+
         return com_baseUrlC + `${wayResult}?` + cookies_con();
+
     },
     //新增三方系统
     addoauthThree () {
@@ -256,6 +270,7 @@ export default {
     //获取查询当前修改的id
     getoauthThree (id) {
         return com_baseUrlC + `/oauth_client/find/` + id + '?' + cookies_con();
+
     },
     //修改三方系统
     editoauthThree () {

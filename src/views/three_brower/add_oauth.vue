@@ -3,7 +3,8 @@
         <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
             <FormItem label="客户端ID" prop="clientId">
                 <Input v-model="formValidate.clientId" placeholder="请输入客户端ID"></Input>
-                <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{brower}}</span>
+                <span class="tip" style="line-height: 24px;
+    color: #999;    margin-left: -3px;"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{brower}}</span>
 
             </FormItem>
             <FormItem label="权限值" prop="authorities">
@@ -138,6 +139,8 @@
 
 <style scoped>
 .tip{
+    float: left;
     color: #999;
+
 }
 </style>

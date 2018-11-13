@@ -2,12 +2,9 @@
     <div class="list_page">
         <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
             <Col span="4">
-
             <h2 class="com_header">资源接口</h2>
             </Col>
-
             <Col span="2" class="operation">
-
             <Input size="large" v-model="searchWord" placeholder="请输入资源名称..." class="com_search"/>
             <Button type="primary" @click="searchChange">
                 <Icon type="md-search" style="font-size:17px;"></Icon>
@@ -29,8 +26,6 @@
     import util from '@/libs/util.js';
     import Delete from '../../common/delete/Delete.vue';
     import Edit from '../../common/edit/Edit.vue';
-
-
     export default {
         inject: ['reload'],
         data () {
@@ -53,7 +48,6 @@
                         {required: false, trigger: 'blur'}
                     ],
                 },
-
                 searchInfo: false,
                 adds: false,
                 searchShow: false,

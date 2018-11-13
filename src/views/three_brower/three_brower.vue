@@ -2,10 +2,11 @@
 
     <div class="list_page">
         <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
+
             <Col span="6">
             <h2 class="com_header">三方系统</h2>
             </Col>
-            <Col span="3" class="operation" >
+            <Col span="3" class="operation">
             <Button type="primary" @click="addTenant" v-if="adds">新增客户端授权</Button>
             </Col>
         </Row>
@@ -17,54 +18,15 @@
         </Row>
         <Page :total="dataCount" show-total :page-size="page.pageSize" :current="page.pageIndex" class="paging"
               @on-change="changepage"/>
-        <Modal
-                v-model="modal2"
-                title="修改信息"
-                :footer-hide='true'
-                :closable="false"
-                :mask-closable="false"
-                 >
 
-            <Form ref="formItem" :model="formItem" :rules="ruleInline" style="width: 90% ;">
-                <FormItem prop="clientId" label="客户端ID" style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.clientId" placeholder="请输入客户端ID"></Input>
-                    <span class="tip" ><Icon type="information-circled" style="color: #2baee9;" :size="18" ></Icon>{{brower}}</span>
-                </FormItem>
-                <FormItem prop="authorities" label="权限值"  style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.authorities" placeholder="请输入权限值(多个值用逗号隔开)"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{popTip}}</span>
-                </FormItem>
-                <FormItem prop="scope" label="权限范围"  style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.scope" placeholder="请输入权限范围(多个值用逗号隔开)"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{popTip}}</span>
-                </FormItem>
-                <FormItem prop="authorizedGrantTypes" label="授权类型"  style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.authorizedGrantTypes" placeholder="请输入授权类型(多个值用逗号隔开)"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{popTip}}</span>
-                </FormItem>
-                <FormItem prop="accessTokenValidity" label="票据有效期"  style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.accessTokenValidity" :placeholder="refPopCon"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{PopCon}}</span>
-                </FormItem>
-                <FormItem prop="refreshTokenValidity" label="刷新票据有效期"  style="margin-bottom: 5px">
-                    <Input type="text" v-model="formItem.refreshTokenValidity" :placeholder="PopCon"></Input>
-                    <span class="tip"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon> {{refPopCon}}</span>
-                </FormItem>
-            </Form>
-            <div class="sure-cancel" >
-                <Button type="primary" @click="sure" class="sure_edit">确定</Button>
-                <Button @click="cancel">取消</Button>
-            </div>
-
-
-        </Modal>
 
     </div>
 </template>
 <script>
     import Cookies from 'js-cookie';
     import api from '@/api';
-    import util from "@/libs/util.js"
+    import util from '@/libs/util.js';
+    import Edit from '../../common/edit/Edit.vue';
 
     export default {
         computed: {},
@@ -151,14 +113,23 @@
                     {
                         title: '操作',
                         key: 'action',
-                        width:100,
+                        width: 100,
                         render: (h, params) => {
                             return h('div', [
-                                this.operation.edit || this.operation.edit_del ? h('Button', {
+                                this.operation.edit || this.operation.edit_del ? h(Edit, {
                                     props: {
                                         type: 'primary',
                                         size: 'small',
-                                        disabled: params.row.id === 1 ? true : false
+                                        disabled: params.row.id === 1 ? true : false,
+                                        editData: this.BearingData,
+                                        EditRule: this.ruleInline,
+                                        check_list: this.init,
+                                        apiInfo: api.editoauthThree,
+                                        apiInfoId: api.getoauthThree,
+                                        id: params.row.id,
+                                        index: params.index,
+                                        page: this.page.pageIndex
+
                                     },
                                     style: {
                                         marginRight: '5px'
@@ -196,22 +167,77 @@
                             required: true,
                             type: 'string',
                             pattern: /^[0-9a-zA-Z_-]{1,}$/,
-                            message: '客户端ID只能为字母、数字、横线下划线',
+                            message:"客户端ID只能为字母、数字、横线下划线",
                             trigger: 'blur'
                         }
                     ],
                 },
-                cloneformItem: []
+                cloneformItem: [],
+                BearingData: [
+                    {
+                        prop: 'clientId',
+                        model: 'clientId',
+                        placeholder: '请输入客户端ID',
+                        label: '客户端ID',
+                        type: 'text',
+                        tip: '1',
+                        tipInfo:'客户端ID只能为字母、数字、横线下划线'
+                    }, {
+                        prop: 'authorities',
+                        model: 'authorities',
+                        placeholder: '请输入权限值(多个值用逗号隔开)',
+                        label: '权限值',
+                        type: 'text',
+                        tip: '1',
+                        tipInfo: '多个值用逗号隔开'
+
+                    }, {
+                        prop: 'scope',
+                        model: 'scope',
+                        placeholder: '请输入权限范围(多个值用逗号隔开)',
+                        label: '权限范围',
+                        type: 'text',
+                        tip: '1',
+                        tipInfo:  '多个值用逗号隔开'
+
+                    }, {
+                        prop: 'authorizedGrantTypes',
+                        model: 'authorizedGrantTypes',
+                        placeholder: '请输入授权类型(多个值用逗号隔开)',
+                        label: '授权类型',
+                        type: 'text',
+                        tip: '1',
+                        tipInfo:  '多个值用逗号隔开'
+
+                    }, {
+                        prop: 'accessTokenValidity',
+                        model: 'accessTokenValidity',
+                        placeholder: '请输入正整数(单位:秒; 默认值:2592000秒, 即30天)',
+                        label: '票据有效期',
+                        type: 'text',
+                        tip: '1',
+                        tipInfo: '请输入正整数(单位:秒; 默认值:2592000秒, 即30天)'
+
+                    }, {
+                        prop: 'refreshTokenValidity',
+                        model: 'refreshTokenValidity',
+                        placeholder: '请输入正整数(单位:秒; 默认值:43200秒, 即12小时)',
+                        label: '刷新票据有效期',
+                        type: 'text',
+                        tip: '1',
+                        tipInfo: '请输入正整数(单位:秒; 默认值:43200秒, 即12小时)'
+
+                    },
+                ]
             };
         },
         created () {
 
-            util.jurisdiction(this,'查询客户端授权列表','新增客户端授权','修改客户端授权','删除客户端授权')
+            util.jurisdiction(this, '查询客户端授权列表', '新增客户端授权', '修改客户端授权', '删除客户端授权');
 
             this.init();
 
-           !this.operation.edit && !this.operation.edit_del && !this.operation.del? this.columns7.splice(this.columns7.length-1, 1):""
-
+            !this.operation.edit && !this.operation.edit_del && !this.operation.del ? this.columns7.splice(this.columns7.length - 1, 1) : '';
 
         },
         methods: {
@@ -248,10 +274,7 @@
             },
 
             editF (id, index) {
-
                 this.formItem.id = id;
-                /*this.formItem=JSON.parse(JSON.stringify(this.data6[index]));
-                this.cloneformItem=JSON.parse(JSON.stringify(this.data6[index]));*/
                 Cookies.set('three_num', index);
                 Cookies.set('id', id);
                 this.modal2 = true;
@@ -268,15 +291,19 @@
             sure () {
                 let com = this.formItem.accessTokenValidity;
                 let cop = this.formItem.refreshTokenValidity;
-                let tip = '票据有效期为正整数(单位:秒; 默认值:2592000秒, 即30天)'
-                let tips ='刷新票据有效期为正整数(单位:秒; 默认值:43200秒, 即12小时)'
+
+                let tip = '票据有效期为正整数(单位:秒; 默认值:2592000秒, 即30天)';
+                let tips = '刷新票据有效期为正整数(单位:秒; 默认值:43200秒, 即12小时)';
+
 
                 if (!String(com).indexOf(' ')) {
                     this.$Message.error(tip);
                 } else if (!String(cop).indexOf(' ')) {
                     this.$Message.error(tips);
-                }else if (Number(com) >= 0 && Number(cop) >= 0) {
-                        this.sure_p();
+
+                } else if (Number(com) >= 0 && Number(cop) >= 0) {
+                    this.sure_p();
+
                 } else {
                     if (Number(com) < 0) {
                         tip;
@@ -329,9 +356,7 @@
         }
     };
 </script>
-<style scoped>
-
-
+<style scoped lang="less">
     .tip {
         /*position: absolute;*/
         /*top: 54%;*/

@@ -281,7 +281,6 @@ util.getStringTime = function (date) {
 * */
 
 util.jurisdiction = function (vm, a, b, c, d, e = '无',f) {
-
     if (JSON.parse(localStorage.getItem('Jurisdiction'))) {
         JSON.parse(localStorage.getItem('Jurisdiction')).forEach(r => {
             r.child && r.child.forEach(r => {
@@ -310,6 +309,8 @@ util.jurisdiction = function (vm, a, b, c, d, e = '无',f) {
                     } else if (vm.flag === 1) {
                         vm.operation.edit_binding = true;
                     }
+                }else if (r.resourceName == f) {
+                        vm.loseList = true;
                 }
                 else if(r.resourceName == f){
                     vm.loseList=true
