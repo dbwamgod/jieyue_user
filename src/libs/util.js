@@ -309,8 +309,8 @@ util.jurisdiction = function (vm, a, b, c, d, e = '无',f) {
                     } else if (vm.flag === 1) {
                         vm.operation.edit_binding = true;
                     }
-                }else if (r.resourceName == f) {
-                        vm.loseList = true;
+                } else if (r.resourceName == f) {
+                vm.loseList=true
                 }
                 else if(r.resourceName == f){
                     vm.loseList=true

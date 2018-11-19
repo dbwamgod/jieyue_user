@@ -6,8 +6,8 @@ const com_baseUrlC =_baseUrlC+ '/platform-user-admin';
 /* 生产
 */
 // const user_baseUrlC = 'http://api.bdc.jieyue.com/api/platform-user-api';
-// const _baseUrlC = 'http://api.bdc.jieyue.com/api';
-// const com_baseUrlC = 'http://api.bdc.jieyue.com/api/platform-user-admin';
+
+// const user_baseUrlC = 'http://stg.bdc.jieyue.com/api/platform-user-api';
 
 // const user_baseUrlC = 'http://stg.bdc.jieyue.com/api/platform-user-api';
 // const _baseUrlC = 'http://stg.bdc.jieyue.com/api';
