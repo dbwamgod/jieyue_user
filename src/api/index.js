@@ -1,18 +1,8 @@
-
-const _baseUrlC = 'http://172.18.101.118:10000';
+const _baseUrlC = 'http://172.18.101.118:10000';//开发/测试环境
+// const _baseUrlC = 'http://api.bdc.jieyue.com/api';//生产环境
+// const _baseUrlC = 'http://stg.bdc.jieyue.com/api';//准生产环境
 const user_baseUrlC =_baseUrlC+ '/platform-user-api';
 const com_baseUrlC =_baseUrlC+ '/platform-user-admin';
-
-/* 生产
-*/
-// const user_baseUrlC = 'http://api.bdc.jieyue.com/api/platform-user-api';
-
-// const user_baseUrlC = 'http://stg.bdc.jieyue.com/api/platform-user-api';
-
-// const user_baseUrlC = 'http://stg.bdc.jieyue.com/api/platform-user-api';
-// const _baseUrlC = 'http://stg.bdc.jieyue.com/api';
-// const com_baseUrlC = 'http://stg.bdc.jieyue.com/api/platform-user-admin';
-
 
 import Cookies from 'js-cookie';
 
