@@ -43,7 +43,7 @@
     import api from '@/api';
 
     export default {
-
+        inject: ['out'],
         data () {
             return {
                 msg: '',
@@ -58,8 +58,10 @@
                     password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
                 },
                 codeCompare: {
+
                     ORG: 'org_index',
                     TENANT: 'tenant_index',
+
                     RES: 'resource_index',
                     USER: 'accesstest_index',
                     ROLE: 'access_index',
@@ -113,22 +115,16 @@
                                     }).then(res => {
 
                                         if (res.data.code == 200) {
-                                            if (res.data.data.length) {
-                                                Cookies.set('login_info', '1');
-                                                let dataLen = [];
-                                                res.data.data.map((r, i) => {
-                                                    dataLen.push(r);
-                                                });
-                                                localStorage.setItem('Jurisdiction', JSON.stringify(dataLen));
 
+                                            if (res.data.data.length) {
+                                                Cookies.set('login_info', '1');//做首次登录记录
+                                                localStorage.setItem('Jurisdiction', JSON.stringify(res.data.data));
                                                 let set = new Set(JSON.parse(localStorage.getItem('Jurisdiction')));
                                                 let resource = [...set];
                                                 resource.forEach(r => {
-                                                    if (r.child) {
-                                                        r.child.forEach(res => {
+                                                        r.child &&r.child.length&& r.child.forEach(res => {
                                                             this.disNay.push(res);
                                                         });
-                                                    }
                                                 });
                                                 let resourceCodes = resource.map(r => r.resourceCode);
                                                 localStorage.setItem('child', JSON.stringify(this.disNay));
@@ -140,34 +136,36 @@
                                                     return;
                                                 } else {
                                                     for (var code in  resourceCodes) {
-
                                                         Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
-                                                        this.$router.push({
+                                                       this.$router.push({
                                                             name: this.codeCompare[resourceCodes[code]]
                                                         });
+
                                                         return;
                                                     }
                                                 }
                                             } else {
                                                 const title = '登录错误';
-                                                Cookies.remove('user_user');
-                                                Cookies.remove('user_password');
-                                                Cookies.remove('user_access');
-                                                Cookies.remove('user_token');
-                                                Cookies.remove('user_userId');
+                                              this.out()
+                                                // Cookies.remove('user_user');
+                                                // Cookies.remove('user_password');
+                                                // Cookies.remove('user_access');
+                                                // Cookies.remove('user_token');
+                                                // Cookies.remove('user_userId');
                                                 this.$Modal.error({
                                                     title: title,
                                                     content: '您未开通系统权限, 请联系管理员',
                                                 });
                                             }
-                                        } else {
+                                      } else {
                                             this.msg = res.data.msg;
                                             const title = '资源错误';
-                                            Cookies.remove('user_user');
-                                            Cookies.remove('user_password');
-                                            Cookies.remove('user_access');
-                                            Cookies.remove('user_token');
-                                            Cookies.remove('user_userId');
+                                            this.out()
+                                            // Cookies.remove('user_user');
+                                            // Cookies.remove('user_password');
+                                            // Cookies.remove('user_access');
+                                            // Cookies.remove('user_token');
+                                            // Cookies.remove('user_userId');
                                             this.$Modal.error({
                                                 title: title,
                                                 content: res.data.msg,
@@ -185,17 +183,17 @@
                 });
 
             },
-           /* checkChange (e) {
-                let checkNodes = this.$refs.treeT.getCheckedAndIndeterminateNodes();
-                console.log(checkNodes, e);
-                checkNodes.map(r => {
-                    if (r.id == e.parentId) {
-                        r.children.map(t => {
-                            console.log(t.id,t.parentId);
-                        });
-                    }
-                });
-            }*/
+            /* checkChange (e) {
+                 let checkNodes = this.$refs.treeT.getCheckedAndIndeterminateNodes();
+
+                 checkNodes.map(r => {
+                     if (r.id == e.parentId) {
+                         r.children.map(t => {
+
+                         });
+                     }
+                 });
+             }*/
         },
 
     };

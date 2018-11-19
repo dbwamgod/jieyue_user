@@ -53,12 +53,10 @@ const app = {
             let newArr = [];
             state.roleResource&&state.roleResource.forEach(r => {
                 list.forEach(t => {
-                    // console.log(r.title , t.title,798798798);
                    r.title !== t.title? newArr.push(t):"";
                 });
             });
             state.roleResource = newArr.length?newArr:list
-            // console.log(state.roleResource,111111);
         },
         setTagsList (state, list) {
             state.tagsList.push(...list);
@@ -241,7 +239,6 @@ const app = {
         delData (state, bind = '') {
             state.notData = bind;
         },
-
     }
 };
 

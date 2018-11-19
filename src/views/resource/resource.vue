@@ -2,9 +2,9 @@
     <div class="list_page">
         <Row type="flex" justify="space-between" align="middle" class="code-row-bg">
             <Col span="4">
-            <h2  class="com_header">资源接口</h2>
+            <h2 class="com_header">资源接口</h2>
             </Col>
-            <Col span="2"  class="operation" >
+            <Col span="2" class="operation">
             <Input size="large" v-model="searchWord" placeholder="请输入资源名称..." class="com_search"/>
             <Button type="primary" @click="searchChange">
                 <Icon type="md-search" style="font-size:17px;"></Icon>
@@ -16,42 +16,6 @@
                class="com_table"></Table>
         <Page class="paging" :total="total" :page-size="page.pageSize" :current="page.pageIndex" @on-change="totol"
               show-total/>
-        <Modal
-                v-model="modal2"
-                title="修改信息"
-                :footer-hide='true'
-                :closable="false"
-                :mask-closable="false"
-        >
-
-            <Form ref="resourceForm" :model="resourceForm" :rules="resourceRule">
-                <FormItem label="描述" prop="description">
-                    <Input v-model="resourceForm.description" placeholder="描述"></Input>
-                </FormItem>
-                <FormItem label="排序号" prop="orderNo">
-                    <Input v-model="resourceForm.orderNo" placeholder="排列顺序"></Input>
-                </FormItem>
-                <FormItem label="资源名" prop="resourceName">
-                    <Input v-model="resourceForm.resourceName" placeholder="资源名称"></Input>
-                </FormItem>
-                <FormItem label="url路径" prop="url" v-show="!isShow">
-                    <Input v-model="resourceForm.url"></Input>
-                </FormItem>
-                <FormItem label="url路径" prop="mustUrl" v-show="isShow">
-                    <Input v-model="resourceForm.url"></Input>
-                </FormItem>
-                <FormItem label="是否为菜单" prop="isMenu">
-                    <RadioGroup v-model="resourceForm.isMenu">
-                        <Radio label="1">是</Radio>
-                        <Radio label="0">否</Radio>
-                    </RadioGroup>
-                </FormItem>
-            </Form>
-            <div class="sure-cancel">
-                <Button type="primary" @click="sure" class="sure_edit">确定</Button>
-                <Button @click="cancel">取消</Button>
-            </div>
-        </Modal>
     </div>
 </template>
 <style scoped>
@@ -59,8 +23,9 @@
 <script>
     import api from '@/api';
     import Cookies from 'js-cookie';
-    import util from "@/libs/util.js"
-
+    import util from '@/libs/util.js';
+    import Delete from '../../common/delete/Delete.vue';
+    import Edit from '../../common/edit/Edit.vue';
     export default {
         inject: ['reload'],
         data () {
@@ -77,20 +42,11 @@
                         }
                     ],
                     url: [
-                        {required: true,  type: 'string', pattern: /\S/,message: '请输入url路径且不为空', trigger: 'blur'}
+                        {required: true, type: 'string', pattern: /\S/, message: '请输入url路径且不为空', trigger: 'blur'}
                     ],
                     mustUrl: [
                         {required: false, trigger: 'blur'}
                     ],
-                },
-                resourceForm: {
-                    description: '',
-                    orderNo: 100,
-                    resourceName: '',
-                    resourceId: [],
-                    url: '',
-                    mustUrl: '',
-                    isMenu: ''
                 },
                 searchInfo: false,
                 adds: false,
@@ -103,7 +59,6 @@
                     edit_del: false,
                 },
                 columns1: [
-
                     {
                         title: '租户名称',
                         key: 'tenantName'
@@ -151,25 +106,37 @@
                         width: 150,
                         align: 'center',
                         render: (h, params) => {
+                            // console.log(this.data1[params.index],11111);
                             return h('div', [
-                                this.operation.edit || this.operation.edit_del ? h('Button', {
+
+                                this.operation.edit || this.operation.edit_del ? h(Edit, {
                                     props: {
                                         type: 'primary',
-                                        size: 'small'
+                                        size: 'small',
+                                        editData: this.BearingData,
+                                        EditRule: this.resourceRule,
+                                        check_list: this.res_List,
+                                        apiInfo: api.res_update,
+                                        apiInfoId: api.res_search,
+                                        id: params.row.resourceId,
+                                        index: params.index,
+                                        page: this.page.pageIndex,
+                                        resData:this.data1[params.index]
                                     },
                                     style: {
                                         marginRight: '5px'
-                                    },
-                                    on: {
-                                        click: () => {
-                                            this.edit(params.index, params.row.resourceId);
-                                        }
                                     }
-                                }, '修改') : '',
-                                this.operation.del || this.operation.edit_del ? h('Button', {
+                                }) : '',
+                                this.operation.del || this.operation.edit_del ? h(Delete, {
                                     props: {
                                         type: 'error',
-                                        size: 'small'
+                                        size: 'small',
+                                        index: params.index,
+                                        id: 'resourceId',
+                                        dataInfo: this.data1,
+                                        text: '资源',
+                                        apiInfo: api.res_del,
+                                        check_list: this.res_List
                                     },
                                     on: {
                                         click: () => {
@@ -187,14 +154,65 @@
                     pageIndex: 1,
                     pageSize: 10,
                 },
-
-                modal2: false,
-                real: [],
-                isShow: false,
-                sersfill: true
+                BearingData: [
+                    {
+                        prop: 'description',
+                        model: 'description',
+                        placeholder: '请输入描述',
+                        label: '描述',
+                        type: 'text'
+                    }, {
+                        prop: 'orderNo',
+                        model: 'orderNo',
+                        placeholder: '请输入排序号',
+                        label: '排序号',
+                        type: 'text'
+                    }, {
+                        prop: 'resourceName',
+                        model: 'resourceName',
+                        placeholder: '请输入资源名',
+                        label: '资源名',
+                        type: 'text'
+                    },
+                    {
+                        prop: 'url',
+                        model: 'url',
+                        placeholder: '请输入url路径',
+                        label: 'url路径',
+                        show:"0",
+                        type: 'text'
+                    },
+                    {
+                        prop: 'mustUrl',
+                        model: 'url',
+                        placeholder: '请输入url路径',
+                        label: 'url路径',
+                        show:"1",
+                        type: 'text'
+                    },{
+                        prop: 'isMenu',
+                        model: 'isMenu',
+                        placeholder: '',
+                        label: '是否为菜单',
+                        type: 'text',
+                        html:"1"
+                    },
+                ],
+                editItem:{}
             };
         },
+        components: {
+            Delete,
+            Edit
+        },
         created () {
+
+            console.log(...this.BearingData.map(r => {
+                return {
+                    [r.prop]: ''
+                };
+            }));
+
             Cookies.remove('home_index');
             // Cookies.remove( 'res_index')
             Cookies.remove('role_index');
@@ -205,28 +223,14 @@
                 this.searchWord = this.$store.state.app.resSearchFlag;
                 this.res_List();
             }
-
-            util.jurisdiction(this,'查询资源列表','新增资源','修改资源','删除资源')
-            this.operation.edit || this.operation.edit_del || this.operation.del ?this.columns1.splice(this.columns1.length - 1, 0): this.columns1.splice(this.columns1.length - 1, 1);
+            util.jurisdiction(this, '查询资源列表', '新增资源', '修改资源', '删除资源');
+            this.operation.edit || this.operation.edit_del || this.operation.del ? this.columns1.splice(this.columns1.length - 1, 0) : this.columns1.splice(this.columns1.length - 1, 1);
 
             if (Cookies.get('res_index')) {
                 this.page.pageIndex = Number(Cookies.get('res_index'));
                 Cookies.remove('res_index');
             }
             this.res_List();
-            this.resourceForm.url == 0 ? this.isShow = false : this.isShow = true;
-        },
-        watch: {
-            'resourceForm.isMenu' (to, form) {
-                if (to == 1) {
-                    this.isShow = true;
-                    this.resourceRule.url = [];
-                } else {
-                    this.isShow = false;
-                    this.resourceRule.url = [{required: true,  type: 'string', pattern: /\S/,message: '请输入url路径且不为空', trigger: 'blur'}];
-
-                }
-            }
         },
         methods: {
             searchChange () {
@@ -244,14 +248,17 @@
                 this.$router.push({name: 'addResources'});
             },
             //页面列表
-            res_List () {
+            res_List (num) {
+                if (num) {
+                    this.page.pageIndex >= 1 ? this.page.pageIndex-- : this.page.pageIndex = 1;
+                }
                 this.SpinType = true;
                 this.$axios({
                     method: 'post',
                     url: api.res_list(),
                     data: {
                         keyword: this.$store.state.app.resSearchFlag || '',
-                        currentPage: this.searchInfo ? 1 : this.page.pageIndex || 1,
+                        currentPage: this.page.pageIndex || 1,
                         pageSize: this.page.pageSize
                     },
                     headers: {
@@ -262,159 +269,24 @@
                     if (res.data.code == 200) {
                         this.SpinType = false;
                         if (res.data.data) {
-
                             this.data1 = res.data.data;
                             this.total = res.data.page.totalRecords;
                         } else {
-
-                            if (this.searchInfo) {
-                                this.data1 = [];
-                                this.total = 0;
-                            } else {
-                                --this.page.pageIndex;
-                                this.res_List();
-                            }
+                            this.data1 = [];
+                            this.total = 0;
                         }
                         if (this.searchInfo) {
+                            if (res.data.page) {
+                                this.page.pageIndex = res.data.page.currentPage;
+                            }
                             this.page.pageIndex = 1;
                         }
                         this.searchInfo = false;
                     } else {
                         this.$Message.info(res.data.msg);
                     }
-
-                });
-
-            },
-            //删除
-            remove (index) {
-                this.$Modal.confirm({
-                    title: '删除警告',
-                    content: '<p>您确定要删除该资源吗</p>',
-                    loading: true,
-                    onOk: () => {
-                        setTimeout(() => {
-                            Cookies.set('del', this.page.pageIndex);
-                            this.$axios({
-                                method: 'post',
-                                url: api.res_del(),
-                                data: {
-                                    resourceId: this.data1[index].resourceId,
-                                    userId: Cookies.get('userId')
-                                },
-                                headers: {
-                                    Authorization: Cookies.get('token'),
-                                    'Content-Type': 'application/json;charset=UTF-8'
-                                }
-                            }).then(res => {
-                                if (res.data.code == 200) {
-
-                                    if (this.data1.length < 2) {
-                                        this.$axios({
-                                            method: 'post',
-                                            url: api.res_list(),
-                                            data: {
-                                                keyword: this.searchWord,
-                                                currentPage: this.page.pageIndex,
-                                                pageSize: this.page.pageSize
-                                            },
-                                            headers: {
-                                                Authorization: Cookies.get('token'),
-                                                'Content-Type': 'application/json;charset=UTF-8'
-                                            }
-                                        }).then(res => {
-                                            if (res.data.code == 200) {
-                                                if (res.data.data) {
-                                                    this.data1 = res.data.data;
-                                                    this.total = res.data.page.totalRecords;
-                                                } else {
-                                                    this.data1 = [];
-                                                    this.total = 0;
-                                                }
-                                            } else {
-                                                this.$Message.info(res.data.msg);
-                                            }
-                                        });
-                                    } else {
-                                        this.$Message.info('已删除');
-                                        this.searchInfo = true;
-                                        this.data1.splice(index,1)
-                                    }
-
-                                } else {
-                                    this.$Message.info(res.data.msg);
-                                }
-                                this.$Modal.remove();
-                            });
-                        }, 0);
-                    }
                 });
             },
-            //确定修改
-            sure () {
-                this.$refs.resourceForm.validate((valid) => {
-                    if (valid) {
-                        this.$axios({
-                            method: 'post',
-                            url: api.res_update(),
-                            data: {
-                                description: this.resourceForm.description,
-                                orderNo: this.resourceForm.orderNo || 100,
-                                resourceId: this.resourceForm.resourceId,
-                                isMenu: this.resourceForm.isMenu,
-                                resourceName: this.resourceForm.resourceName,
-                                url: this.resourceForm.url ,
-                                userId: Cookies.get('userId'),
-                                parentId: this.resourceForm.parentId
-                            },
-                            headers: {
-                                Authorization: Cookies.get('token'),
-                                'Content-Type': 'application/json;charset=UTF-8'
-                            }
-                        }).then(res => {
-                            if (res.data.code === 200) {
-
-                                this.reload();
-                                this.$Message.info('已修改');
-                                this.modal2 = false;
-                            } else if(res.data.code===500){
-                                this.$Message.error(res.data.msg);
-                            }else{
-                                this.$Message.info(res.data.msg);
-                            }
-                        });
-
-
-                    }
-                });
-            },
-            //取消修改
-            cancel () {
-                let a = this.data1.map(r => {
-                    if (r.userId === this.real.userId) {
-                        r:Object.assign({}, ...this.real);
-                    }
-                });
-                this.$refs.resourceForm.resetFields();
-                this.modal2 = false;
-                this.$Message.info('已取消');
-            },
-            //编辑
-            edit (num, i) {
-
-                this.$axios({
-                    method: 'get',
-                    url: api.res_search(i),
-                }).then(r => {
-                    if (r.data.code == 200) {
-                        this.resourceForm = JSON.parse(JSON.stringify(r.data.data));
-                        this.real = JSON.parse(JSON.stringify(r.data.data));
-                        this.modal2 = true;
-                        Cookies.set('res_num', num);
-                        Cookies.set('res_index', this.page.pageIndex);
-                    }
-                });
-            }
         },
 
     };

@@ -9,22 +9,26 @@
 
     export default {
 
+        provide () {
+            return {
+                out:this.out
+            };
+        },
         data () {
             return {
                 bock: true,
                 theme: this.$store.state.app.themeColor
             };
         },
-        created () {
 
-
-        },
-        mounted () {
-        },
-
-        methods: {
-
-        }
+        method:{
+            out(){
+                let keys= Object.keys(Cookies());
+                keys.map(r=>{
+                    Cookies.remove(r);
+                });
+            }
+   }
     };
 </script>
 

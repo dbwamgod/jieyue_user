@@ -20,8 +20,7 @@
             </FormItem>
 
             <FormItem>
-                <Button type="primary" @click="oks('formItem')" style="margin-right: 30px; margin-left:30px;">确定
-                </Button>
+                <Button type="primary" @click="oks('formItem')" style="margin-right: 30px; margin-left:30px;">确定</Button>
                 <Button @click="onCanel">返回</Button>
             </FormItem>
         </Form>
@@ -53,11 +52,9 @@
                             label: r.organizationName,
                         };
                     }
-
                 });
             },
             oks (name) {
-
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         if (this.value1.length !== 0) {
@@ -79,7 +76,6 @@
                             }).then(res => {
                                 if (res.data.code == 200) {
                                     this.$router.push({path: '/organization-management-system'});
-
                                 } else {
                                     this.$Message.info(res.data.msg);
                                 }
@@ -91,7 +87,6 @@
                         this.$Message.error('信息不正确');
                     }
                 });
-
             },
             onCanel () {
                 this.$router.push({path: '/organization-management-system'});

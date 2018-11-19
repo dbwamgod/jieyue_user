@@ -98,6 +98,7 @@
         },
         data () {
             return {
+
                 codeCompare: {
                     ORG: 'org_index',
                     TENANT: 'tenant_index',
@@ -106,6 +107,7 @@
                     ROLE: 'access_index',
                     THREE_SYSTEM: 'oauth_index'
                 },
+
                 bock: true,
                 shrink: false,
                 userName: '',
