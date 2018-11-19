@@ -169,8 +169,10 @@
                     orderNo: [
                         {required: false, type: 'string', pattern: /^\d+$/, message: '请输入正确的序号', trigger: 'blur'},
                     ],
+
                     tenantId: [
                         {required: true, message: '请输入正确的租户'},
+
                     ],
                     pswd: [
                         {required: true, message: '请输入正确的密码', trigger: 'blur'},

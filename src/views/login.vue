@@ -58,8 +58,10 @@
                     password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
                 },
                 codeCompare: {
+
                     ORG: 'org_index',
                     TENANT: 'tenant_index',
+
                     RES: 'resource_index',
                     USER: 'accesstest_index',
                     ROLE: 'access_index',
@@ -113,6 +115,7 @@
                                     }).then(res => {
 
                                         if (res.data.code == 200) {
+
                                             if (res.data.data.length) {
                                                 Cookies.set('login_info', '1');//做首次登录记录
                                                 localStorage.setItem('Jurisdiction', JSON.stringify(res.data.data));
@@ -134,9 +137,10 @@
                                                 } else {
                                                     for (var code in  resourceCodes) {
                                                         Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
-                                                        this.$router.push({
+                                                       this.$router.push({
                                                             name: this.codeCompare[resourceCodes[code]]
                                                         });
+
                                                         return;
                                                     }
                                                 }
@@ -153,7 +157,7 @@
                                                     content: '您未开通系统权限, 请联系管理员',
                                                 });
                                             }
-                                        } else {
+                                      } else {
                                             this.msg = res.data.msg;
                                             const title = '资源错误';
                                             this.out()
@@ -181,11 +185,11 @@
             },
             /* checkChange (e) {
                  let checkNodes = this.$refs.treeT.getCheckedAndIndeterminateNodes();
-                 console.log(checkNodes, e);
+
                  checkNodes.map(r => {
                      if (r.id == e.parentId) {
                          r.children.map(t => {
-                             console.log(t.id,t.parentId);
+
                          });
                      }
                  });

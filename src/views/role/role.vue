@@ -12,7 +12,9 @@
             <Button type="primary" @click="add" v-if="adds">新增角色</Button>
             </Col>
         </Row>
+
         <Table border :columns="columns2" :data="data3" :loading='SpinType' class="com_table"></Table>
+
         <Page :total="allMuch" show-total :page-size="page.pageSize" :current="page.pageIndex" @on-change="totol"
               class="paging"></Page>
 
@@ -116,6 +118,7 @@
                                             color: 'white',
                                             marginRight: '10px'
                                         },
+
                                     }, '删除'
                                 ) : '',
                                 this.operation.binding || this.operation.edit_binding || this.operation.del_binding || this.operation.edit_del_binding ? h(
@@ -185,8 +188,11 @@
                 this.searchWord = this.$store.state.app.bindingRes;
                 // this.role_List()
             }
+
             util.jurisdiction(this, '查询角色列表', '新增角色', '修改角色', '删除角色', '绑定资源');
                 this.operation.edit || this.operation.edit_del || this.operation.del || this.edit_del_binding ?this.columns2.splice(this.columns2.length - 1, 0): this.columns2.splice(this.columns2.length - 1, 1);
+
+
             if (Cookies.get('role_index')) {
                 this.page.pageIndex = Number(Cookies.get('role_index'));
                 Cookies.remove('role_index');

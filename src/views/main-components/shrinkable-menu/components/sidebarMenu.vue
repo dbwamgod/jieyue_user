@@ -76,13 +76,14 @@
         data () {
             return {
                 menuDisplay: {
+
                     ORG: false,
                     TENANT: false,
                     RES: false,
                     USER: false,
                     ROLE: false,
                     THREE_SYSTEM: false
-                },
+              },
                 activeName: '1-1',
                 pathNameObj: {
                     ORG: '1-1',
@@ -105,7 +106,7 @@
                    access_index: '1-5',
                    oauth_index: '1-6',
                 }
-                this.activeName = pathNameObj[to.name]? pathNameObj[to.name]:this.activeName
+                 pathNameObj[to.name]?this.activeName = pathNameObj[to.name]:''
                 pathNameObj[to.name] && sessionStorage.setItem('user_pages', pathNameObj[to.name]);
             }
         },
@@ -126,9 +127,7 @@
                 this.menuDisplay[r.resourceCode]=true;
                 this.activeName = this.pathNameObj[r.resourceCode];
             });
-            if (sessionStorage.getItem('user_pages')) {
                 this.activeName = sessionStorage.getItem('user_pages') || '1-1';
-            }
         },
         methods: {
             menuSelect (name) {

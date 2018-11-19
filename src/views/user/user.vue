@@ -5,8 +5,10 @@
             <h2 class="com_header">用户管理</h2>
             </Col>
 
+
             <Col class="operation">
             <Input size="large" v-model="searchWord" placeholder="请输入昵称/手机号/邮箱/员工编号" class="user_search"/>
+
             <Button type="primary" @click='searchChange'>
                 <Icon type="md-search" style="font-size:17px;"></Icon>
             </Button>
@@ -16,6 +18,7 @@
         </Row>
         <Table border :columns="historyColumns" :data="historyData" :loading='SpinType'
                class="com_table"></Table>
+
         <Page :total="dataCount" :page-size="page.pageSize" :current="page.pageIndex" show-total class="paging"
               @on-change="changepage"></Page>
     </div>
@@ -181,9 +184,7 @@
                 this.searchWord = this.$store.state.app.binding;
                 this.user_List();
             }
-
             util.jurisdiction(this, '查询用户列表', '新增用户', '修改用户', '删除用户','绑定角色','查询监听失败列表');
-
             this.operation.edit || this.operation.edit_del || this.operation.del || this.edit_del_binding ? this.historyColumns.splice(this.historyColumns.length - 1, 0) : this.historyColumns.splice(this.historyColumns.length - 1, 1);
 
             if (Cookies.get('user_index')) {

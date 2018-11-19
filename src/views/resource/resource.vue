@@ -4,6 +4,7 @@
             <Col span="4">
             <h2 class="com_header">资源接口</h2>
             </Col>
+
             <Col span="2" class="operation">
             <Input size="large" v-model="searchWord" placeholder="请输入资源名称..." class="com_search"/>
             <Button type="primary" @click="searchChange">
@@ -13,9 +14,11 @@
             </Col>
         </Row>
         <Table border :columns="columns1" :data="data1" id="table1" :loading='SpinType'
+
                class="com_table"></Table>
         <Page class="paging" :total="total" :page-size="page.pageSize" :current="page.pageIndex" @on-change="totol"
               show-total/>
+
     </div>
 </template>
 <style scoped>
@@ -107,7 +110,6 @@
                         width: 150,
                         align: 'center',
                         render: (h, params) => {
-                            // console.log(this.data1[params.index],11111);
                             return h('div', [
 
                                 this.operation.edit || this.operation.edit_del ? h(Edit, {
@@ -200,6 +202,7 @@
                     },
                 ],
                 editItem:{}
+
             };
         },
         components: {
@@ -207,13 +210,6 @@
             Edit
         },
         created () {
-
-            console.log(...this.BearingData.map(r => {
-                return {
-                    [r.prop]: ''
-                };
-            }));
-
             Cookies.remove('home_index');
             // Cookies.remove( 'res_index')
             Cookies.remove('role_index');
@@ -224,7 +220,6 @@
                 this.searchWord = this.$store.state.app.resSearchFlag;
                 this.res_List();
             }
-
             util.jurisdiction(this, '查询资源列表', '新增资源', '修改资源', '删除资源');
             this.operation.edit || this.operation.edit_del || this.operation.del ? this.columns1.splice(this.columns1.length - 1, 0) : this.columns1.splice(this.columns1.length - 1, 1);
 
@@ -233,7 +228,6 @@
                 Cookies.remove('res_index');
             }
             this.res_List();
-
         },
         methods: {
             searchChange () {

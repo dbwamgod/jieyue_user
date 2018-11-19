@@ -9,20 +9,23 @@
                 :mask-closable="false">
             <!--:rules="editRule"-->
             <Form ref="editRef" :model="editItem" :rules="editRule">
-                <FormItem :prop="item.prop" :label="item.label" v-for="(item,i) in editData" :key="i" v-show="!Boolean(Number(item.show))">
+                <FormItem :prop="item.prop" :label="item.label" v-for="(item,i) in editData" :key="i"
+                          v-show="!Boolean(Number(item.show))">
 
-                   <p style="margin-top:32px;" v-if="">
-                       {{item.text?editItem[item.model]:''}}
-                   </p>
+                    <p style="margin-top:32px;" v-if="item.text">
+                        {{item.text?editItem[item.model]:''}}
+                    </p>
 
-                    <Input :type="item.type" v-model="editItem[item.model]" :placeholder="item.placeholder" v-if="!item.html"></Input>
-                    <span :style="sty" v-if="Boolean(Number(item.tip))" ><Icon type="information-circled" style="color: #2baee9;" :size="18" ></Icon>{{item.tipInfo}}</span>
+                    <Input :type="item.type" v-model="editItem[item.model]" :placeholder="item.placeholder"
+                           v-if="!item.html"></Input>
 
-                    <RadioGroup v-model="editItem[item.model]" v-if="item.html&&Number(item.html)">
+                    <span style="    float: left;
+    line-height: 24px;    color: #999;" v-if="Boolean(Number(item.tip))"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{item.tipInfo}}</span><!--三方系统-->
 
+                    <RadioGroup v-model="editItem[item.model]" v-if="item.html&&Boolean(Number(item.html))">
                         <Radio label="1">是</Radio>
                         <Radio label="0">否</Radio>
-                    </RadioGroup>
+                    </RadioGroup><!--资源系统-->
 
                 </FormItem>
             </Form>
@@ -42,16 +45,10 @@
     export default {
         data () {
             return {
-                sty:"",
+
+                sty: '',
                 editModal: false,
-                editItem: {//可修改数据
-                    ...this.editData.map(r=>{
-                        console.log(r.prop,"rrrrrrr");
-                        return {
-                            [r.prop]:""
-                        }
-                    })
-                },
+                editItem: {},
                 editRule: {
                     ...this.EditRule
                 },
@@ -77,12 +74,7 @@
         name: 'edit',
         watch: {
             'editItem.isMenu' (to, form) {
-                if (to == 1) {
-                    this.editData[3].show = '1';
-                    this.editData[4].show = '0';
-                    this.editRule.url = [];
-                } else {
-                    this.editData[3].show = '0';
+                if (to == 0) {      this.editData[3].show = '0';
                     this.editData[4].show = '1';
                     this.editRule.url = [{
                         required: true,
@@ -91,58 +83,61 @@
                         message: '请输入url路径且不为空',
                         trigger: 'blur'
                     }];
+
+                } else {
+                    this.editData[3].show = '1';
+                    this.editData[4].show = '0';
+                    this.editRule.url = [];
                 }
             }
         },
         methods: {
             Edit () {
                 this.user == 'user' ? this.$axios({
-                        method: 'post',
-                        url: this.apiInfoId(),
-                        data: {userId: this.id}
-                    }).then(r => {
-                        if (r.data.code == 200) {
-                            this.editItem = JSON.parse(JSON.stringify(r.data.data));
-                            this.editModal = true;
-                            Cookies.set('org_num', this.index);
-                            Cookies.set('home_index', this.page);
-                        }
-                    }) : this.$axios({
-                        method: 'get',
-                        url: this.apiInfoId(this.id),
-                    }).then(r => {
-                        if (r.data.code == 200) {
-                                                         console.log(this.editItem ,888);
+                    method: 'post',
+                    url: this.apiInfoId(),
+                    data: {userId: this.id}
+                }).then(r => {
+                    if (r.data.code == 200) {
+                        this.editItem = JSON.parse(JSON.stringify(r.data.data));
+                        this.editModal = true;
+                        Cookies.set('org_num', this.index);
+                        Cookies.set('home_index', this.page);
+                    }
+                }) : this.$axios({
+                    method: 'get',
+                    url: this.apiInfoId(this.id),
+                }).then(r => {
+                    if (r.data.code == 200) {
+                        this.editItem = JSON.parse(JSON.stringify(r.data.data));
+                        r.data.data.isMenu==0||r.data.data.isMenu==1? this.editItem.isMenu=  String(r.data.data.isMenu):"";
 
-                            this.editItem = JSON.parse(JSON.stringify(r.data.data));
-                            console.log(this.editItem);
-                            this.editModal = true;
-                            Cookies.set('org_num', this.index);
-                            Cookies.set('home_index', this.page);
-                        }
-                    });
-
+                        this.editModal = true;
+                        Cookies.set('org_num', this.index);
+                        Cookies.set('home_index', this.page);
+                    }
+                });
             },
             sure () {
                 this.$refs.editRef.validate((valid) => {
                     if (valid) {
-                        this.sty="tip";
-                        let userEdit= this.user=="user"?[this.editItem].map(r=>{
-                           return{
-                                email:r.email,
-                                employeeCode:r.employeeCode,
-                                mobile:r.mobile,
-                                nickname:r.nickname,
-                                orderNo:r.orderNo||100,
-                                userId:r.userId,
-                            }
-                        }):"";
+                        this.sty = 'tip';
+                        let userEdit = this.user == 'user' ? [this.editItem].map(r => {
+                            return {
+                                email: r.email,
+                                employeeCode: r.employeeCode,
+                                mobile: r.mobile,
+                                nickname: r.nickname,
+                                orderNo: r.orderNo || 100,
+                                userId: r.userId,
+                            };
+                        }) : '';
 
                         this.editItem.userId = Cookies.get('user_userId');
                         this.$axios({
                             method: 'post',
                             url: this.apiInfo(),
-                            data: userEdit[0]||this.editItem,
+                            data: userEdit[0] || this.editItem,
                             headers: {
                                 Authorization: Cookies.get('token'),
                                 'Content-Type': 'application/json;charset=UTF-8'
@@ -158,7 +153,7 @@
                         });
                     } else {
                         this.$Message.error('所修改的信息不能为空!');
-                        this.sty="tipRed"
+                        this.sty = 'tipRed';
                     }
                 });
             },
@@ -168,29 +163,37 @@
                 this.$Message.info('已取消');
             },
         },
-        created(){
-            // console.log(this.editData,1);
+        created() {
+            // console.log(this.editItem, 1);/1
             // console.log(this.editItem,2);
             // this.editItem={}
-           // let a= this.editData.map(r=>{
-           //      console.log(r.prop,111);
-           //      return {
-           //          [r.prop]:""
-           //      }
-           //  })
-            console.log(this.editItem);
+            // let a= this.editData.map(r=>{
+            //      console.log(r.prop,111);
+            //      return {
+            //          [r.prop]:""
+            //      }
+            //  })
+            this.editData.map(r => {
+                Object.assign(this.editItem,{
+                    [r.prop]:''
+                })
+            })
+            // console.log(this.editItem);
 
         },
-        mounted(){
+        mounted () {
+            // console.log(this.editItem);
+
         }
     };
 </script>
 
 <style scoped lang="less">
-    .tip{
+    .tip {
         color: #999;
     }
-    .tipRed{
-        color:#ed4014
+
+    .tipRed {
+        color: #ed4014
     }
 </style>

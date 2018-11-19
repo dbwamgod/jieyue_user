@@ -20,6 +20,7 @@
                 theme: this.$store.state.app.themeColor
             };
         },
+
         method:{
             out(){
                 let keys= Object.keys(Cookies());
@@ -27,7 +28,7 @@
                     Cookies.remove(r);
                 });
             }
-        }
+   }
     };
 </script>
 

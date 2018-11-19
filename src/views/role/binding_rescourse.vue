@@ -103,6 +103,7 @@
                 this.resIdList = [];
                 set._c.forEach(r => {
                     this.resIdList.push(r);
+
                 });
                    this.$axios({
                        method: 'post',
