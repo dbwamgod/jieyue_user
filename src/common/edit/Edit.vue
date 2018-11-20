@@ -45,7 +45,6 @@
     export default {
         data () {
             return {
-
                 sty: '',
                 editModal: false,
                 editItem: {},
@@ -94,29 +93,29 @@
         methods: {
             Edit () {
                 this.user == 'user' ? this.$axios({
-                    method: 'post',
-                    url: this.apiInfoId(),
-                    data: {userId: this.id}
-                }).then(r => {
-                    if (r.data.code == 200) {
-                        this.editItem = JSON.parse(JSON.stringify(r.data.data));
-                        this.editModal = true;
-                        Cookies.set('org_num', this.index);
-                        Cookies.set('home_index', this.page);
-                    }
-                }) : this.$axios({
-                    method: 'get',
-                    url: this.apiInfoId(this.id),
-                }).then(r => {
-                    if (r.data.code == 200) {
-                        this.editItem = JSON.parse(JSON.stringify(r.data.data));
-                        r.data.data.isMenu==0||r.data.data.isMenu==1? this.editItem.isMenu=  String(r.data.data.isMenu):"";
+                        method: 'post',
+                        url: this.apiInfoId(),
+                        data: {userId: this.id}
+                    }).then(r => {
+                        if (r.data.code == 200) {
+                            this.editItem = JSON.parse(JSON.stringify(r.data.data));
+                            this.editModal = true;
+                            Cookies.set('org_num', this.index);
+                            Cookies.set('home_index', this.page);
+                        }
+                    }) : this.$axios({
+                        method: 'get',
+                        url: this.apiInfoId(this.id),
+                    }).then(r => {
+                        if (r.data.code == 200) {
+                            this.editItem = JSON.parse(JSON.stringify(r.data.data));
+                            this.editItem.isMenu= String(this.editItem.isMenu);//因为赋值时是number类型的,所以需要转换成字符串
+                            this.editModal = true;
 
-                        this.editModal = true;
-                        Cookies.set('org_num', this.index);
-                        Cookies.set('home_index', this.page);
-                    }
-                });
+                            Cookies.set('org_num', this.index);
+                            Cookies.set('home_index', this.page);
+                        }
+                    });
             },
             sure () {
                 this.$refs.editRef.validate((valid) => {
@@ -164,22 +163,11 @@
             },
         },
         created() {
-            // console.log(this.editItem, 1);/1
-            // console.log(this.editItem,2);
-            // this.editItem={}
-            // let a= this.editData.map(r=>{
-            //      console.log(r.prop,111);
-            //      return {
-            //          [r.prop]:""
-            //      }
-            //  })
             this.editData.map(r => {
                 Object.assign(this.editItem,{
                     [r.prop]:''
                 })
-            })
-            // console.log(this.editItem);
-
+            });//为editItem赋值属性名
         },
         mounted () {
             // console.log(this.editItem);
