@@ -128,22 +128,13 @@
                                                 });
                                                 let resourceCodes = resource.map(r => r.resourceCode);
                                                 localStorage.setItem('child', JSON.stringify(this.disNay));
-                                                if (resourceCodes.includes('ORG')) {
-                                                    Cookies.set('defaultHome', 'org_index');
-                                                    this.$router.push({
-                                                        name: 'org_index'
-                                                    });
-                                                    return;
-                                                } else {
                                                     for (var code in  resourceCodes) {
                                                         Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
                                                        this.$router.push({
                                                             name: this.codeCompare[resourceCodes[code]]
                                                         });
-
                                                         return;
                                                     }
-                                                }
                                             } else {
                                                 const title = '登录错误';
                                               this.out()

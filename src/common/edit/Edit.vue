@@ -9,24 +9,19 @@
                 :mask-closable="false">
             <!--:rules="editRule"-->
             <Form ref="editRef" :model="editItem" :rules="editRule">
-                <FormItem :prop="item.prop" :label="item.label" v-for="(item,i) in editData" :key="i"
-                          v-show="!Boolean(Number(item.show))">
 
+                <FormItem :prop="item.prop" :label="item.label" v-for="(item,i) in editData" :key="i" v-show="!Boolean(Number(item.show))">
                     <p style="margin-top:32px;" v-if="item.text">
                         {{item.text?editItem[item.model]:''}}
                     </p>
-
                     <Input :type="item.type" v-model="editItem[item.model]" :placeholder="item.placeholder"
                            v-if="!item.html"></Input>
-
                     <span style="    float: left;
     line-height: 24px;    color: #999;" v-if="Boolean(Number(item.tip))"><Icon type="information-circled" style="color: #2baee9;" :size="18"></Icon>{{item.tipInfo}}</span><!--三方系统-->
-
                     <RadioGroup v-model="editItem[item.model]" v-if="item.html&&Boolean(Number(item.html))">
                         <Radio label="1">是</Radio>
                         <Radio label="0">否</Radio>
                     </RadioGroup><!--资源系统-->
-
                 </FormItem>
             </Form>
             <div class="sure-cancel">
@@ -45,6 +40,8 @@
     export default {
         data () {
             return {
+
+
                 sty: '',
                 editModal: false,
                 editItem: {},
@@ -73,6 +70,7 @@
         name: 'edit',
         watch: {
             'editItem.isMenu' (to, form) {
+
                 if (to == 0) {      this.editData[3].show = '0';
                     this.editData[4].show = '1';
                     this.editRule.url = [{
@@ -83,10 +81,12 @@
                         trigger: 'blur'
                     }];
 
+
                 } else {
                     this.editData[3].show = '1';
                     this.editData[4].show = '0';
                     this.editRule.url = [];
+
                 }
             }
         },
@@ -108,29 +108,32 @@
                         url: this.apiInfoId(this.id),
                     }).then(r => {
                         if (r.data.code == 200) {
-                            this.editItem = JSON.parse(JSON.stringify(r.data.data));
-                            this.editItem.isMenu= String(this.editItem.isMenu);//因为赋值时是number类型的,所以需要转换成字符串
-                            this.editModal = true;
 
+
+                            this.editItem = JSON.parse(JSON.stringify(r.data.data));
+
+                            this.editModal = true;
                             Cookies.set('org_num', this.index);
                             Cookies.set('home_index', this.page);
                         }
                     });
+
             },
             sure () {
                 this.$refs.editRef.validate((valid) => {
                     if (valid) {
-                        this.sty = 'tip';
-                        let userEdit = this.user == 'user' ? [this.editItem].map(r => {
-                            return {
-                                email: r.email,
-                                employeeCode: r.employeeCode,
-                                mobile: r.mobile,
-                                nickname: r.nickname,
-                                orderNo: r.orderNo || 100,
-                                userId: r.userId,
-                            };
-                        }) : '';
+                        this.sty="tip";
+                        let userEdit= this.user=="user"?[this.editItem].map(r=>{
+                           return{
+                                email:r.email,
+                                employeeCode:r.employeeCode,
+                                mobile:r.mobile,
+                                nickname:r.nickname,
+                                orderNo:r.orderNo||100,
+                                userId:r.userId,
+                            }
+                        }):"";
+
 
                         this.editItem.userId = Cookies.get('user_userId');
                         this.$axios({
@@ -152,7 +155,9 @@
                         });
                     } else {
                         this.$Message.error('所修改的信息不能为空!');
+
                         this.sty = 'tipRed';
+
                     }
                 });
             },
@@ -162,17 +167,25 @@
                 this.$Message.info('已取消');
             },
         },
+
         created() {
+            // console.log(this.editItem, 1);/1
+            // console.log(this.editItem,2);
+            // this.editItem={}
+            // let a= this.editData.map(r=>{
+            //      console.log(r.prop,111);
+            //      return {
+            //          [r.prop]:""
+            //      }
+            //  })
             this.editData.map(r => {
                 Object.assign(this.editItem,{
                     [r.prop]:''
                 })
-            });//为editItem赋值属性名
-        },
-        mounted () {
+            })
             // console.log(this.editItem);
 
-        }
+        },
     };
 </script>
 
@@ -180,8 +193,7 @@
     .tip {
         color: #999;
     }
-
     .tipRed {
-        color: #ed4014
+        color: #ed4014;
     }
 </style>

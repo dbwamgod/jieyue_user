@@ -53,12 +53,10 @@ const app = {
             let newArr = [];
             state.roleResource&&state.roleResource.forEach(r => {
                 list.forEach(t => {
-
                    r.title !== t.title? newArr.push(t):"";
                 });
             });
             state.roleResource = newArr.length?newArr:list
-
         },
         setTagsList (state, list) {
             state.tagsList.push(...list);
@@ -241,7 +239,6 @@ const app = {
         delData (state, bind = '') {
             state.notData = bind;
         },
-
     }
 };
 
