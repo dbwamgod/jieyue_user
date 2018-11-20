@@ -312,9 +312,6 @@ util.jurisdiction = function (vm, a, b, c, d, e = '无',f) {
                 } else if (r.resourceName == f) {
                 vm.loseList=true
                 }
-                else if(r.resourceName == f){
-                    vm.loseList=true
-                }
 
             });
         });

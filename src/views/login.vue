@@ -122,41 +122,31 @@
                                                 let set = new Set(JSON.parse(localStorage.getItem('Jurisdiction')));
                                                 let resource = [...set];
                                                 resource.forEach(r => {
-                                                        r.child &&r.child.length&& r.child.forEach(res => {
-                                                            this.disNay.push(res);
-                                                        });
+                                                    r.child && r.child.length && r.child.forEach(res => {
+                                                        this.disNay.push(res);
+                                                    });
                                                 });
                                                 let resourceCodes = resource.map(r => r.resourceCode);
                                                 localStorage.setItem('child', JSON.stringify(this.disNay));
-                                                    for (var code in  resourceCodes) {
-                                                        Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
-                                                       this.$router.push({
-                                                            name: this.codeCompare[resourceCodes[code]]
-                                                        });
-                                                        return;
-                                                    }
+                                                for (var code in  resourceCodes) {
+                                                    Cookies.set('defaultHome', this.codeCompare[resourceCodes[code]]);
+                                                    this.$router.push({
+                                                        name: this.codeCompare[resourceCodes[code]]
+                                                    });
+                                                    return;
+                                                }
                                             } else {
                                                 const title = '登录错误';
-                                              this.out()
-                                                // Cookies.remove('user_user');
-                                                // Cookies.remove('user_password');
-                                                // Cookies.remove('user_access');
-                                                // Cookies.remove('user_token');
-                                                // Cookies.remove('user_userId');
+                                                this.out();
                                                 this.$Modal.error({
                                                     title: title,
                                                     content: '您未开通系统权限, 请联系管理员',
                                                 });
                                             }
-                                      } else {
+                                        } else {
                                             this.msg = res.data.msg;
                                             const title = '资源错误';
-                                            this.out()
-                                            // Cookies.remove('user_user');
-                                            // Cookies.remove('user_password');
-                                            // Cookies.remove('user_access');
-                                            // Cookies.remove('user_token');
-                                            // Cookies.remove('user_userId');
+                                            this.out();
                                             this.$Modal.error({
                                                 title: title,
                                                 content: res.data.msg,

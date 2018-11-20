@@ -206,13 +206,7 @@
             Edit
         },
         created () {
-
-            console.log(...this.BearingData.map(r => {
-                return {
-                    [r.prop]: ''
-                };
-            }));
-
+            console.log(this,999);
             Cookies.remove('home_index');
             // Cookies.remove( 'res_index')
             Cookies.remove('role_index');
