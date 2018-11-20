@@ -14,51 +14,16 @@
             </template>
 
             <MenuItem :name="menuActiveName[index]" class="menu-title-flag"  v-if="menuDisplay[code[index]]" v-for="(item,index) in dynamicMenu.textMenu" :key="index">
-
                 <router-link class="router-to" tag="li" :to="codeName[code[index]]">
                     <Icon :type="iconType[code[index]]" class="router-text" :size='18' color="#fff"></Icon>
                         {{item}}
                 </router-link>
             </MenuItem>
-         <!--   <MenuItem name="1-2"  class="menu-title-flag" v-if="menuDisplay.TENANT">
-                <router-link class="router-to" tag="li" to="/tenant/index">
-                    <Icon type="md-contacts" :size='18'  class="router-text" color="#fff"></Icon>
-                    租户管理
-                </router-link>
-            </MenuItem>
-            <MenuItem name="1-3"  class="menu-title-flag" v-if="menuDisplay.RES">
-                <router-link class="router-to" tag="li" to="/resource/index">
-                    <Icon type="md-globe" :size='18' class="router-text" color="#fff"></Icon>
-                    资源管理
-                </router-link>
-            </MenuItem>
-            <MenuItem name="1-4"  class="menu-title-flag" v-if="menuDisplay.USER">
-                <router-link class="router-to" tag="li" to="/access-test/index" >
-                    <Icon type="md-person" :size='18' class="router-text" color="#fff"></Icon>
-                    用户管理
-                </router-link>
-            </MenuItem>
-            <MenuItem name="1-5"  class="menu-title-flag" v-if="menuDisplay.ROLE">
-                <router-link class="router-to" tag="li" to="/access-management-system/index" >
-                    <Icon type="md-ribbon" :size='18' class="router-text" color="#fff"></Icon>
-                    角色管理
-                </router-link>
-
-            </MenuItem>
-            <MenuItem name="1-6"  class="menu-title-flag" v-if="menuDisplay.THREE_SYSTEM">
-                <router-link class="router-to" tag="li" to="/oauth_client/index" >
-
-                    <Icon type="ios-people" :size='18' class="router-text" color="#fff"></Icon>
-                    三方系统
-                </router-link>
-
-            </MenuItem>-->
         </Submenu>
     </Menu>
 </template>
 
 <script>
-    import Cookies from 'js-cookie';
 
     export default {
         data () {
