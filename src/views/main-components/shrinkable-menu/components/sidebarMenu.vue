@@ -14,8 +14,8 @@
             </template>
 
             <MenuItem :name="menuActiveName[index]" class="menu-title-flag"  v-if="menuDisplay[code[index]]" v-for="(item,index) in dynamicMenu.textMenu" :key="index">
-                <router-link class="router-to" tag="li" :to="codeName[code[index]]">
-                    <Icon :type="iconType[code[index]]" class="router-text" :size='18' color="#fff"></Icon>
+                <router-link class="router-to" tag="li" :to="dynamicMenu.codeName[code[index]]">
+                    <Icon :type="dynamicMenu.iconMenu[code[index]]" class="router-text" :size='18' color="#fff"></Icon>
                         {{item}}
                 </router-link>
             </MenuItem>
@@ -42,25 +42,24 @@
                 dynamicMenu:{
                     textMenu:[],
                     iconMenu:{
+                        ORG: "md-pie",
+                        TENANT: "md-contacts",
+                        RES: "md-globe",
+                        USER: "md-person",
+                        ROLE: "md-ribbon",
+                        THREE_SYSTEM: "ios-people"
+                    },
+                    codeName:{
+                        ORG: "/organization-management-system",
+                        TENANT: "/tenant/index",
+                        RES: "/resource/index",
+                        USER: "/access-test/index",
+                        ROLE: "/access-management-system/index",
+                        THREE_SYSTEM: "/oauth_client/index"
                     },
                 },
                 code:[],
-                codeName:{
-                    ORG: "/organization-management-system",
-                    TENANT: "/tenant/index",
-                    RES: "/resource/index",
-                    USER: "/access-test/index",
-                    ROLE: "/access-management-system/index",
-                    THREE_SYSTEM: "/oauth_client/index"
-                },
-                iconType:{
-                    ORG: "md-pie",
-                    TENANT: "md-contacts",
-                    RES: "md-globe",
-                    USER: "md-person",
-                    ROLE: "md-ribbon",
-                    THREE_SYSTEM: "ios-people"
-                }
+
             };
         },
         name: 'sidebarMenu',
@@ -73,9 +72,9 @@
                    accesstest_index: '1-4',
                    access_index: '1-5',
                    oauth_index: '1-6',
-                }
-                this.pathNameObj[to.name]?this.activeName =this. pathNameObj[to.name]:''
-               this.pathNameObj[to.name] && sessionStorage.setItem('user_pages', this.pathNameObj[to.name]);
+                };
+                pathNameObj[to.name]?this.activeName = pathNameObj[to.name]:'';
+               pathNameObj[to.name] && sessionStorage.setItem('user_pages', pathNameObj[to.name]);
             }
         },
         props: {

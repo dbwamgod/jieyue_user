@@ -108,7 +108,6 @@
                         render: (h, params) => {
                             // console.log(this.data1[params.index],11111);
                             return h('div', [
-
                                 this.operation.edit || this.operation.edit_del ? h(Edit, {
                                     props: {
                                         type: 'primary',
@@ -143,7 +142,7 @@
                                             this.remove(params.index);
                                         }
                                     }
-                                }, '删除') : ''
+                                }) : ''
                             ]);
                         }
                     }
@@ -206,7 +205,6 @@
             Edit
         },
         created () {
-            console.log(this,999);
             Cookies.remove('home_index');
             // Cookies.remove( 'res_index')
             Cookies.remove('role_index');

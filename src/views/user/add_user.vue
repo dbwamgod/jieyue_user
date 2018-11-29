@@ -46,11 +46,18 @@
     export default {
         watch: {
             'formItem.tenantId' (to, form) {
-                if(to){
-                    this.formItem.organizationId = [];
-                    this.organizationData =  this.data1[to[0]-1]&& this.orgCascaderIsName(this.data1[to[0]-1]);
-                }
-
+                    this.data1.map(r=>{
+                        if(r.tenantId==to){
+                            this.formItem.organizationId = [];
+                            this.organizationData = r.voList.map(x=>{
+                                return{
+                                    label: x.organizationName,
+                                    value: x.organizationId,
+                                }
+                            })
+                                //r.voList// this.data1[to[0]-1]&& this.orgCascadreIsName(this.data1[to[0]-1]);
+                        }
+                    })
             }
 
         },
@@ -73,6 +80,7 @@
                 }).then(res => {
                     if (res.data.code == 200) {
                         this.data1 = res.data.data;
+
                         this.tenantData = this.CascaderIsName(res.data.data, 'ten');
                     } else {
                         this.$Message.info(res.data.msg);
@@ -89,16 +97,6 @@
                     });
                 }
 
-            },
-            orgCascaderIsName(item){
-                let newList = [];
-                    item.voList.length&&item.voList.map(it => {
-                        newList.push({
-                            label: it.organizationName,
-                            value: it.organizationId,
-                        });
-                    });
-                return newList;
             },
             oks (name) {
                 this.$refs[name].validate((valid) => {

@@ -238,9 +238,17 @@
             this.init();
 
             !this.operation.edit && !this.operation.edit_del && !this.operation.del ? this.columns7.splice(this.columns7.length - 1, 1) : '';
-
+            //
+            // this.test()
         },
         methods: {
+            // test(){
+            //     //target//"原对象"
+            //     // value//属性名("选取的值")
+            //     //set   // 设置的值
+            //     //reveicer//调取的对象("改变的对象 ")
+            //    Reflect.construct(target ,args)
+            // },
             changepage (index) {
                 this.page.pageIndex = index;
                 this.init();
@@ -255,10 +263,7 @@
                         currentPage: this.page.pageIndex,
                         pageSize: this.page.pageSize
                     },
-                    headers: {
-                        Authorization: Cookies.get('token'),
-                        'Content-Type': 'application/json;charset=UTF-8'
-                    }
+
                 }).then(res => {
                     this.SpinType = false;
                     if (res.data.code == 200) {
@@ -328,10 +333,6 @@
                                 refreshTokenValidity: this.formItem.refreshTokenValidity,
                                 id: this.formItem.id || Cookies.get('id'),
                             },
-                            headers: {
-                                Authorization: Cookies.get('token'),
-                                'Content-Type': 'application/json;charset=UTF-8'
-                            }
                         }).then(res => {
                             if (res.data.code === 200) {
                                 Cookies.remove('id');
