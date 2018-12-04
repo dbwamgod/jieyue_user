@@ -5,7 +5,7 @@
             <h2 class="com_header">用户管理</h2>
             </Col>
             <Col class="operation">
-            <Input size="large" v-model="searchWord" placeholder="请输入昵称/手机号/邮箱/员工编号" class="user_search"/>
+            <Input size="large" v-model="searchWord" placeholder="请输入昵称/手机号/邮箱/员工编号" class="com_search"/>
             <Button type="primary" @click='searchChange'>
                 <Icon type="md-search" style="font-size:17px;"></Icon>
             </Button>
