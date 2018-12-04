@@ -2,7 +2,7 @@ import Vue from 'vue';
 import iView from 'iview';
 import Cookies from 'js-cookie';
 import {router} from './router/index';
-import {appRouter,loginRouter} from './router/router';
+import {appRouter,loginRouter} from './router/router'  ;
 import store from './store';
 import App from './app.vue';
 import '@/locale';

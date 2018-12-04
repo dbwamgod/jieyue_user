@@ -47,26 +47,11 @@
         data () {
             return {
                 msg: '',
-                form: {
-                    userName: '',
-                    password: ''
-                },
-                rules: {
-                    userName: [
+                form: {userName: '', password: ''},
+                rules: { userName: [
                         {required: true, message: '账号不能为空', trigger: 'blur'}
-                    ],
-                    password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
-                },
-                codeCompare: {
-
-                    ORG: 'org_index',
-                    TENANT: 'tenant_index',
-
-                    RES: 'resource_index',
-                    USER: 'accesstest_index',
-                    ROLE: 'access_index',
-                    THREE_SYSTEM: 'oauth_index'
-                },
+                    ], password: [{required: true, message: '密码不能为空', trigger: 'blur'}] },
+                codeCompare: {ORG: 'org_index', TENANT: 'tenant_index', RES: 'resource_index', USER: 'accesstest_index', ROLE: 'access_index', THREE_SYSTEM: 'oauth_index'},
                 disNay: []
             };
         },
