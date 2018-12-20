@@ -107,7 +107,7 @@
                     }).then(r => {
                         if (r.data.code == 200) {
                             this.editItem = JSON.parse(JSON.stringify(r.data.data));
-                            this.editItem.isMenu= String(this.editItem.isMenu);//因为赋值时是number类型的,所以需要转换成字符串
+                            this.editItem.isMenu?this.editItem.isMenu= String(this.editItem.isMenu):"";//因为赋值时是number类型的,所以需要转换成字符串
                             this.editModal = true;
 
                             Cookies.set('org_num', this.index);

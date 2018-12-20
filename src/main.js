@@ -43,6 +43,7 @@ new Vue({
         util.checkUpdate(this);
     },
     created () {
+        console.log(window.history,111);
         let tagsList = [];
         appRouter.map((item) => {
             if (item.children.length <= 1) {

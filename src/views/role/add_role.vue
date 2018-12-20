@@ -40,6 +40,7 @@
         inject:['reload'],
         created () {
             this.init();
+            console.log(this.$store,111111);
             this.$store.commit("bindingChangeRes")
             Cookies.remove('role_index');
 
