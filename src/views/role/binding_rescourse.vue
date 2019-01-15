@@ -59,15 +59,26 @@
                             checked: r.checked || false,
                             indeterminate:r.indeterminate||false,
                             id: r.id,
+                            title:r.title,
                             children: this.sele(r.children)
                         };
                     } else {
                         return {
                             checked: r.checked || false,
                             indeterminate:r.indeterminate||false,
-                            id: r.id
+                            id: r.id,
+                            title:r.title
                         };
                     }
+                });
+            },
+            deepFindFn (res) {
+                // if(res.children && res.children.length != 0){
+                //     this.deepFindFn(res.children)
+                // 
+                res.map(t => {
+                    t.checked?this.deepFind.push(t):"";
+                    t.children && this. deepFindFn (t.children) ;
                 });
             },
             oks () {
@@ -78,7 +89,8 @@
 
                         if (r.children) {
                             resFind = r.children.filter(res => {
-                                 res.children && res.children.filter(t =>  t.checked?this.deepFind.push(t):"");
+                                // res.children && res.children.filter(t =>  t.checked?this.deepFind.push(t):"");
+                                res.children && this.deepFindFn(res.children);
                                 return res.checked === true||res.indeterminate===true;
                             });
                         } else {
@@ -100,6 +112,7 @@
                     });
                 });
                 let set = new Set(this.resIdList);
+
                 this.resIdList = [];
                 set._c.forEach(r => {
                     this.resIdList.push(r);
