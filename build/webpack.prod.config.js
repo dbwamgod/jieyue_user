@@ -19,7 +19,8 @@ fs.open('./build/env.js', 'w', function(err, fd) {
 module.exports = merge(webpackBaseConfig, {
 
     output: {
-        publicPath: 'http://172.18.101.163:8080/platform_user/',  // 修改 https://iv...admin 这部分为你的服务器域名 测试地址
+        // publicPath: 'http://172.18.101.163:8080/platform_user/',  // 修改 https://iv...admin 这部分为你的服务器域名 测试地址
+        publicPath: 'http://10.50.180.116:8080/platform_user/',  // 修改 https://iv...admin 测试地址
         // publicPath: 'http://api.bdc.jieyue.com/platform_user/',  // 修改 https://iv...admin 这部分为你的服务器域名
         // publicPath: 'http://stg.bdc.jieyue.com/platform_user/',  // 修改 https://iv...admin 这部分为你的服务器域名 准生产
         filename: '[name].[hash].js',

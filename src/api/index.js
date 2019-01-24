@@ -1,4 +1,5 @@
 const _baseUrlC = 'http://172.18.101.118:10000';//开发/测试环境
+// const _baseUrlC = 'http://10.50.180.111:10000';//测试环境
 // const _baseUrlC = 'http://api.bdc.jieyue.com/api';//生产环境
 // const _baseUrlC = 'http://stg.bdc.jieyue.com/api';//准生产环境
 const user_baseUrlC =_baseUrlC+ '/platform-user-api';

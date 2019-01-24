@@ -17,6 +17,7 @@
 
         <Page :total="allMuch" show-total :page-size="page.pageSize" :current="page.pageIndex" @on-change="totol"
               class="paging"></Page>
+     
 
     </div>
 </template>
